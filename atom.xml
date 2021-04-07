@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>kaqiup&#39;s blog</title>
   
+  <subtitle>-My style-</subtitle>
+  <link href="http://www.kaqiup.xyz/atom.xml" rel="self"/>
   
-  <link href="http://example.com/atom.xml" rel="self"/>
-  
-  <link href="http://example.com/"/>
+  <link href="http://www.kaqiup.xyz/"/>
   <updated>2021-04-03T03:55:09.416Z</updated>
-  <id>http://example.com/</id>
+  <id>http://www.kaqiup.xyz/</id>
   
   <author>
     <name>kaqiup</name>
@@ -18,12 +18,12 @@
   
   <entry>
     <title>填个空先,往后再更</title>
-    <link href="http://example.com/2021/04/03/%E5%A1%AB%E4%B8%AA%E7%A9%BA%E5%85%88-%E5%BE%80%E5%90%8E%E5%86%8D%E6%9B%B4/"/>
-    <id>http://example.com/2021/04/03/%E5%A1%AB%E4%B8%AA%E7%A9%BA%E5%85%88-%E5%BE%80%E5%90%8E%E5%86%8D%E6%9B%B4/</id>
+    <link href="http://www.kaqiup.xyz/2021/04/03/tian-ge-kong-xian-wang-hou-zai-geng/"/>
+    <id>http://www.kaqiup.xyz/2021/04/03/tian-ge-kong-xian-wang-hou-zai-geng/</id>
     <published>2021-04-03T03:46:03.000Z</published>
     <updated>2021-04-03T03:55:09.416Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>    <div id="aplayer-lAueevPE" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="368962" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><p>少年时我们追求激情，<br>成熟后却迷恋平庸，<br>在我们寻找，伤害，背离之后，<br>还能一如既往的相信爱情，<br>这是一种勇气。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>    <div id="aplayer-orekMeqw" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="368962" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><p>少年时我们追求激情，<br>成熟后却迷恋平庸，<br>在我们寻找，伤害，背离之后，<br>还能一如既往的相信爱情，<br>这是一种勇气。</p>]]></content>
     
     
       
@@ -33,10 +33,10 @@
     
     
     
-    <category term="日志" scheme="http://example.com/categories/%E6%97%A5%E5%BF%97/"/>
+    <category term="日志" scheme="http://www.kaqiup.xyz/categories/%E6%97%A5%E5%BF%97/"/>
     
     
-    <category term="杂记" scheme="http://example.com/tags/%E6%9D%82%E8%AE%B0/"/>
+    <category term="杂记" scheme="http://www.kaqiup.xyz/tags/%E6%9D%82%E8%AE%B0/"/>
     
   </entry>
   
