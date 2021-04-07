@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="NULL, 个人博客, 学习笔记">
+    <meta name="keywords" content="NULL, 博客,笔记,hexo,学习">
     <meta name="description" content="在有尽的岁月,活出无穷的方式,这就是你我">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -18,6 +18,8 @@
 
     <title>NULL | kaqiup&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- 右键菜单 -->
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
@@ -357,8 +359,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%97%A5%E5%BF%97/" class="post-category">
-                                日志
+                            <a href="/categories/hexo/" class="post-category">
+                                hexo
                             </a>
                         
                     </div>
@@ -400,7 +402,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 
-    <div id="aplayer-gANhiTnM" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-rpTEGEfz" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="368962" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div>
 
@@ -481,7 +483,7 @@
 <div id="article-share">
 
     
-    <div class="social-share" data-sites="twitter,facebook,google,qq,wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <div class="social-share" data-sites="weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
     <script src="/libs/share/js/social-share.min.js"></script>
     
 
@@ -935,8 +937,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%97%A5%E5%BF%97/" class="post-category">
-                                    日志
+                            <a href="/categories/hexo/" class="post-category">
+                                    hexo
                                 </a>
                             
                             
@@ -984,8 +986,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%97%A5%E5%BF%97/" class="post-category">
-                                    日志
+                            <a href="/categories/hexo/" class="post-category">
+                                    hexo
                                 </a>
                             
                             
@@ -1168,7 +1170,7 @@
 
 
     <script type="text/javascript">
-        //只在桌面版网页启用特效
+        //只在桌面版网页启用下雪特效
         var windowWidth = $(window).width();
         if (windowWidth > 768) {
             document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
@@ -1428,9 +1430,11 @@ $(function () {
 
     
     <!--<script src="/libs/others/clicklove.js" async="async"></script>-->
+    <!-- 礼花效果-->
     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
     <script type="text/javascript" src="/js/fireworks.js"></script>
+    <!-- 点击爆炸效果-->
     
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
@@ -1447,6 +1451,25 @@ $(function () {
 
     
 
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: "361aa5d8"
+        });
+        daovoice('update');
+    </script>
     
 
     <script type="text/javascript">
@@ -1467,6 +1490,9 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+
+    <!-- 右键菜单 -->
+
 </body>
 
 </html>
