@@ -378,6 +378,11 @@
                 
 
                 
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    1 分
+                </div>
+                
 
                 
                     <div id="busuanzi_container_page_pv" class="info-break-policy">
@@ -399,7 +404,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 
-    <div id="aplayer-xHbFooHC" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-HyxQHSsU" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="368962" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div>
 
@@ -1166,8 +1171,9 @@
 
 
 
+
+    <!-- 下雪效果 -->
     <script type="text/javascript">
-        //只在桌面版网页启用下雪特效
         var windowWidth = $(window).width();
         if (windowWidth > 768) {
             document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
@@ -1196,6 +1202,15 @@
     }
 
     
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
 </style>
 <div class="">
     
@@ -1211,7 +1226,7 @@
                    order='random'
                    preload='auto'
                    volume='0.7'
-                   list-folded='false'
+                   list-folded='true'
         >
         </meting-js>
     </div>
@@ -1239,7 +1254,7 @@
             
             
             <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                <i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
                     class="white-color"></span>&nbsp;次
             </span>
             
@@ -1438,15 +1453,6 @@ $(function () {
     
 
     
-        <script type="text/javascript">
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/js/sakura.js"></script>'); 
-            }
-            </script>
-    
-
-    
 
     
 
@@ -1468,9 +1474,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-
-    <!-- 右键菜单 -->
-
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"react":{"opacity":0.6}});</script></body>
 
 </html>
