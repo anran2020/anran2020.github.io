@@ -1694,7 +1694,7 @@ thead {
 .my-projects,
 .my-skills,
 .post-charts {
-    padding: 3.8rem 1.5rem 0.8rem 1.5rem;
+    padding: 3.8rem 1.5rem 0/* 0.8rem */ 1.5rem;
 }
 
 .post-charts,

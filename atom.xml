@@ -6,7 +6,7 @@
   <link href="http://www.kaqiup.xyz/atom.xml" rel="self"/>
   
   <link href="http://www.kaqiup.xyz/"/>
-  <updated>2021-04-13T14:24:00.133Z</updated>
+  <updated>2021-04-13T21:35:53.447Z</updated>
   <id>http://www.kaqiup.xyz/</id>
   
   <author>
@@ -17,13 +17,13 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>增加哔哔功能</title>
-    <link href="http://www.kaqiup.xyz/2021/04/13/zeng-jia-bi-bi-gong-neng/"/>
-    <id>http://www.kaqiup.xyz/2021/04/13/zeng-jia-bi-bi-gong-neng/</id>
+    <title>优化Matery目录</title>
+    <link href="http://www.kaqiup.xyz/posts/b593.html"/>
+    <id>http://www.kaqiup.xyz/posts/b593.html</id>
     <published>2021-04-13T14:16:58.000Z</published>
-    <updated>2021-04-13T14:24:00.133Z</updated>
+    <updated>2021-04-13T21:35:53.447Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>上线哔哔功能，尝试了很多个评论和留言的功能，碍于所学有限，大多现在只能照搬教程，没啥成就感，先这样吧</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="更新记录"><a href="#更新记录" class="headerlink" title="更新记录"></a>更新记录</h2><ul><li>上线哔哔功能,可在微信“黑石哔哔”中实时发动态到博客中</li><li>评论区改用livere,也试过valine或者twitoo,要么出现哔哔功能不正常要么出现评论栏展开失败的情况</li><li>优化about页面,将文章统计图与分类的标签云合并,而About界面保留相册浏览</li><li>全局修改字体（思源宋体）</li><li>修改主页和说说的icon</li><li>尝试过在About界面投放个人介绍,css样式没做好,单纯的文字堆砌也就没意思了</li><li>增加消息订阅通知</li></ul>]]></content>
     
     
       
@@ -36,16 +36,16 @@
     <category term="更新日志" scheme="http://www.kaqiup.xyz/categories/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/"/>
     
     
-    <category term="哔哔" scheme="http://www.kaqiup.xyz/tags/%E5%93%94%E5%93%94/"/>
+    <category term="hexo,Matery" scheme="http://www.kaqiup.xyz/tags/hexo-Matery/"/>
     
-    <category term="hexo" scheme="http://www.kaqiup.xyz/tags/hexo/"/>
+    <category term="优化" scheme="http://www.kaqiup.xyz/tags/%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>有关kindle的那些事</title>
-    <link href="http://www.kaqiup.xyz/2021/04/13/you-guan-kindle-de-na-xie-shi/"/>
-    <id>http://www.kaqiup.xyz/2021/04/13/you-guan-kindle-de-na-xie-shi/</id>
+    <link href="http://www.kaqiup.xyz/posts/fa09.html"/>
+    <id>http://www.kaqiup.xyz/posts/fa09.html</id>
     <published>2021-04-12T16:25:07.000Z</published>
     <updated>2021-04-13T12:51:47.005Z</updated>
     
@@ -68,8 +68,8 @@
   
   <entry>
     <title>关于这个博客</title>
-    <link href="http://www.kaqiup.xyz/2021/04/12/guan-yu-zhe-ge-bo-ke/"/>
-    <id>http://www.kaqiup.xyz/2021/04/12/guan-yu-zhe-ge-bo-ke/</id>
+    <link href="http://www.kaqiup.xyz/posts/1c06.html"/>
+    <id>http://www.kaqiup.xyz/posts/1c06.html</id>
     <published>2021-04-12T15:37:09.000Z</published>
     <updated>2021-04-13T14:20:53.384Z</updated>
     

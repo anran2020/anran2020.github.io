@@ -38,7 +38,9 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Kaqiup's blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Kaqiup's blog" type="application/atom+xml">
 </head>
 
 
@@ -280,6 +282,179 @@
             <div class="tag-title center-align">
                 <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
             </div>
+            
+            <!-- 把文章统计图合并到文章分类页面 -->
+            <div class="card-content">
+                <style type="text/css">
+    #posts-chart,
+    #categories-chart,
+    #tags-chart {
+        width: 100%;
+        height: 300px;
+        margin: 0.5rem auto;
+        padding: 0.5rem;
+    }
+</style>
+
+<div id="postCharts" class="post-charts">
+    <!-- 需要把标题注释掉,否则影响美观 -->
+    <!-- <div class="title center-align" data-aos="zoom-in-up">
+        <i class="far fa-bar-chart"></i>&nbsp;&nbsp;文章统计图
+    </div> -->
+    <div class="row">
+        <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
+            <div id="posts-chart"></div>
+        </div>
+
+        <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
+            <div id="categories-chart"></div>
+        </div>
+
+        <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
+            <div id="tags-chart"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/libs/echarts/echarts.min.js"></script>
+<script>
+    let postsChart = echarts.init(document.getElementById('posts-chart'));
+    let categoriesChart = echarts.init(document.getElementById('categories-chart'));
+    let tagsChart = echarts.init(document.getElementById('tags-chart'));
+
+    
+
+    let postsOption = {
+        title: {
+            text: '文章发布统计图',
+            top: -5,
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: ["2020-04","2020-05","2020-06","2020-07","2020-08","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04"]
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [
+            {
+                name: '文章篇数',
+                type: 'line',
+                color: ['#6772e5'],
+                data: [0,0,0,0,0,0,0,0,0,0,0,0,3],
+                markPoint: {
+                    symbolSize: 45,
+                    color: ['#fa755a','#3ecf8e','#82d3f4'],
+                    data: [{
+                        type: 'max',
+                        itemStyle: {color: ['#3ecf8e']},
+                        name: '最大值'
+                    }, {
+                        type: 'min',
+                        itemStyle: {color: ['#fa755a']},
+                        name: '最小值'
+                    }]
+                },
+                markLine: {
+                    itemStyle: {color: ['#ab47bc']},
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+
+    
+
+    let categoriesOption = {
+        title: {
+            text: '文章分类统计图',
+            top: -4,
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        series: [
+            {
+                name: '分类',
+                type: 'pie',
+                radius: '50%',
+                color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
+                data: [{"name":"日志","value":2},{"name":"更新日志","value":1}],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    
+
+    let tagsOption = {
+        title: {
+            text: 'TOP10 标签统计图',
+            top: -5,
+            x: 'center'
+        },
+        tooltip: {},
+        xAxis: [
+            {
+                type: 'category',
+                data: ["博客简介","关于我","hexo,Matery","优化","kindle"]
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                type: 'bar',
+                color: ['#82d3f4'],
+                barWidth : 18,
+                data: [1,1,1,1,1],
+                markPoint: {
+                    symbolSize: 45,
+                    data: [{
+                        type: 'max',
+                        itemStyle: {color: ['#3ecf8e']},
+                        name: '最大值'
+                    }, {
+                        type: 'min',
+                        itemStyle: {color: ['#fa755a']},
+                        name: '最小值'
+                    }],
+                },
+                markLine: {
+                    itemStyle: {color: ['#ab47bc']},
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+
+    // render the charts
+    postsChart.setOption(postsOption);
+    categoriesChart.setOption(categoriesOption);
+    tagsChart.setOption(tagsOption);
+</script>
+
+            </div>
+
             <div class="tag-chips">
                 
                 
@@ -315,19 +490,19 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/13/zeng-jia-bi-bi-gong-neng/">
+                    <a href="/posts/b593.html">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="增加哔哔功能">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="优化Matery目录">
                             
-                            <span class="card-title">增加哔哔功能</span>
+                            <span class="card-title">优化Matery目录</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                博客小改,增加哔哔功能
+                                更新优化,增加哔哔功能,修改全局字体等
                             
                         </div>
                         <div class="publish-info">
@@ -350,12 +525,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E5%93%94%E5%93%94/">
-                            <span class="chip bg-color">哔哔</span>
+                        <a href="/tags/hexo-Matery/">
+                            <span class="chip bg-color">hexo,Matery</span>
                         </a>
                         
-                        <a href="/tags/hexo/">
-                            <span class="chip bg-color">hexo</span>
+                        <a href="/tags/%E4%BC%98%E5%8C%96/">
+                            <span class="chip bg-color">优化</span>
                         </a>
                         
                     </div>
@@ -451,10 +626,11 @@
                 
                 
                 
+
                 
                 <span id="busuanzi_container_site_pv">
-                    <i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                        class="white-color"></span>&nbsp;次
+                    <i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv"class="white-color"></span>&nbsp;次
                 </span>
                 
                 
@@ -463,6 +639,7 @@
                         class="white-color"></span>&nbsp;人
                 </span>
                 
+
                 <br>
                 
                 <br>
@@ -496,6 +673,62 @@
         <i class="fas fa-rss"></i>
     </a>
 
+</div>
+        
+        <!-- add Github badge -->
+        <!-- <div class="github-badge">
+            <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+                <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span>
+            </a>
+
+            <a style="color: #fff" rel="license" href="https://cloud.tencent.com/" target="_blank" title="腾讯云提供域名相关服务">
+                <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Tencent</span>
+            </a>
+    
+            <a style="color: #fff" rel="license" href="https://996.icu/" target="_blank" title="支持 996.ICU">
+                <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span>
+            </a>
+            
+            <span class="badge-subject">UV</span><span class="badge-value bg-orange" id="busuanzi_value_site_uv"></span>
+            <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen" id="busuanzi_value_site_pv"></span>
+
+        </div> -->
+
+
+
+        <!-- <div class="github-badge">
+        <a style="color: #fff" rel="license" href="https://github.com/" target="_blank" title="静态网页托管于 GitHub Pages 和 Coding Pages 和 Gitee Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding & Gitee</span></a>
+        </div>
+        <div class="github-badge">
+            <a style="color: #fff" rel="license" href="https://cloud.tencent.com/" target="_blank" title="腾讯云提供域名相关服务">
+            <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Tencent</span></a>
+        </div>
+        <div class="github-badge">
+            <a style="color: #fff" rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">
+            <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr</span></a>
+        </div>
+        <div class="github-badge">
+            <a style="color: #fff" rel="license" href="https://blinkfox.github.io/" target="_blank" title="站点使用 Matery主题">
+            <span class="badge-subject">Theme</span><span class="badge-value bg-blue">Matery</span></a>
+        </div>
+        <div class="github-badge">
+            <a style="color: #fff" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+            <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+        </div>
+        <div class="github-badge">
+            <a style="color: #fff" rel="license" href="https://996.icu/" target="_blank" title="支持 996.ICU">
+            <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>
+        </div>
+        <div class="github-badge">
+            <span class="badge-subject">UV</span><span class="badge-value bg-orange" id="busuanzi_value_site_uv"></span>
+        </div>
+        <div class="github-badge">
+            <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen" id="busuanzi_value_site_pv"></span>
+        </div>
+        <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">1.7k</span>
+        </div> -->
 </div>
     </div>
 </footer>
@@ -685,18 +918,23 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-</body>
-<!-- 夜间模式 -->
-<div id="dark" onclick="switchDarkMode()"></div>
-<script>
-  var isNight = new Date().getHours() >= 22 || new Date().getHours() < 7; // 指定时间
-  // 依次判断 系统暗黑模式 指定时间 缓存 dark
-  if( matchMedia('(prefers-color-scheme: dark)').matches || isNight || localStorage.getItem('dark') === '1') {
-    if(!(isNight&&localStorage.getItem('noDark') === '1')) {
-      document.body.classList.add('dark');
-    }
-  }
-  document.getElementById('dark').innerHTML = document.querySelector("body").classList.contains("dark")?"🌙":"🌞";
-</script>
+    <!-- start webpushr code --> 
+    <script>
+    (function(w,d, s, id) {
+        if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){
+        (w.webpushr.q=w.webpushr.q||[]).push(arguments)};
+        var js, fjs = d.getElementsByTagName(s)[0];
+        js = d.createElement(s);
+        js.id = id;
+        js.async=1;
+        js.src = "https://cdn.webpushr.com/app.min.js";
+        fjs.parentNode.appendChild(js);
+    }(window,document, 'script', 'webpushr-jssdk'));
+    webpushr('setup',{'key':'BMw-tQOVAnauQD3FTUZsHqvTjVpqEAOQORBRErg0vIhGilkeEaGW0xRzoHKUg63eYVpD7b6SgJAmslu7iwjJoFQ' });
+    </script>
+    <!-- end webpushr code -->
+
+<script>(function (w, d, s, id) {
+            if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BMw-tQOVAnauQD3FTUZsHqvTjVpqEAOQORBRErg0vIhGilkeEaGW0xRzoHKUg63eYVpD7b6SgJAmslu7iwjJoFQ' });</script></body>
 
 </html>
