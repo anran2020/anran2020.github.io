@@ -34,6 +34,16 @@
 尝试过在About界面投放个人介绍,css样式没做好,单纯的文字堆砌也就没意思了
 增加消息订阅通知
 
+记录一个部署时遇到的错误C:\hexoBlog\new\node_modules\hexo-web-push-notification\node_modules\node-fetch\lib\index.js:272
+    return Body.Promise.reject(new FetchError(`invalid json response body at ${_this2.url} reason: ${err.message}`, 'invalid-json'));
+    FetchError: invalid json response body at http://www.kaqiup.xyz/newPost.json reason: Unexpected token &lt; in JSON at position 0
+    at C:\hexoBlog\new\node_modules\hexo-web-push-notification\node_modules\node-fetch\lib\index.js:272:32
+    at processTicksAndRejections (node:internal/process/task_queues:94:5)
+    at async Hexo.&lt;anonymous&gt; (C:\hexoBlog\new\node_modules\hexo-web-push-notification\index.js:36:29) {
+  type: 'invalid-json'
+}
+
+
 ]]></content>
       <categories>
         <category>更新日志</category>

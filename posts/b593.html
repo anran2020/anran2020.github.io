@@ -452,6 +452,16 @@
 <li>尝试过在About界面投放个人介绍,css样式没做好,单纯的文字堆砌也就没意思了</li>
 <li>增加消息订阅通知</li>
 </ul>
+<h2 id="记录一个部署时遇到的错误"><a href="#记录一个部署时遇到的错误" class="headerlink" title="记录一个部署时遇到的错误"></a>记录一个部署时遇到的错误</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>node-fetch<span class="token punctuation">\</span>lib<span class="token punctuation">\</span>index.js:272
+    <span class="token builtin class-name">return</span> Body.Promise.reject<span class="token punctuation">(</span>new FetchError<span class="token punctuation">(</span><span class="token variable"><span class="token variable">`</span>invalid json response body at $<span class="token punctuation">{</span>_this2.url<span class="token punctuation">}</span> reason: $<span class="token punctuation">{</span>err.message<span class="token punctuation">}</span><span class="token variable">`</span></span>, <span class="token string">'invalid-json'</span><span class="token punctuation">))</span><span class="token punctuation">;</span>
+    FetchError: invalid json response body at http://www.kaqiup.xyz/newPost.json reason: Unexpected token <span class="token operator">&lt;</span> <span class="token keyword">in</span> JSON at position <span class="token number">0</span>
+    at C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>node-fetch<span class="token punctuation">\</span>lib<span class="token punctuation">\</span>index.js:272:32
+    at processTicksAndRejections <span class="token punctuation">(</span>node:internal/process/task_queues:94:5<span class="token punctuation">)</span>
+    at async Hexo.<span class="token operator">&lt;</span>anonymous<span class="token operator">&gt;</span> <span class="token punctuation">(</span>C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>index.js:36:29<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  type: <span class="token string">'invalid-json'</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -1121,7 +1131,7 @@
             <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen" id="busuanzi_value_site_pv"></span>
         </div>
         <div class="github-badge">
-        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">1.7k</span>
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">1.8k</span>
         </div> -->
 </div>
     </div>
