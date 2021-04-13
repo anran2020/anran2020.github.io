@@ -9,7 +9,7 @@
   </url>
   
   <url>
-    <loc>http://www.kaqiup.xyz/about/index.html</loc>
+    <loc>http://www.kaqiup.xyz/posts/fa09.html</loc>
     
     <lastmod>2021-04-13</lastmod>
     
@@ -23,14 +23,14 @@
   </url>
   
   <url>
-    <loc>http://www.kaqiup.xyz/bb/index.html</loc>
+    <loc>http://www.kaqiup.xyz/about/index.html</loc>
     
     <lastmod>2021-04-13</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.kaqiup.xyz/posts/fa09.html</loc>
+    <loc>http://www.kaqiup.xyz/bb/index.html</loc>
     
     <lastmod>2021-04-13</lastmod>
     
@@ -88,7 +88,14 @@
   </url>
   
   <url>
-    <loc>http://www.kaqiup.xyz/tags/hexo-Matery/</loc>
+    <loc>http://www.kaqiup.xyz/tags/hexo/</loc>
+    <lastmod>2021-04-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kaqiup.xyz/tags/Matery/</loc>
     <lastmod>2021-04-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
