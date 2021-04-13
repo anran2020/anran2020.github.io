@@ -662,36 +662,38 @@
     
     <div class="container row center-align" style="margin-bottom: 0px !important;">
         <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            
+            <b>
+                Copyright&nbsp;&copy;
+                
+                    <span id="year">2021</span>
+                
                 <span id="year">2021</span>
-            
-            <span id="year">2021</span>
-            <a href="/about" target="_blank">kaqiup</a>
-            <br>
-            &nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            <br>
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                <i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
-            </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
-            </span>
-            
-            <br>
-            
-            <br>
-            
+                <a href="/about" target="_blank">Kaqiup</a>
+                <br>
+                &nbsp;由&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;提供强力支持
+                <br>
+                
+                
+                
+                
+                
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                        class="white-color"></span>&nbsp;次
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                        class="white-color"></span>&nbsp;人
+                </span>
+                
+                <br>
+                
+                <br>
+                
+            </b>
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
     <a href="https://github.com/" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
@@ -910,5 +912,17 @@ $(function () {
     
 
 </body>
+<!-- 夜间模式 -->
+<div id="dark" onclick="switchDarkMode()"></div>
+<script>
+  var isNight = new Date().getHours() >= 22 || new Date().getHours() < 7; // 指定时间
+  // 依次判断 系统暗黑模式 指定时间 缓存 dark
+  if( matchMedia('(prefers-color-scheme: dark)').matches || isNight || localStorage.getItem('dark') === '1') {
+    if(!(isNight&&localStorage.getItem('noDark') === '1')) {
+      document.body.classList.add('dark');
+    }
+  }
+  document.getElementById('dark').innerHTML = document.querySelector("body").classList.contains("dark")?"🌙":"🌞";
+</script>
 
 </html>

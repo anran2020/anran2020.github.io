@@ -309,7 +309,7 @@
                     <div class="col s12 m12 l4">
                         <div class="profile center-align">
                             <div class="avatar">
-                                <img src="/medias/avatar.jpg" alt="kaqiup"
+                                <img src="/medias/avatar.jpg" alt="Kaqiup"
                                      class="circle responsive-img avatar-img">
                             </div>
                             <div class="author">
@@ -336,7 +336,7 @@
 
 
                                 </div>
-                                <div class="title">kaqiup</div>
+                                <div class="title">Kaqiup</div>
                                 <div class="career">诗人</div>
                                 <div class="social-link hide-on-large-only" data-aos="zoom-in-left">
                                     
@@ -406,8 +406,9 @@
                 </div>
 
                 <div class="introduction center-align" data-aos="fade-up">会写诗的奇怪语言开发者</div>
-                
-                <style type="text/css">
+            
+                <!-- 注释掉文章分析 -->
+                <!-- <style type="text/css">
     #posts-chart,
     #categories-chart,
     #tags-chart {
@@ -573,7 +574,7 @@
     categoriesChart.setOption(categoriesOption);
     tagsChart.setOption(tagsOption);
 </script>
-
+ -->
 
                 
 
@@ -645,6 +646,24 @@
                 
             </div>
         </div>
+        <!-- 个人简历 -->
+        <!-- <div class="card">
+            <div class="card-content">
+                <div class="card-content article-card-content">
+                        <div class="title center-align" data-aos="zoom-in-up">
+                            <i class="fa fa-paw"></i>&nbsp;&nbsp;myCV
+                        </div>
+                        <div id="articleContent" data-aos="fade-up">
+                            <h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><p>目前从事嵌入式开发工作贰载有余</p>
+<p>轻度洁癖,常能在乱与整洁之间快速找到平衡点</p>
+<p>喜游泳,qiao代码,听流行乐,阅读,动漫…</p>
+<p>身上不贴标签</p>
+<p>亲近友善,诚实勇敢,崇尚简约爱好和平</p>
+
+                        </div>
+                </div>
+            </div>
+        </div> -->
     </div>
 </main>
 
@@ -715,36 +734,38 @@
     
     <div class="container row center-align" style="margin-bottom: 0px !important;">
         <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            
+            <b>
+                Copyright&nbsp;&copy;
+                
+                    <span id="year">2021</span>
+                
                 <span id="year">2021</span>
-            
-            <span id="year">2021</span>
-            <a href="/about" target="_blank">kaqiup</a>
-            <br>
-            &nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            <br>
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                <i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
-            </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
-            </span>
-            
-            <br>
-            
-            <br>
-            
+                <a href="/about" target="_blank">Kaqiup</a>
+                <br>
+                &nbsp;由&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;提供强力支持
+                <br>
+                
+                
+                
+                
+                
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                        class="white-color"></span>&nbsp;次
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                        class="white-color"></span>&nbsp;人
+                </span>
+                
+                <br>
+                
+                <br>
+                
+            </b>
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
     <a href="https://github.com/" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
@@ -963,5 +984,17 @@ $(function () {
     
 
 </body>
+<!-- 夜间模式 -->
+<div id="dark" onclick="switchDarkMode()"></div>
+<script>
+  var isNight = new Date().getHours() >= 22 || new Date().getHours() < 7; // 指定时间
+  // 依次判断 系统暗黑模式 指定时间 缓存 dark
+  if( matchMedia('(prefers-color-scheme: dark)').matches || isNight || localStorage.getItem('dark') === '1') {
+    if(!(isNight&&localStorage.getItem('noDark') === '1')) {
+      document.body.classList.add('dark');
+    }
+  }
+  document.getElementById('dark').innerHTML = document.querySelector("body").classList.contains("dark")?"🌙":"🌞";
+</script>
 
 </html>
