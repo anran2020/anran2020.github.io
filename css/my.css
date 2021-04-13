@@ -5,3 +5,13 @@
 :active{
     cursor: url("/medias/mus.ico"),auto!important;
 }
+
+/* 全局修改字体 */
+@font-face{
+    font-family: 'myFont';
+    src: url('../font/myfont.otf');
+}
+
+body{
+    font-family: 'myFont';
+}
