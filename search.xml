@@ -1,41 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>优化Matery目录</title>
-    <url>//abbrlink</url>
-    <content><![CDATA[更新优化,增加哔哔功能,修改全局字体等
-
-
-更新记录
-上线哔哔功能,可在微信“黑石哔哔”中实时发动态到博客中
-评论区改用livere,也试过valine或者twitoo,要么出现哔哔功能不正常要么出现评论栏展开失败的情况
-优化about页面,将文章统计图与分类的标签云合并,而About界面保留相册浏览
-全局修改字体（思源宋体）
-修改主页和说说的icon
-尝试过在About界面投放个人介绍,css样式没做好,单纯的文字堆砌也就没意思了
-增加消息订阅通知
-
-记录一个部署时遇到的错误C:\hexoBlog\new\node_modules\hexo-web-push-notification\node_modules\node-fetch\lib\index.js:272
-    return Body.Promise.reject(new FetchError(`invalid json response body at ${_this2.url} reason: ${err.message}`, 'invalid-json'));
-    FetchError: invalid json response body at http://www.kaqiup.xyz/newPost.json reason: Unexpected token &lt; in JSON at position 0
-    at C:\hexoBlog\new\node_modules\hexo-web-push-notification\node_modules\node-fetch\lib\index.js:272:32
-    at processTicksAndRejections (node:internal/process/task_queues:94:5)
-    at async Hexo.&lt;anonymous&gt; (C:\hexoBlog\new\node_modules\hexo-web-push-notification\index.js:36:29) {
-  type: 'invalid-json'
-}
-
-
-]]></content>
-      <categories>
-        <category>更新日志</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>Matery</tag>
-        <tag>优化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于这个博客</title>
     <url>//abbrlink</url>
     <content><![CDATA[对这个博客的定性，以及想展现的东西做大致描述
