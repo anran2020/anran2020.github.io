@@ -440,7 +440,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>对这个博客的定性，以及想展现的东西做大致描述</p>
+                <script src="\assets\js\APlayer.min.js"> </script><p>对这个博客的定性，以及想展现的东西做大致描述</p>
 <span id="more"></span>
 
 <h2 id="关于这个博客"><a href="#关于这个博客" class="headerlink" title="关于这个博客"></a>关于这个博客</h2><h3 id="第一次接触hexo"><a href="#第一次接触hexo" class="headerlink" title="第一次接触hexo"></a>第一次接触hexo</h3><p>起初有做个博客的想法是个偶然的机会，这种偶然让现在的我想来也是觉得实在巧合。有次我在一个视频网站看“免费”电影，然后在某个时刻鼠标偶然移到了播放的进度条，就是那会儿，我第一次接触到了aplayer，在之后我找到了相关的一个博客。</p>
