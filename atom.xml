@@ -6,7 +6,7 @@
   <link href="https://www.kaqiup.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.kaqiup.xyz/"/>
-  <updated>2021-04-14T06:19:40.479Z</updated>
+  <updated>2021-04-14T06:59:03.691Z</updated>
   <id>https://www.kaqiup.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.kaqiup.xyz/posts/b0a72714"/>
     <id>https://www.kaqiup.xyz/posts/b0a72714</id>
     <published>2021-04-14T06:16:56.000Z</published>
-    <updated>2021-04-14T06:19:40.479Z</updated>
+    <updated>2021-04-14T06:59:03.691Z</updated>
     
     <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><p>更新优化,增加哔哔功能,修改全局字体等等</p><span id="more"></span><h2 id="更新记录"><a href="#更新记录" class="headerlink" title="更新记录"></a>更新记录</h2><ul><li>上线哔哔功能,可在微信“黑石哔哔”中实时发动态到博客中</li><li>评论区改用livere,也试过valine或者twitoo,要么出现哔哔功能不正常要么出现评论栏展开失败的情况</li><li>优化about页面,将文章统计图与分类的标签云合并,而About界面保留相册浏览</li><li>全局修改字体（思源宋体）</li><li>修改主页和说说的icon</li><li>尝试过在About界面投放个人介绍,css样式没做好,单纯的文字堆砌也就没意思了</li><li>增加消息订阅通知</li></ul><h2 id="记录一个部署时遇到的错误"><a href="#记录一个部署时遇到的错误" class="headerlink" title="记录一个部署时遇到的错误"></a>记录一个部署时遇到的错误</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>node-fetch<span class="token punctuation">\</span>lib<span class="token punctuation">\</span>index.js:272    <span class="token builtin class-name">return</span> Body.Promise.reject<span class="token punctuation">(</span>new FetchError<span class="token punctuation">(</span><span class="token variable"><span class="token variable">`</span>invalid json response body at $<span class="token punctuation">{</span>_this2.url<span class="token punctuation">}</span> reason: $<span class="token punctuation">{</span>err.message<span class="token punctuation">}</span><span class="token variable">`</span></span>, <span class="token string">'invalid-json'</span><span class="token punctuation">))</span><span class="token punctuation">;</span>    FetchError: invalid json response body at http://www.kaqiup.xyz/newPost.json reason: Unexpected token <span class="token operator">&lt;</span> <span class="token keyword">in</span> JSON at position <span class="token number">0</span>    at C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>node-fetch<span class="token punctuation">\</span>lib<span class="token punctuation">\</span>index.js:272:32    at processTicksAndRejections <span class="token punctuation">(</span>node:internal/process/task_queues:94:5<span class="token punctuation">)</span>    at async Hexo.<span class="token operator">&lt;</span>anonymous<span class="token operator">&gt;</span> <span class="token punctuation">(</span>C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>index.js:36:29<span class="token punctuation">)</span> <span class="token punctuation">{</span>  type: <span class="token string">'invalid-json'</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
     
@@ -29,6 +29,8 @@
     <summary type="html">&lt;p&gt;更新优化,增加哔哔功能,修改全局字体等等&lt;/p&gt;</summary>
     
     
+    
+    <category term="更新日志" scheme="https://www.kaqiup.xyz/categories/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/"/>
     
     
     <category term="hexo" scheme="https://www.kaqiup.xyz/tags/hexo/"/>
