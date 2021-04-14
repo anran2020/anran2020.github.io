@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>kaqiup&#39;s blog</title>
+  <title>Kaq&#39;s blog</title>
   
   <subtitle>-My style-</subtitle>
   <link href="https://www.kaqiup.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.kaqiup.xyz/"/>
-  <updated>2021-04-14T10:34:22.510Z</updated>
+  <updated>2021-04-14T11:32:44.693Z</updated>
   <id>https://www.kaqiup.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.kaqiup.xyz/posts/85d475cb"/>
     <id>https://www.kaqiup.xyz/posts/85d475cb</id>
     <published>2021-04-14T10:34:22.000Z</published>
-    <updated>2021-04-14T10:34:22.510Z</updated>
+    <updated>2021-04-14T11:32:44.693Z</updated>
     
     <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span>]]></content>
     
