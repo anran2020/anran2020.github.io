@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>优化</title>
+    <title>优化篇</title>
     <url>/posts/b0a72714.html</url>
     <content><![CDATA[ 更新优化,增加哔哔功能,修改全局字体等等
 
@@ -60,11 +60,6 @@
       </tags>
   </entry>
   <entry>
-    <title>够了hexo</title>
-    <url>/posts/85d475cb.html</url>
-    <content><![CDATA[ ]]></content>
-  </entry>
-  <entry>
     <title>有关kindle的那些事</title>
     <url>/posts/fa09.html</url>
     <content><![CDATA[ 介绍我使用kindle的一些经yan
@@ -82,6 +77,21 @@
       </categories>
       <tags>
         <tag>kindle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>更新日志</title>
+    <url>/posts/5a717bf0.html</url>
+    <content><![CDATA[ 
+
+改用twitoo, 由于自己搭建了个云环境, 所以还是想试试这个评论较好的twitoo
+
+]]></content>
+      <categories>
+        <category>更新日志</category>
+      </categories>
+      <tags>
+        <tag>valine, twitoo</tag>
       </tags>
   </entry>
 </search>
