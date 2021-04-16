@@ -31,13 +31,13 @@ body{
     .github-badge .badge-subject {
         display:inline-block;
         background-color:#4D4D4D;
-        padding:4px 4px 4px 6px;
+        padding:0px 0px 0px 0px;
         border-top-left-radius:4px;
         border-bottom-left-radius:4px;
     }
     .github-badge .badge-value {
         display:inline-block;
-        padding:2px 3px 2px 2px;
+        padding:2px 3px -1px 2px;
         border-top-right-radius:2px;
         border-bottom-right-radius:2px;
     }
@@ -51,19 +51,19 @@ body{
         background-color:#D8B024 !important;
     }
     .github-badge .bg-blueviolet {
-        background-color:#8833D7 !important;
+        background-color:#04d2fb8c /*8833D7*/ !important;
     }
     .github-badge .bg-pink {
         background-color:#F26BAE !important;
     }
     .github-badge .bg-red {
-        background-color:#e05d44 !important;
+        background-color:#f3c500b8 /*e05d44*/ !important;
     }
     .github-badge .bg-blue {
         background-color:#007EC6 !important;
     }
     .github-badge .bg-lightgrey {
-        background-color:#9F9F9F !important;
+        background-color:#f900dfad /*9F9F9F*/ !important;
     }
     .github-badge .bg-grey, .github-badge .bg-gray {
         background-color:#555 !important;
