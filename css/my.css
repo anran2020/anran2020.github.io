@@ -9,7 +9,7 @@
 /* 全局修改字体 */
 @font-face{
     font-family: 'myFont';
-    src: url('../font/myfont.otf');
+    src: url('../font/myfont.ttf');
 }
 
 body{
