@@ -1,88 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>优化篇</title>
-      <link href="posts/b0a72714.html"/>
-      <url>posts/b0a72714.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h2 id="更新记录"><a href="#更新记录" class="headerlink" title="更新记录"></a>更新记录</h2><ul><li>上线哔哔功能,可在微信“黑石哔哔”中实时发动态到博客中</li><li>评论区改用livere,也试过valine或者twitoo,要么出现哔哔功能不正常要么出现评论栏展开失败的情况</li><li>优化about页面,将文章统计图与分类的标签云合并,而About界面保留相册浏览</li><li>全局修改字体（思源宋体）</li><li>修改主页和说说的icon</li><li>尝试过在About界面投放个人介绍,css样式没做好,单纯的文字堆砌也就没意思了</li><li>增加消息订阅通知</li></ul><h2 id="记录一个部署时遇到的错误"><a href="#记录一个部署时遇到的错误" class="headerlink" title="记录一个部署时遇到的错误"></a>记录一个部署时遇到的错误</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>node-fetch<span class="token punctuation">\</span>lib<span class="token punctuation">\</span>index.js:272    <span class="token builtin class-name">return</span> Body.Promise.reject<span class="token punctuation">(</span>new FetchError<span class="token punctuation">(</span><span class="token variable"><span class="token variable">`</span>invalid json response body at $<span class="token punctuation">{</span>_this2.url<span class="token punctuation">}</span> reason: $<span class="token punctuation">{</span>err.message<span class="token punctuation">}</span><span class="token variable">`</span></span>, <span class="token string">'invalid-json'</span><span class="token punctuation">))</span><span class="token punctuation">;</span>    FetchError: invalid json response body at http://www.kaqiup.xyz/newPost.json reason: Unexpected token <span class="token operator">&lt;</span> <span class="token keyword">in</span> JSON at position <span class="token number">0</span>    at C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>node-fetch<span class="token punctuation">\</span>lib<span class="token punctuation">\</span>index.js:272:32    at processTicksAndRejections <span class="token punctuation">(</span>node:internal/process/task_queues:94:5<span class="token punctuation">)</span>    at async Hexo.<span class="token operator">&lt;</span>anonymous<span class="token operator">&gt;</span> <span class="token punctuation">(</span>C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>index.js:36:29<span class="token punctuation">)</span> <span class="token punctuation">{</span>  type: <span class="token string">'invalid-json'</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><blockquote><p>暂时没有解决办法，求解决的话可能就得深入了解了。</p></blockquote>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>优化篇</title>
+    <url>/posts/b0a72714.html</url>
+    <content><![CDATA[ 
+
+
+更新记录
+上线哔哔功能,可在微信“黑石哔哔”中实时发动态到博客中
+评论区改用livere,也试过valine或者twitoo,要么出现哔哔功能不正常要么出现评论栏展开失败的情况
+优化about页面,将文章统计图与分类的标签云合并,而About界面保留相册浏览
+全局修改字体（思源宋体）
+修改主页和说说的icon
+尝试过在About界面投放个人介绍,css样式没做好,单纯的文字堆砌也就没意思了
+增加消息订阅通知
+
+记录一个部署时遇到的错误C:\hexoBlog\new\node_modules\hexo-web-push-notification\node_modules\node-fetch\lib\index.js:272
+    return Body.Promise.reject(new FetchError(`invalid json response body at ${_this2.url} reason: ${err.message}`, 'invalid-json'));
+    FetchError: invalid json response body at http://www.kaqiup.xyz/newPost.json reason: Unexpected token &lt; in JSON at position 0
+    at C:\hexoBlog\new\node_modules\hexo-web-push-notification\node_modules\node-fetch\lib\index.js:272:32
+    at processTicksAndRejections (node:internal/process/task_queues:94:5)
+    at async Hexo.&lt;anonymous&gt; (C:\hexoBlog\new\node_modules\hexo-web-push-notification\index.js:36:29) {
+  type: 'invalid-json'
+}
+
+
+暂时没有解决办法，求解决的话可能就得深入了解了。
+
+]]></content>
       <categories>
-          
-          <category> 更新日志 </category>
-          
+        <category>更新日志</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-            <tag> Matery </tag>
-            
-            <tag> 优化 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>有关kindle的那些事</title>
-      <link href="posts/fa09.html"/>
-      <url>posts/fa09.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h2 id="第一次用kindle"><a href="#第一次用kindle" class="headerlink" title="第一次用kindle"></a>第一次用kindle</h2><p>第一次用kindle是在大二的时候，那是心血来潮买了个kindle入门版，印象中没有读过几本书后来就在闲鱼上转卖了，有点可惜。而那时候的购买的初衷也就是想培养自己阅读的喜欢，可后来发现，如果一个人没有阅读的习惯，那这些辅助的工具也只会变得有些鸡肋。而在卖出kindle后，才知道自己似乎并没有想象中喜欢阅读。</p><h2 id="第二次使用kindle"><a href="#第二次使用kindle" class="headerlink" title="第二次使用kindle"></a>第二次使用kindle</h2><p>在此之前，我已经有阅读的习惯了，只不过是阅读yy小说的习惯，但终究是习惯了。</p><p>买来的第二天，我再一次看完了村上春树的《当我跑步时，我在想什么》这本书，感觉确实不太一样，如果要细说，非得把阅读的体验描述一番。在身边有平板电脑或者手机的环境里，你可能很难体会到那种即翻即看的爽快体验，然而这种体验是在用kindle看完了一个短篇后，我脑袋里时刻跃出的感觉，相当奇妙。</p><p>在闲暇时间就埋头手机的这几年里，我没有感受过那种想看某个东西，思绪却不听使唤，时不时的就把你拉到别处的体验，或者只有在冥想的时候我才有那种感觉，有些微妙。如果要描述它，或许可以称之为“注意力集中”。那种游离在专注和思绪飘荡的瞬间，你有意识的往专注上倾斜，有些刻意，但也不会太过牵强，感觉着实奇妙。</p>]]></content>
-      
-      
+      <tags>
+        <tag>hexo</tag>
+        <tag>Matery</tag>
+        <tag>优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>有关kindle的那些事</title>
+    <url>/posts/fa09.html</url>
+    <content><![CDATA[ 
+
+第一次用kindle第一次用kindle是在大二的时候，那是心血来潮买了个kindle入门版，印象中没有读过几本书后来就在闲鱼上转卖了，有点可惜。而那时候的购买的初衷也就是想培养自己阅读的喜欢，可后来发现，如果一个人没有阅读的习惯，那这些辅助的工具也只会变得有些鸡肋。而在卖出kindle后，才知道自己似乎并没有想象中喜欢阅读。
+第二次使用kindle在此之前，我已经有阅读的习惯了，只不过是阅读yy小说的习惯，但终究是习惯了。
+买来的第二天，我再一次看完了村上春树的《当我跑步时，我在想什么》这本书，感觉确实不太一样，如果要细说，非得把阅读的体验描述一番。在身边有平板电脑或者手机的环境里，你可能很难体会到那种即翻即看的爽快体验，然而这种体验是在用kindle看完了一个短篇后，我脑袋里时刻跃出的感觉，相当奇妙。
+在闲暇时间就埋头手机的这几年里，我没有感受过那种想看某个东西，思绪却不听使唤，时不时的就把你拉到别处的体验，或者只有在冥想的时候我才有那种感觉，有些微妙。如果要描述它，或许可以称之为“注意力集中”。那种游离在专注和思绪飘荡的瞬间，你有意识的往专注上倾斜，有些刻意，但也不会太过牵强，感觉着实奇妙。
+]]></content>
       <categories>
-          
-          <category> 日志 </category>
-          
+        <category>日志</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> kindle </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>关于这个博客</title>
-      <link href="posts/1c06.html"/>
-      <url>posts/1c06.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h2 id="关于这个博客"><a href="#关于这个博客" class="headerlink" title="关于这个博客"></a>关于这个博客</h2><h3 id="开始做自己的博客"><a href="#开始做自己的博客" class="headerlink" title="开始做自己的博客"></a>开始做自己的博客</h3><p>我也是从实践“做自己的blog”的想法开始，接触到了很多很棒的博客主页，那些样式，那些巧妙的排版，让我赏心悦目。因为工作原因，我的工作范畴属于嵌入式类型的开发工作，对前端的认知还停留在网页的制作上。也正是这一次制作自己的博客，开始感受到前端那巨大无比的魅力。</p><p>当然，最开始我还是停留在表面上，在对博客的主题、目录、背景、特效、音乐等元素的迷恋，反而对技术性的学习沉淀少有关注。</p><p>我看到了前端的魅力，那是真正吸引我的东西。</p><h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3><p>作为一个毕业两年有余，搞嵌入式開發。</p><p>在我接触的世界里，似乎总有一股力量在推着我往“全能”的方向靠，而我正行走在这个路上。</p><h3 id="有关博客的定调"><a href="#有关博客的定调" class="headerlink" title="有关博客的定调"></a>有关博客的定调</h3><p>这个博客的节奏就是：杂谈、学习分享、故事、阅读的类型，此后博文的标签应该也会大致在这范围内。</p>]]></content>
-      
-      
+      <tags>
+        <tag>kindle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于这个博客</title>
+    <url>/posts/1c06.html</url>
+    <content><![CDATA[ 
+
+关于这个博客开始做自己的博客我也是从实践“做自己的blog”的想法开始，接触到了很多很棒的博客主页，那些样式，那些巧妙的排版，让我赏心悦目。因为工作原因，我的工作范畴属于嵌入式类型的开发工作，对前端的认知还停留在网页的制作上。也正是这一次制作自己的博客，开始感受到前端那巨大无比的魅力。
+当然，最开始我还是停留在表面上，在对博客的主题、目录、背景、特效、音乐等元素的迷恋，反而对技术性的学习沉淀少有关注。
+我看到了前端的魅力，那是真正吸引我的东西。
+关于我作为一个毕业两年有余，搞嵌入式開發。
+在我接触的世界里，似乎总有一股力量在推着我往“全能”的方向靠，而我正行走在这个路上。
+有关博客的定调这个博客的节奏就是：杂谈、学习分享、故事、阅读的类型，此后博文的标签应该也会大致在这范围内。
+]]></content>
       <categories>
-          
-          <category> 日志 </category>
-          
+        <category>日志</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 博客简介 </tag>
-            
-            <tag> 关于我 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>博客简介</tag>
+        <tag>关于我</tag>
+      </tags>
+  </entry>
 </search>
