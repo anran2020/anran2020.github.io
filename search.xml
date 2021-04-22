@@ -74,4 +74,243 @@ File &gt; Settings &gt; install &gt; 搜索chinese插件 &gt; Simplified Chinese
         <tag>关于我</tag>
       </tags>
   </entry>
+  <entry>
+    <title>惠普暗影精灵5黑苹果安装教程</title>
+    <url>/posts/100b5772.html</url>
+    <content><![CDATA[ 
+
+惠普暗影精灵5黑苹果Big Sur安装教程
+说明：
+由于引导文件和相关资源更新迅猛，文中的信息可能没法及时更新，参考这篇文章时还请注意所用的引导文件和系统版本号是否匹配，以及工具或配置方法是否得当，如果因为错误操作造成了某种程度的损失，本人概不负责，请知悉！
+
+在爬了很多教程贴之后，整体思路并不完整，拼拼凑凑的去理解也很累。很多教程写的很好，但是有些简单的步骤就直接省略了，然而，那些就是会卡住小白的步骤，所以还是打算自己写一次装机的经历。
+暗影5的配置总览
+
+
+硬件名称
+属性
+
+
+
+CPU
+i7-9750H
+
+
+iGPU
+Intel UHD Graphics 630
+
+
+dGPU
+GTX1650
+
+
+Audio
+Realtek ALC295
+
+
+Disk
+三星MZVLB512HAJQ-000H1 512GB/固态 + WDC WDS500G2B0A-00SM50/512GB固态
+
+
+Wireless
+英特尔Wireless-AC 9560
+
+
+Ethernet
+Realtek 8111/8168/8411 PCI Express Gigabit Etherne
+
+
+硬件支持
+在使用macOS之前，需要先了解下硬件都有哪些限制，也就是哪些硬件是被支持的，哪些是不被支持的。硬件限制相关可以参考OpenCore Install Guide。
+固态
+可以参考【老吴黑苹果】2021台式机黑苹果完美电脑配置推荐，适用安装黑苹果系统的组装机配置表
+
+
+
+我的考虑在了解了我的电脑自带固态是PM981，我很悲伤，在基于PM981还是加多一个SATA固态的两者性价比衡量下，我选择了买多一个SATA3.0的固态，因为如果把PM981换下来，我的资料需要转移不说，只为了装macos系统，平白无故闲置一张固态实在是可惜，所以我通过硬件屏蔽的方法，将PM981屏蔽掉，在新买的西数固态上安装黑苹果。
+准备工作查找适合自己的EFI
+关注黑果小兵部落阁的Hackintosh黑苹果长期维护机型整理清单，在上边查找自己的机型时候有案例或教程
+或者在github上以关键词的方式搜索是否有支持类型，例如暗影精灵5+EFI，我这电脑EFI就是这样找的
+
+
+Tips：
+如果上边两个方式都没找到合适的EFI，可以考虑自己制作，这是教程，挺有用的，反正我看完后思路就有了。当然如果你是台式机并且想要自己制作引导，可以参考这个。
+
+安装macOS的基本要求
+Tips：
+
+你需要明确实在同一硬盘安装win+macOS，还是在单独的一块硬盘安装macOS并且在装了Win的另一块硬盘进行opencore引导，这会影响你是如何添加引导进硬盘。
+基于我的情况，我选择单独在一块固态上安装Big Sur，能有较好的数据隔离作用。
+
+
+
+一个装了Windows系统的硬盘
+一个单独安装macOS Big Sur的硬盘
+一个 8GB 或以上的 U 盘和一个 USB 鼠标和USB键盘
+注意数据备份
+
+需要下载的东西
+Tips: 
+
+为了避免未知的麻烦，我在找到合适暗影5的EFI基础上，下载了成功案例对应的OC引导的版本和相应的系统镜像，如果你和我一样用的是暗影5，而且配置相当，下边的链接应该能帮到你。以下内容全部是基于有现成的EFI文件进行。
+这里用的OpenCore版本是0.6.3，目前最新的已经是0.6.8了，待装好系统并且备份好后再考虑升级opencore版本了
+
+
+
+OpenCore引导下载，下方链接二选一【OpenCore version: 0.6.3】
+
+原下载链接
+如果下载速度缓慢，可以参考暗影精灵5之OpenCore引导黑苹果提供的国内加速下载链接
+
+
+系统镜像
+
+基于有现成的EFI，这里只下载了带CLOVER和PE分区的镜像：
+
+黑果小兵的macOS BigSur 11.0.1 20B50 正式版 with Clover 5126原版镜像[双EFI版][UEFI and MBR]
+
+
+Tips: 如果需要带OC引导的，可以在微信公众号黑果小兵的部落阁里，用手机查看这篇文章，通过打赏作者获得自动推送的镜像下载链接。
+
+
+
+
+安装前后要用到的软件：
+
+balenaEtecher 
+DiskGenius 硬盘分区维护工具
+Hasleo EasyUEFI 
+
+
+
+开始
+OC版本：OpenCore version:0.6.3
+系统镜像: macOS Big Sur 11.0.1 20B50 Installer for CLOVER 5126 and OpenCore 0.6.3 and PE三EFI分区原版镜像
+
+U盘制作用下载好的etcher，打开镜像，选择U盘，点击Flash即可。Windows10需要以管理员权限运行
+
+替换EFI
+Tips:
+
+暗影5的成功案例有提醒，要在安装macOS前替换OC文件，否则会出现Stuck on OCB: LoadImage failed - Security Violation的错误。
+
+以下基于带Opencore/clover/pe三分区的版本
+
+
+
+
+打开DiskGenius
+删除U盘里EFI目录下的所有文件
+将OC目录下BOOT和OC文件copy到EFI分区下
+将OC分区删除
+最终只保留OC分区和必要的PE分区（方便出现问题进行修复）
+
+
+到这里U盘的操作告一段落
+硬盘分区
+在进行安装前，在Win下将要安装macOS的目标磁盘分区
+
+
+借助DiskGenius
+
+过程过程如下
+
+
+
+
+设置完，重启修改BIOS启动项，可以插上U盘直接怼。
+
+
+Tips: 箭头4需要创建一个ESP分区，分区大小&gt;=300M，可以不要MSR分区，我这里应该搞错了。
+
+设置BIOS及开始安装镜像
+基于暗影5的情况，其他机型这里不考虑，开机按F10进BIOS
+
+
+设置成中文，方便查看
+
+
+
+
+
+操作系统的启动管理员 &gt; 按回车
+
+选择U盘启动
+
+F10保存退出
+
+重启后按F9进入opencore引导界面
+
+选择Install Big Sur
+
+磁盘分区
+
+将整个目标硬盘抹除
+安装macOS
+
+
+
+整个过程十分舒畅，没有卡在哪个位置，期间出现的几次重启是安装进程中正常重启，由于还没有把EFI添加进硬盘进行引导，期间出现的重启如果没按F9重新引导进opencore界面，会直接回到win启动进程，如果出现了这种情况，重启，按F9。详细的安装过程可以参考这篇文章。
+
+
+
+
+到这一步也差不多了，但还有一些工作要做，
+
+由于有PM981的缘故，安装完成进入系统后首先屏蔽PM981
+
+重建缓存，参考Big Sur安装教程 Part 2里部分内容。
+
+先打开终端，输入几行命令：
+ sudo spctl --master-disable		# 启用macOS安装应用允许任何来源
+sudo kextcache -i /				# 重建缓存
+如果出于某些原因，在/System/Library/Extensions/或者/Library/Extensions/修改了某些驱动，请使用以下命令重建缓存：
+sudo chown -R root:wheel /System/Library/Extensions/
+sudo chmod -R 755 /System/Library/Extensions/
+sudo kmutil install --update-all
+sudo kcditto
+
+
+
+设置硬盘引导
+之前一直是U盘引导，现在脱离U盘，在硬盘进行引导。
+
+
+用DiskGenius将U盘的EFI目录下BOOT和OC文件复制到Windows所在盘的EFI文件下
+
+打开EasyUEFI
+创建新项
+类型选择Linux或其他操作系统，描述随意，我写了opencore
+
+
+
+
+确认后，把opencore的顺序调到第一位
+
+到这里整个过程就完成了，重启后会进入OC引导界面，整个过程包括写这篇花了好长时间（致敬那些原创的教程作者，真的很不容易！！），这可能也是以前很不喜欢做笔记的原因。但如果不记录下来，之后如果还想重新接触，就发现忘的差不多了。而在做记录的过程中，也在不断强化记忆，反正现在闭着眼睛都知道整个过程要怎么搞了（除了自己配置OC哈哈）
+后话
+建议在系统安装完后，并且能正常用，可以回到Windows，用Paragon Hard Disk Manager™ 将整个系统打包，存在某处，以便之后系统出了问题，快速恢复。教程网上很容易找，这里就不推了（懒）。
+唉，还是建议还是换掉PM981，否则用起来还是像旁边有个炸弹，不知道什么时候会出现内核崩溃的惨状，开机不挂载的方法也不知道是否有效果的。
+
+参考和引用https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support
+https://blog.daliansky.net/
+https://hackintosh.kirainmoe.com/
+https://www.cpuid.com/softwares/cpu-z.html
+https://blog.daliansky.net/OpenCore-BootLoader.html
+http://k61.org/dac855c6.html
+https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh/tree/main/Big%20Sur
+https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/
+https://down.sky-and-poem.fun/source/static/HP-15-dc1010nr-hackintosh-main.zip
+https://etcher.io
+http://k61.org/diable-pm981-on-hackintosh.html
+https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A
+]]></content>
+      <categories>
+        <category>黑苹果</category>
+      </categories>
+      <tags>
+        <tag>黑苹果</tag>
+        <tag>Big Sur 11.0.1</tag>
+      </tags>
+  </entry>
 </search>

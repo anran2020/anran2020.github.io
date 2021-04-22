@@ -347,7 +347,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,0,3],
+                data: [0,0,0,0,0,0,0,0,0,0,0,0,4],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -389,7 +389,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"软件","value":1},{"name":"更新日志","value":1},{"name":"日志","value":1}],
+                data: [{"name":"软件","value":1},{"name":"更新日志","value":1},{"name":"日志","value":1},{"name":"黑苹果","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -413,7 +413,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["Atom","hexo","Matery","优化","博客简介","关于我"]
+                data: ["Atom","hexo","Matery","优化","博客简介","关于我","黑苹果","Big Sur 11.0.1"]
             }
         ],
         yAxis: [
@@ -426,7 +426,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [1,1,1,1,1,1],
+                data: [1,1,1,1,1,1,1,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -488,6 +488,15 @@
                 </a>
                 
                 
+                <a href="/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/" title="黑苹果: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #E8F8F5;">黑苹果
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
             </div>
         </div>
     </div>
@@ -530,7 +539,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"软件","max":2},{"name":"更新日志","max":2},{"name":"日志","max":2}],
+            indicator: [{"name":"软件","max":2},{"name":"更新日志","max":2},{"name":"日志","max":2},{"name":"黑苹果","max":2}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -541,7 +550,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [1,1,1],
+                    value : [1,1,1,1],
                     name : '文章分类数量'
                 }
             ]
@@ -743,7 +752,7 @@
             <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen" id="busuanzi_value_site_pv"></span>
         </div>
         <div class="github-badge">
-        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">580</span>
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">2.8k</span>
         </div> -->
 </div>
     </div>
