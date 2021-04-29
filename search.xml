@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Atom编辑器</title>
-    <url>/posts/7bbb944c.html</url>
-    <content><![CDATA[ 
-Atom编辑器Atom 可以说是专门为程序员推出的一个文本编辑器，界面简洁，支持实时预览。功能非常多，除了Markdown同时支持CSS，HTML，JavaScript等网页编程语言，还支持宏定义，自动分屏功能等。Atom还具有语义输入模式，比例输入code即会自动开启代码模式。
-Atom支持windows、苹果、linux等多种操作系统。Atom是由著名的github平台出品的。
-Atom是独立的软件，也支持插件方式。
-更多介绍及下载：https://atom.io/
-汉化有关汉化的操作网上有很多教程， 这里简化了一个行之有效的方法去汉化这个Atom。可以直接下载好的Atom里下载相应的汉化包，具体步骤如下：
-
-File &gt; Settings &gt; install &gt; 搜索chinese插件 &gt; Simplified Chinese Menu &gt; 安装
-
-安装成功即生效
-]]></content>
-      <categories>
-        <category>软件</category>
-      </categories>
-      <tags>
-        <tag>Atom</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>优化篇</title>
     <url>/posts/b0a72714.html</url>
     <content><![CDATA[ 
@@ -278,14 +257,7 @@ sudo kcditto
 
 用DiskGenius将U盘的EFI目录下BOOT和OC文件复制到Windows所在盘的EFI文件下
 
-打开EasyUEFI
-创建新项
-类型选择Linux或其他操作系统，描述随意，我写了opencore
-
-
-
-
-确认后，把opencore的顺序调到第一位
+打开EasyUEFI，把opencore的顺序调到第一位
 
 到这里整个过程就完成了，重启后会进入OC引导界面，整个过程包括写这篇花了好长时间（致敬那些原创的教程作者，真的很不容易！！），这可能也是以前很不喜欢做笔记的原因。但如果不记录下来，之后如果还想重新接触，就发现忘的差不多了。而在做记录的过程中，也在不断强化记忆，反正现在闭着眼睛都知道整个过程要怎么搞了（除了自己配置OC哈哈）
 后话
@@ -311,6 +283,104 @@ https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A
       <tags>
         <tag>黑苹果</tag>
         <tag>Big Sur 11.0.1</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Atom编辑器</title>
+    <url>/posts/7bbb944c.html</url>
+    <content><![CDATA[ 
+Atom编辑器Atom 可以说是专门为程序员推出的一个文本编辑器，界面简洁，支持实时预览。功能非常多，除了Markdown同时支持CSS，HTML，JavaScript等网页编程语言，还支持宏定义，自动分屏功能等。Atom还具有语义输入模式，比例输入code即会自动开启代码模式。
+Atom支持windows、苹果、linux等多种操作系统。Atom是由著名的github平台出品的。
+Atom是独立的软件，也支持插件方式。
+更多介绍及下载：https://atom.io/
+汉化有关汉化的操作网上有很多教程， 这里简化了一个行之有效的方法去汉化这个Atom。可以直接下载好的Atom里下载相应的汉化包，具体步骤如下：
+
+File &gt; Settings &gt; install &gt; 搜索chinese插件 &gt; Simplified Chinese Menu &gt; 安装
+
+安装成功即生效
+]]></content>
+      <categories>
+        <category>软件</category>
+      </categories>
+      <tags>
+        <tag>Atom</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>记录一次新硬盘迁移系统的经历</title>
+    <url>/posts/c8cc8a0b.html</url>
+    <content><![CDATA[ 
+
+记录一次从新硬盘迁移系统的经历背景
+装有windows系统的M.2接口的PM981
+PM981因为兼容性，无法安装苹果系统，最终硬盘配置换成了一块SN750小黑盘+西数SATA3.0蓝盘
+已经知道如何安装黑苹果，并且已经制作好U盘安装引导
+
+目标
+将macOS系统安装到[主硬盘]，windows系统安装到[从硬盘]
+在macOS系统所在的盘进行每次开机的OpenCore引导，用于决定每次启动电脑运行macOS还是Windows系统
+
+迁移windows系统
+对迁移的定义：确保迁移前后一样直接使用，不需要重装软件,重装系统什么的额外操作，所以才叫迁移
+
+1. 装盘
+将已经买好的西数的SATA3.0固态安装到电脑硬盘扩展位置（此时是主硬盘：windows）
+
+2. 格式化新硬盘
+新固态需要格式化才能被设备正常读取，这里可以直接在windows下的磁盘管理中新建分区进行格式化
+
+3. 克隆系统
+使用傲梅分区
+将系统从^主硬盘克隆到^从硬盘
+其他资料分区（如D：E：F：G：盘）数据按分区整个迁移到^从硬盘对应分区
+进入BIOS修改启动顺序，将^从硬盘启动优先级调整到第一
+
+
+分区工具使用方法，可以从这里参考
+
+
+
+4. 卸下主硬盘5. 修改磁盘分区编号在卸下主硬盘之后，重启系统会进入到从硬盘的系统中，此时的分区编号除了C盘以外，其他盘的编号是需要调整成迁移前对应的编号，以确保这些分区下，软件能正常索引。到这一步从硬盘上的工作已经基本完成～～
+安装macOS系统1. 插上主硬盘2. 格式化主硬盘
+开机进入windows，在磁盘管理中格式化主硬盘
+
+使用DiskGenius将主硬盘快速分区，过程如下图
+
+分区完成后，不要退出Diskgenius，还需要将UEFI提前放进^主硬盘。具体是
+
+将windonws系统所在的^从硬盘的EFI复制到^主硬盘的esp分区
+将U盘里的引导macOS系统的EFI下BOOT和OC文件也一起复制到^主硬盘下，最终结果可参考下图
+
+
+
+
+
+说明：这种替换操作是基于我已经很清楚，U盘内引导安装是OK的，在此之前我已经测试过两次，并且
+也确认现有的Opencore文件是能匹配到我的电脑，也不需要去修改什么内容，在这样的一种前提下，
+我才有下边直接复制EFI的操作，比较高效。
+1: 从U盘拷贝过来的OC文件，以及替换了4处bootx64.efi文件
+2、3：从windows的ESP分区下拷贝过来的EFI文件
+
+3.使用U盘进行macOS系统的引导安装
+插入U盘
+重启电脑，进入快捷启动，选择UEFI启动……  
+如果你还不知道怎么安装macOS系统，可以参考我这篇文章，之前写过一个教程。
+
+
+
+4.macOS安装完成到这一步，双系统就安装完成了，接下来就是进入macOS系统重建索引和一些其他操作了，详情可以参看前文提过的教程，里边有提及。
+结语不出意外的话，期间被省略的步骤可能会让某些人头疼，就像我看别人的教程一样，我也是写到这里才明白，没有什么完美的教程，只有适合自己的才是最好的。教程更多时候可能只是充当提供方向的作用，给你一种思路或者在关键的地方给你指出你需要做什么。在安装完双系统之后，我想到把过程分享出去，这其中有自己摸索的方法，也有自己踩过的坑，有时候就是缺一个思路。做过的这些事里，让我最惊讶的是，原以为windows系统转移会充满艰辛，结果用那个傲梅分区工具，半小时就全部弄好了，体验跟迁移系统前一样==，效果就是我换了个硬盘去跑windows系统。
+
+春天来了~
+
+]]></content>
+      <categories>
+        <category>黑苹果</category>
+      </categories>
+      <tags>
+        <tag>黑苹果</tag>
+        <tag>系统克隆</tag>
+        <tag>暗影精灵5</tag>
       </tags>
   </entry>
 </search>
