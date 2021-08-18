@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Atom编辑器</title>
+    <url>/posts/7bbb944c.html</url>
+    <content><![CDATA[ 
+Atom编辑器Atom 可以说是专门为程序员推出的一个文本编辑器，界面简洁，支持实时预览。功能非常多，除了Markdown同时支持CSS，HTML，JavaScript等网页编程语言，还支持宏定义，自动分屏功能等。Atom还具有语义输入模式，比例输入code即会自动开启代码模式。
+Atom支持windows、苹果、linux等多种操作系统。Atom是由著名的github平台出品的。
+Atom是独立的软件，也支持插件方式。
+更多介绍及下载：https://atom.io/
+汉化有关汉化的操作网上有很多教程， 这里简化了一个行之有效的方法去汉化这个Atom。可以直接下载好的Atom里下载相应的汉化包，具体步骤如下：
+
+File &gt; Settings &gt; install &gt; 搜索chinese插件 &gt; Simplified Chinese Menu &gt; 安装
+
+安装成功即生效
+]]></content>
+      <categories>
+        <category>软件</category>
+      </categories>
+      <tags>
+        <tag>Atom</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>优化篇</title>
     <url>/posts/b0a72714.html</url>
     <content><![CDATA[ 
@@ -283,27 +304,6 @@ https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A
       <tags>
         <tag>黑苹果</tag>
         <tag>Big Sur 11.0.1</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Atom编辑器</title>
-    <url>/posts/7bbb944c.html</url>
-    <content><![CDATA[ 
-Atom编辑器Atom 可以说是专门为程序员推出的一个文本编辑器，界面简洁，支持实时预览。功能非常多，除了Markdown同时支持CSS，HTML，JavaScript等网页编程语言，还支持宏定义，自动分屏功能等。Atom还具有语义输入模式，比例输入code即会自动开启代码模式。
-Atom支持windows、苹果、linux等多种操作系统。Atom是由著名的github平台出品的。
-Atom是独立的软件，也支持插件方式。
-更多介绍及下载：https://atom.io/
-汉化有关汉化的操作网上有很多教程， 这里简化了一个行之有效的方法去汉化这个Atom。可以直接下载好的Atom里下载相应的汉化包，具体步骤如下：
-
-File &gt; Settings &gt; install &gt; 搜索chinese插件 &gt; Simplified Chinese Menu &gt; 安装
-
-安装成功即生效
-]]></content>
-      <categories>
-        <category>软件</category>
-      </categories>
-      <tags>
-        <tag>Atom</tag>
       </tags>
   </entry>
   <entry>
