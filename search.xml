@@ -307,6 +307,132 @@ https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A
       </tags>
   </entry>
   <entry>
+    <title>树莓派常用工具集</title>
+    <url>/posts/684d1cd5.html</url>
+    <content><![CDATA[ 
+
+树莓派常用工具集官方镜像烧写工具：[Raspberry Pi Imager](Raspberry Pi OS – Raspberry Pi)
+Etcher：balenaEtcher
+SSH工具,服务器管理,远程桌面SSH工具 客户端：FinalShell
+FTP传输软件：FileZilla
+Barrier不同平台共享鼠标和键盘的解决方案：Barrier
+
+被Barrier惊艳到了，太帅了哈哈
+
+SD卡格式化工具：SD Formatter for SD/SDHC/SDXC
+待更新….
+]]></content>
+      <categories>
+        <category>树莓派</category>
+      </categories>
+      <tags>
+        <tag>树莓派</tag>
+        <tag>常用工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派开箱后做的事</title>
+    <url>/posts/749b51d7.html</url>
+    <content><![CDATA[ 
+
+[树莓派]开箱后做的事
+最近入手了个树莓派4B的板子，在这个帖子下记录玩耍的经历。  
+
+常用工具集
+在专题另外一篇文章中能找到相关下载的链接，需要请移步。
+
+系统版本（带桌面环境和不带桌面环境）
+此篇文章记录没带桌面配置树莓派的初始化相关事情。
+
+烧写系统
+通过官方的镜像烧录软件Raspberry Pi Imager插卡烧写。
+通过balenaEtcher将下载好的系统镜像烧写进SD卡。
+
+创建ssh空文件
+在system-boot目录下创建ssh空文件，完成后把SD卡插入树莓派，插上网线和电源开机。
+
+树莓派的IP地址
+通过局域网ip扫描软件或路由器管理界面，找到树莓派当前的IP，记录下来。
+
+登陆FinalShell
+备注：
+
+之所以使用Finalshell这个软件，是因为它太好用了，当然如果你习惯使用Xshell也是可以的。
+
+首次使用需要在FinalShell官网注册账号，使用说明将另外开篇描述，这里就不展开了。
+
+
+
+SSH登陆成功后命令行界面修改root密码sudo passwd root //修改root密码
+
+授权ssh远程登陆root权限sudo nano /etc/ssh/sshd_config //编辑sshd_config文件
+
+将其中PermitRootLogin对应行，改为
+PermitRootLogin yes
+
+Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑
+重启ssh：sudo systemctl restart ssh
+
+
+
+在FinalShell中设置以root账户登陆，之后操作就不需要在命令行首加-sudo了。
+修改软件源nano /etc/apt/sources.list
+
+这里用了中科大的raspbian镜像源，需要的可以先备份原镜像源文件，我这里选择注释掉了。
+deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+# deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+
+Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑
+更新软件列表apt-get update
+
+升级软件包apt-get upgrade
+
+到这里初步的操作差不多完成了，接下来就是解决网络问题。
+设置网络
+如果你是选择网线连接，那可以跳过这一步。因为需要我的情况用网线连接不方便，所以我还是选择用wifi连接。
+
+ssh远程设置wifi根据官方的文档，操作如下：
+
+
+进入raspi-config界面
+raspi-config
+修改Localisation Options中wireless country项，设置成China，接着修改TimeZone。
+
+修改完成后，按Esc返回上一级菜单，有需要的话，可以扩展文件系统到整个SD磁盘空间，不需要的跳过下面步骤。
+
+返回到raspi-config主界面，选择Advanced Options，Enter进入下一级，选择Expand Filesystem，回车即可。
+
+
+扫描WI-FIsudo iwlist wlan0 scan
+
+记下要连接的wifi的ESSID。接着修改wpa_supplicant.conf文件。
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+在文件底部输入wifi的信息，例如：
+network={
+    ssid="WOW,WIFI"
+    psk="123456789"
+}
+
+Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑。
+验证wifiwpa_cli -i wlan0 reconfigure
+
+返回成功，连wifi没问题了。
+安全重启reboot 或者 shutdown -r now
+
+
+
+到这里，差不多的步骤就走完了，可以各种玩耍了。但有一点需要注意的是，设备每次连接WI-FI可能分配的ip都不一样，为了方便起见，就需要用到静态分配ip，这部分内容将会在另外一个文章分享出来。
+]]></content>
+      <categories>
+        <category>树莓派</category>
+      </categories>
+      <tags>
+        <tag>初始化相关</tag>
+        <tag>SSH登陆</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>记录一次新硬盘迁移系统的经历</title>
     <url>/posts/c8cc8a0b.html</url>
     <content><![CDATA[ 

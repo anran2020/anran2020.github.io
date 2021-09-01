@@ -6,7 +6,7 @@
   <link href="https://www.kaqiup.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.kaqiup.xyz/"/>
-  <updated>2021-04-29T03:45:51.270Z</updated>
+  <updated>2021-09-01T05:10:52.951Z</updated>
   <id>https://www.kaqiup.xyz/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>树莓派常用工具集</title>
+    <link href="https://www.kaqiup.xyz/posts/684d1cd5"/>
+    <id>https://www.kaqiup.xyz/posts/684d1cd5</id>
+    <published>2021-09-01T05:06:25.000Z</published>
+    <updated>2021-09-01T05:10:52.951Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="树莓派常用工具集"><a href="#树莓派常用工具集" class="headerlink" title="树莓派常用工具集"></a>树莓派常用工具集</h3><p>官方镜像烧写工具：[Raspberry Pi Imager](<a href="https://www.raspberrypi.org/software/">Raspberry Pi OS – Raspberry Pi</a>)</p><p>Etcher：<a href="https://www.balena.io/etcher/">balenaEtcher</a></p><p>SSH工具,服务器管理,远程桌面SSH工具 客户端：<a href="http://www.hostbuf.com/t/988.html">FinalShell</a></p><p>FTP传输软件：<a href="https://filezilla-project.org/">FileZilla</a></p><p>Barrier不同平台共享鼠标和键盘的解决方案：<a href="https://github.com/debauchee/barrier/releases/tag/v2.3.3">Barrier</a></p><blockquote><p>被Barrier惊艳到了，太帅了哈哈</p></blockquote><p>SD卡格式化工具：<a href="https://make.quwj.com/bookmark/80/go">SD Formatter for SD/SDHC/SDXC</a></p><p>待更新….</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+
+&lt;h3 id=&quot;树莓派常用工具集&quot;&gt;&lt;a href=&quot;#树莓派常用工具集&quot; class=&quot;headerlink&quot; title=&quot;树</summary>
+      
+    
+    
+    
+    <category term="树莓派" scheme="https://www.kaqiup.xyz/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+    
+    <category term="树莓派" scheme="https://www.kaqiup.xyz/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+    <category term="常用工具" scheme="https://www.kaqiup.xyz/tags/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>树莓派开箱后做的事</title>
+    <link href="https://www.kaqiup.xyz/posts/749b51d7"/>
+    <id>https://www.kaqiup.xyz/posts/749b51d7</id>
+    <published>2021-09-01T04:59:04.000Z</published>
+    <updated>2021-09-01T05:12:44.658Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="树莓派-开箱后做的事"><a href="#树莓派-开箱后做的事" class="headerlink" title="[树莓派]开箱后做的事"></a>[树莓派]开箱后做的事</h3><blockquote><p>最近入手了个树莓派4B的板子，在这个帖子下记录玩耍的经历。  </p></blockquote><h4 id="常用工具集"><a href="#常用工具集" class="headerlink" title="常用工具集"></a>常用工具集</h4><ul><li>在专题另外一篇文章中能找到相关下载的链接，需要请移步。</li></ul><h4 id="系统版本（带桌面环境和不带桌面环境）"><a href="#系统版本（带桌面环境和不带桌面环境）" class="headerlink" title="系统版本（带桌面环境和不带桌面环境）"></a>系统版本（带桌面环境和不带桌面环境）</h4><ul><li>此篇文章记录没带桌面配置树莓派的初始化相关事情。</li></ul><h4 id="烧写系统"><a href="#烧写系统" class="headerlink" title="烧写系统"></a>烧写系统</h4><ul><li>通过官方的镜像烧录软件Raspberry Pi Imager插卡烧写。</li><li>通过balenaEtcher将下载好的系统镜像烧写进SD卡。</li></ul><h4 id="创建ssh空文件"><a href="#创建ssh空文件" class="headerlink" title="创建ssh空文件"></a>创建ssh空文件</h4><ul><li>在system-boot目录下创建ssh空文件，完成后把SD卡插入树莓派，插上网线和电源开机。</li></ul><h4 id="树莓派的IP地址"><a href="#树莓派的IP地址" class="headerlink" title="树莓派的IP地址"></a>树莓派的IP地址</h4><ul><li>通过局域网ip扫描软件或路由器管理界面，找到树莓派当前的IP，记录下来。</li></ul><h4 id="登陆FinalShell"><a href="#登陆FinalShell" class="headerlink" title="登陆FinalShell"></a>登陆FinalShell</h4><blockquote><p>备注：</p><ul><li><p>之所以使用Finalshell这个软件，是因为它太好用了，当然如果你习惯使用Xshell也是可以的。</p></li><li><p>首次使用需要在FinalShell官网注册账号，使用说明将另外开篇描述，这里就不展开了。</p></li></ul></blockquote><h4 id="SSH登陆成功后"><a href="#SSH登陆成功后" class="headerlink" title="SSH登陆成功后"></a>SSH登陆成功后</h4><h4 id="命令行界面"><a href="#命令行界面" class="headerlink" title="命令行界面"></a>命令行界面</h4><h6 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">passwd</span> root //修改root密码<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h6 id="授权ssh远程登陆root权限"><a href="#授权ssh远程登陆root权限" class="headerlink" title="授权ssh远程登陆root权限"></a>授权ssh远程登陆root权限</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/ssh/sshd_config //编辑sshd_config文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>将其中PermitRootLogin对应行，改为</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">PermitRootLogin <span class="token function">yes</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑</p><h6 id="重启ssh："><a href="#重启ssh：" class="headerlink" title="重启ssh："></a>重启ssh：</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl restart <span class="token function">ssh</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在FinalShell中设置以root账户登陆，之后操作就不需要在命令行首加-sudo了。</p><h5 id="修改软件源"><a href="#修改软件源" class="headerlink" title="修改软件源"></a>修改软件源</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">nano</span> /etc/apt/sources.list<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>这里用了<a href="http://mirrors.ustc.edu.cn/help/raspbian.html">中科大的raspbian镜像源</a>，需要的可以先备份原镜像源文件，我这里选择注释掉了。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi<span class="token comment"># deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑</p><h6 id="更新软件列表"><a href="#更新软件列表" class="headerlink" title="更新软件列表"></a>更新软件列表</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt-get</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h6 id="升级软件包"><a href="#升级软件包" class="headerlink" title="升级软件包"></a>升级软件包</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt-get</span> upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>到这里初步的操作差不多完成了，接下来就是解决网络问题。</p><h5 id="设置网络"><a href="#设置网络" class="headerlink" title="设置网络"></a>设置网络</h5><blockquote><p>如果你是选择网线连接，那可以跳过这一步。因为需要我的情况用网线连接不方便，所以我还是选择用wifi连接。</p></blockquote><h6 id="ssh远程设置wifi"><a href="#ssh远程设置wifi" class="headerlink" title="ssh远程设置wifi"></a>ssh远程设置wifi</h6><p>根据官方的文档，操作如下：</p><p><img src="https://pic.imgdb.cn/item/612f020944eaada739424604.png" alt="raspi-config"></p><ol><li><p>进入raspi-config界面</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">raspi-config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li><li><p>修改Localisation Options中wireless country项，设置成China，接着修改TimeZone。</p></li><li><p>修改完成后，按Esc返回上一级菜单，有需要的话，可以扩展文件系统到整个SD磁盘空间，不需要的跳过下面步骤。</p></li><li><p>返回到raspi-config主界面，选择Advanced Options，Enter进入下一级，选择Expand Filesystem，回车即可。</p></li></ol><h6 id="扫描WI-FI"><a href="#扫描WI-FI" class="headerlink" title="扫描WI-FI"></a>扫描WI-FI</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> iwlist wlan0 scan<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>记下要连接的wifi的ESSID。接着修改wpa_supplicant.conf文件。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/wpa_supplicant/wpa_supplicant.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在文件底部输入wifi的信息，例如：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">network</span><span class="token operator">=</span><span class="token punctuation">{</span>    <span class="token assign-left variable">ssid</span><span class="token operator">=</span><span class="token string">"WOW,WIFI"</span>    <span class="token assign-left variable">psk</span><span class="token operator">=</span><span class="token string">"123456789"</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑。</p><h6 id="验证wifi"><a href="#验证wifi" class="headerlink" title="验证wifi"></a>验证wifi</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wpa_cli -i wlan0 reconfigure<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>返回成功，连wifi没问题了。</p><h6 id="安全重启"><a href="#安全重启" class="headerlink" title="安全重启"></a>安全重启</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">reboot</span> 或者 <span class="token function">shutdown</span> -r now<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>到这里，差不多的步骤就走完了，可以各种玩耍了。但有一点需要注意的是，设备每次连接WI-FI可能分配的ip都不一样，为了方便起见，就需要用到静态分配ip，这部分内容将会在另外一个文章分享出来。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+
+&lt;h3 id=&quot;树莓派-开箱后做的事&quot;&gt;&lt;a href=&quot;#树莓派-开箱后做的事&quot; class=&quot;headerlink&quot; titl</summary>
+      
+    
+    
+    
+    <category term="树莓派" scheme="https://www.kaqiup.xyz/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+    
+    <category term="初始化相关" scheme="https://www.kaqiup.xyz/tags/%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9B%B8%E5%85%B3/"/>
+    
+    <category term="SSH登陆" scheme="https://www.kaqiup.xyz/tags/SSH%E7%99%BB%E9%99%86/"/>
+    
+  </entry>
   
   <entry>
     <title>记录一次新硬盘迁移系统的经历</title>
