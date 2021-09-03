@@ -6,7 +6,7 @@
   <link href="https://www.kaqiup.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.kaqiup.xyz/"/>
-  <updated>2021-09-01T05:10:52.951Z</updated>
+  <updated>2021-09-03T14:37:53.451Z</updated>
   <id>https://www.kaqiup.xyz/</id>
   
   <author>
@@ -15,6 +15,92 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>提高树莓派安全性</title>
+    <link href="https://www.kaqiup.xyz/posts/b3e38cc1"/>
+    <id>https://www.kaqiup.xyz/posts/b3e38cc1</id>
+    <published>2021-09-03T14:36:17.000Z</published>
+    <updated>2021-09-03T14:37:53.451Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h2 id="提高树莓派安全性"><a href="#提高树莓派安全性" class="headerlink" title="提高树莓派安全性"></a>提高树莓派安全性</h2><h3 id="更改树莓派用户名"><a href="#更改树莓派用户名" class="headerlink" title="更改树莓派用户名"></a>更改树莓派用户名</h3><blockquote><p>有时候出于安全的考虑，需要更改用户名。</p></blockquote><h4 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sido adduser anran<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>将提示您为新用户创建密码。这里新用户名设置成了<strong>anran</strong>，此时新用户将有一个家庭目录在。<code>/home/anran/</code></p><h4 id="添加到组，并授权"><a href="#添加到组，并授权" class="headerlink" title="添加到组，并授权"></a>添加到组，并授权</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">usermod</span> -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi anran<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>尝试以下措施来检查您的权限是否到位</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">su</span> - anran<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>如果它运行成功，那么可以确定新帐户在组中。</p><h4 id="删除旧用户-系统原用户pi"><a href="#删除旧用户-系统原用户pi" class="headerlink" title="删除旧用户(系统原用户pi)"></a>删除旧用户(系统原用户pi)</h4><p>一旦确认新帐户正常工作，可以删除用户。为此，需要首先关闭其流程。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">pkill</span> -u pi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>请注意，与当前的树莓派操作系统分配，有一些方面要求用户在场。如果不确定自己是否会受到此影响，请将用户保留。</p><p>要删除用户，请键入</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> deluser pi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>此命令将删除用户，但将离开文件夹。如有必要，可以使用下面的命令同时为用户删除主文件夹。请注意，此文件夹中的数据将被永久删除，因此请确保任何所需的数据存储在其他地方。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> deluser -remove-home pi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>此命令将导致警告该组不再有成员。不过，该命令会删除用户和组。</p><h4 id="使sudo需要密码"><a href="#使sudo需要密码" class="headerlink" title="使sudo需要密码"></a>使sudo需要密码</h4><p>默认情况下，以超级用户的身份运行不需要密码。一般来说，这不是问题。但是，如果你的 Pi 暴露在互联网上，并以某种方式被利用（例如，通过网页漏洞利用），攻击者将能够更改需要超级用户凭据的操。所以设置sudo强制需要密码就很必要了。</p><p>在命令行输入：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> visudo /etc/sudoers.d/010_pi-nopasswd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>并将条目（或任何用户名具有超用户权）更改为：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pi <span class="token assign-left variable">ALL</span><span class="token operator">=</span><span class="token punctuation">(</span>ALL<span class="token punctuation">)</span> PASSWD: ALL<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="提高ssh安全性"><a href="#提高ssh安全性" class="headerlink" title="提高ssh安全性"></a>提高ssh安全性</h3><blockquote><p>SSH 是远程访问树莓派的常见方式。默认情况下，登录 SSH 需要用户名/密码。更安全的方法是使用基于密钥的身份验证。</p></blockquote><h4 id="改进用户名-密码安全性"><a href="#改进用户名-密码安全性" class="headerlink" title="改进用户名/密码安全性"></a>改进用户名/密码安全性</h4><p>上文有提及。这里不赘述。</p><h4 id="更改配置来允许或拒绝特定用户"><a href="#更改配置来允许或拒绝特定用户" class="headerlink" title="更改配置来允许或拒绝特定用户"></a>更改配置<strong>来允许</strong>或<strong>拒绝</strong>特定用户</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/ssh/sshd_config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>这里提供windows下，ssh远程登陆的方法</p><ol><li><p>检查用来连接树莓派的计算机上是否已经有密钥</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">dir</span> ~/.ssh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>如果存在，则会返回<code>id_rsa  id_rsa.pub  known_hosts</code>类似信息，可以跳到第三步。</p></li><li><p>没有密钥的情况下，在有安装git的情况下，打开git bash</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-keygen<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>生成密钥</p></li><li><p>将公钥发送到树莓派上</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-copy-id 树莓派用户名@树莓派ip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>回复*<em>Are you sure you want to continue connecting ?</em>  ， 输入yes，回车即可</p></li><li><p>之后退出登陆利用ssh登陆工具，设置密钥登陆，输入树莓派的用户名，即可登陆成功了。</p></li></ol><h4 id="可选择-禁用密码登陆ssh"><a href="#可选择-禁用密码登陆ssh" class="headerlink" title="(可选择)禁用密码登陆ssh"></a>(可选择)禁用密码登陆ssh</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/ssh/sshd_config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ChallengeResponseAuthentication noPasswordAuthentication noUsePAM no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>保存后，重启ssh</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> <span class="token function">ssh</span> reload<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><h4 id="安装UFW"><a href="#安装UFW" class="headerlink" title="安装UFW"></a>安装UFW</h4><p>Linux 有许多防火墙解决方案。大多数使用底层<a href="https://www.netfilter.org/projects/iptables/index.html">iptable</a>项目来提供数据包过滤，此项目位于 Linux 网络过滤系统上，默认安装在树莓派操作系统上，但未设置，设置它也是一个复杂的任务。<a href="https://www.linux.com/learn/introduction-uncomplicated-firewall-ufw">ufw</a>是一个提供简单界面的防火墙”。这是 Ubuntu 的默认防火墙工具，可轻松安装在树莓派上。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> ufw<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="启用防火墙"><a href="#启用防火墙" class="headerlink" title="启用防火墙"></a>启用防火墙</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw <span class="token builtin class-name">enable</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>由于是通过ssh远程登陆，所以会收到这个回复</p><p><strong>Command may disrupt existing ssh connections. Proceed with operation (y|n)?</strong></p><p>ssh连接可能会被中断，输入<strong>y</strong>，即可。若ssh连接被中断重新登陆就是。</p><h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw disable<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="允许特定端口进入-默认已使用22端口"><a href="#允许特定端口进入-默认已使用22端口" class="headerlink" title="允许特定端口进入(默认已使用22端口)"></a>允许特定端口进入(默认已使用22端口)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw allow <span class="token number">22</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="拒绝某个端口访问-同样以22端口示例"><a href="#拒绝某个端口访问-同样以22端口示例" class="headerlink" title="拒绝某个端口访问(同样以22端口示例)"></a>拒绝某个端口访问(同样以22端口示例)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw deny <span class="token number">22</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="限制给端口提供的服务"><a href="#限制给端口提供的服务" class="headerlink" title="限制给端口提供的服务"></a>限制给端口提供的服务</h4><p>指定允许或拒绝在端口上提供哪些服务。示例：拒绝在端口 22 上使用 tcp：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw deny <span class="token number">22</span>/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="允许ssh通过防火墙访问"><a href="#允许ssh通过防火墙访问" class="headerlink" title="允许ssh通过防火墙访问"></a>允许ssh通过防火墙访问</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw allow <span class="token function">ssh</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="查询防火墙当前状态"><a href="#查询防火墙当前状态" class="headerlink" title="查询防火墙当前状态"></a>查询防火墙当前状态</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw status<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="限制登陆次数"><a href="#限制登陆次数" class="headerlink" title="限制登陆次数"></a>限制登陆次数</h4><p>限制使用 tcp 登录 ssh 端口的尝试：如果 IP 地址在过去 30 秒内尝试连接六次或六次以上，此会拒绝连接</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw limit ssh/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="拒绝ip从某个端口访问-示例"><a href="#拒绝ip从某个端口访问-示例" class="headerlink" title="拒绝ip从某个端口访问(示例)"></a>拒绝ip从某个端口访问(示例)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw deny from <span class="token number">192.168</span>.2.1 port <span class="token number">30</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>在安装完防火墙后，原本部署好的仪表盘无法访问了，原因是：防火墙阻拦了80端口的流量进出，用指令打开即可权限。</p><p>这里我设置成了只允许某个端口输出流量，不允许进入流量</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">用网线联网：sudo ufw allow out on eth0 to any port <span class="token number">80</span> proto tcp用wifi：sudo ufw allow out on wlan0 to any port <span class="token number">80</span> proto tcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>有关UFW具体的操作指南，可以参见此处：<a href="https://www.linux.com/training-tutorials/introduction-uncomplicated-firewall-ufw/">简单防火墙简介 （UFW） - Linux.com</a></p><p>参考文章：<a href="https://www.raspberrypi.org/documentation/computers/configuration.html#configuring-uarts">树莓派文档 - 配置 (raspberrypi.org)</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+
+&lt;h2 id=&quot;提高树莓派安全性&quot;&gt;&lt;a href=&quot;#提高树莓派安全性&quot; class=&quot;headerlink&quot; title=&quot;提</summary>
+      
+    
+    
+    
+    <category term="树莓派" scheme="https://www.kaqiup.xyz/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+    
+    <category term="SSH" scheme="https://www.kaqiup.xyz/tags/SSH/"/>
+    
+    <category term="Linux" scheme="https://www.kaqiup.xyz/tags/Linux/"/>
+    
+    <category term="网络安全" scheme="https://www.kaqiup.xyz/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>树莓派WI-FI配置</title>
+    <link href="https://www.kaqiup.xyz/posts/bca8235e"/>
+    <id>https://www.kaqiup.xyz/posts/bca8235e</id>
+    <published>2021-09-03T14:27:47.000Z</published>
+    <updated>2021-09-03T14:37:53.456Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="树莓派WI-FI配置"><a href="#树莓派WI-FI配置" class="headerlink" title="树莓派WI-FI配置"></a>树莓派WI-FI配置</h3><blockquote><p>一般我们习惯使用明文密码，但着安全性不可靠，官方提供了以ASCII表示密码，操作流程请看下文。</p></blockquote><h4 id="扫描WI-FI"><a href="#扫描WI-FI" class="headerlink" title="扫描WI-FI"></a>扫描WI-FI</h4><pre class="line-numbers language-BASH" data-language="BASH"><code class="language-BASH">sudo iwlist wlan0 scan<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>确定waln列表里有要选择的WI-FI。</p><h4 id="设置WI-FI"><a href="#设置WI-FI" class="headerlink" title="设置WI-FI"></a>设置WI-FI</h4><h5 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h5><blockquote><p>粘贴加密的psk</p></blockquote><ol><li><p>命令行输入</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> raspi-config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>出于监管目的，需要指定设备的使用国。从菜单中选择<strong>本地化选项</strong>项目，然后<strong>从更改无线国家选项</strong>中选择” 更改无线国家/地区选项。按ESC返回到命令行。</p></li><li><p>输入</p> <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wpa_passphrase <span class="token string">"wifi名称"</span> <span class="token string">"wifi密码"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p> 将生成的以ASCII码显示的psk复制下来。</p></li><li><p>命令行输入</p> <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/wpa_supplicant/wpa_supplicant.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p> 进入wpa_supplicant.conf文件，在文末添加，并且将刚刚复制的psk的ASCII码粘贴到psk后边。</p> <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">network</span><span class="token operator">=</span><span class="token punctuation">{</span>    <span class="token assign-left variable">ssid</span><span class="token operator">=</span><span class="token string">"wifi名称"</span>       <span class="token assign-left variable">psk</span><span class="token operator">=</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li></ol><p><img src="https://pic.imgdb.cn/item/6131bbd744eaada739088d3f.png" alt="psk"></p><p>Ctrl＋O保存，回车， Ctrl + X退出编辑。</p><h5 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h5><blockquote><p>将工具的输出重定向到配置文件，在被问及时呼叫并输入密码</p></blockquote><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rootsudo suwpa_passphrase <span class="token string">"wifi名称"</span> <span class="token operator">&gt;&gt;</span> /etc/wpa_supplicant/wpa_supplicant.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>或</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wpa_passphrase <span class="token string">"wifi名称"</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> -a /etc/wpa_supplicant/wpa_supplicant.conf <span class="token operator">&gt;</span> /dev/null/dev/nulltee<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="验证wifi可用性"><a href="#验证wifi可用性" class="headerlink" title="验证wifi可用性"></a>验证wifi可用性</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wpa_cli -i wlan0 reconfigure<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>回复OK，即设置成功了。</p><p>参考链接：<a href="https://www.raspberrypi.org/documentation/computers/configuration.html#configuring-uarts">树莓派文档 - 配置 (raspberrypi.org)</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+
+&lt;h3 id=&quot;树莓派WI-FI配置&quot;&gt;&lt;a href=&quot;#树莓派WI-FI配置&quot; class=&quot;headerlink&quot; titl</summary>
+      
+    
+    
+    
+    <category term="树莓派" scheme="https://www.kaqiup.xyz/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+    
+    <category term="SSH" scheme="https://www.kaqiup.xyz/tags/SSH/"/>
+    
+    <category term="WIFI设置" scheme="https://www.kaqiup.xyz/tags/WIFI%E8%AE%BE%E7%BD%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用网线连接电脑和树莓派</title>
+    <link href="https://www.kaqiup.xyz/posts/a4bbd2e0"/>
+    <id>https://www.kaqiup.xyz/posts/a4bbd2e0</id>
+    <published>2021-09-03T14:18:12.000Z</published>
+    <updated>2021-09-03T14:37:53.454Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="用网线连接电脑和树莓派"><a href="#用网线连接电脑和树莓派" class="headerlink" title="用网线连接电脑和树莓派"></a>用网线连接电脑和树莓派</h3><blockquote><p>背景：windows 10 家庭版，树莓派4B</p></blockquote><h4 id="可能需要的软件"><a href="#可能需要的软件" class="headerlink" title="可能需要的软件"></a>可能需要的软件</h4><p><img src="https://pic.imgdb.cn/item/612f434044eaada739be535d.png" alt="Ip scanner"></p><ul><li><p>IP Scanner：<a href="https://www.advanced-ip-scanner.com/">Advanced IP Scanner</a></p><ul><li>通过搜索字段192.168.137.1-255，找到树莓派当前IP。</li></ul></li><li><p>通过命令行输入：<code>arp -a</code>，找到接口192.168.137.1下第一个IP，即为树莓派IP。</p></li></ul><h4 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h4><ol><li>在windows下打开<code>设置</code>-&gt; <code>网络和Internet</code> -&gt; <code>更改适配器选项</code> -&gt; <code>WLAN</code> -&gt; <code>属性</code> -&gt; <code>共享</code> -&gt;  勾选<code>允许其他网络用户通过此计算机的Internet连接来连接</code></li><li>确定好树莓派IP后，使用ssh工具，这里我用FinalSheel登陆树莓派，正常交互。</li></ol><blockquote><p>有关Finalshell的下载信息请看<a href="https://www.kaqiup.xyz/posts/684d1cd5">树莓派常用工具集 </a>。</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+
+&lt;h3 id=&quot;用网线连接电脑和树莓派&quot;&gt;&lt;a href=&quot;#用网线连接电脑和树莓派&quot; class=&quot;headerlink&quot; ti</summary>
+      
+    
+    
+    
+    <category term="树莓派" scheme="https://www.kaqiup.xyz/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+    
+    <category term="网络共享" scheme="https://www.kaqiup.xyz/tags/%E7%BD%91%E7%BB%9C%E5%85%B1%E4%BA%AB/"/>
+    
+    <category term="windows" scheme="https://www.kaqiup.xyz/tags/windows/"/>
+    
+  </entry>
   
   <entry>
     <title>树莓派常用工具集</title>

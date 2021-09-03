@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="暗影精灵5,黑苹果,BigSur,教程">
+    <meta name="keywords" content="树莓派, Linux, SSH">
     <meta name="description" content="在有尽的岁月,活出无穷的方式,这就是你我">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -27,7 +27,7 @@
 </script>
 
 
-    <title>惠普暗影精灵5黑苹果安装教程 | Kaq&#39;s blog</title>
+    <title>提高树莓派安全性 | Kaq&#39;s blog</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">惠普暗影精灵5黑苹果安装教程</h1>
+                    <h1 class="description center-align post-title">提高树莓派安全性</h1>
                 </div>
             </div>
         </div>
@@ -377,12 +377,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/">
-                                <span class="chip bg-color">黑苹果</span>
+                            <a href="/tags/SSH/">
+                                <span class="chip bg-color">SSH</span>
                             </a>
                         
-                            <a href="/tags/Big-Sur-11-0-1/">
-                                <span class="chip bg-color">Big Sur 11.0.1</span>
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">网络安全</span>
                             </a>
                         
                     </div>
@@ -393,8 +397,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/" class="post-category">
-                                黑苹果
+                            <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/" class="post-category">
+                                树莓派
                             </a>
                         
                     </div>
@@ -406,7 +410,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-22
+                    2021-09-03
                 </div>
                 
 
@@ -417,7 +421,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    4 分
                 </div>
                 
 
@@ -442,224 +446,116 @@
             <div id="articleContent">
                 <script src="\assets\js\APlayer.min.js"> </script><span id="more"></span>
 
-<h2 id="惠普暗影精灵5黑苹果Big-Sur安装教程"><a href="#惠普暗影精灵5黑苹果Big-Sur安装教程" class="headerlink" title="惠普暗影精灵5黑苹果Big Sur安装教程"></a>惠普暗影精灵5黑苹果Big Sur安装教程</h2><blockquote>
-<p>说明：</p>
-<p>由于引导文件和相关资源更新迅猛，文中的信息可能没法及时更新，参考这篇文章时还请注意所用的引导文件和系统版本号是否匹配，以及工具或配置方法是否得当，如果因为错误操作造成了某种程度的损失，<strong>本人概不负责</strong>，请知悉！</p>
+<h2 id="提高树莓派安全性"><a href="#提高树莓派安全性" class="headerlink" title="提高树莓派安全性"></a>提高树莓派安全性</h2><h3 id="更改树莓派用户名"><a href="#更改树莓派用户名" class="headerlink" title="更改树莓派用户名"></a>更改树莓派用户名</h3><blockquote>
+<p>有时候出于安全的考虑，需要更改用户名。</p>
 </blockquote>
-<p>在爬了很多教程贴之后，整体思路并不完整，拼拼凑凑的去理解也很累。很多教程写的很好，但是有些简单的步骤就直接省略了，然而，那些就是会卡住小白的步骤，所以还是打算自己写一次装机的经历。</p>
-<h3 id="暗影5的配置总览"><a href="#暗影5的配置总览" class="headerlink" title="暗影5的配置总览"></a>暗影5的配置总览</h3><table>
-<thead>
-<tr>
-<th>硬件名称</th>
-<th>属性</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>CPU</td>
-<td>i7-9750H</td>
-</tr>
-<tr>
-<td>iGPU</td>
-<td>Intel UHD Graphics 630</td>
-</tr>
-<tr>
-<td>dGPU</td>
-<td>GTX1650</td>
-</tr>
-<tr>
-<td>Audio</td>
-<td>Realtek ALC295</td>
-</tr>
-<tr>
-<td>Disk</td>
-<td>三星MZVLB512HAJQ-000H1 512GB/固态 + WDC WDS500G2B0A-00SM50/512GB固态</td>
-</tr>
-<tr>
-<td>Wireless</td>
-<td>英特尔Wireless-AC 9560</td>
-</tr>
-<tr>
-<td>Ethernet</td>
-<td>Realtek 8111/8168/8411 PCI Express Gigabit Etherne</td>
-</tr>
-</tbody></table>
-<h4 id="硬件支持"><a href="#硬件支持" class="headerlink" title="硬件支持"></a>硬件支持</h4><ul>
-<li>在使用<code>macOS</code>之前，需要先了解下硬件都有哪些限制，也就是哪些硬件是被支持的，哪些是不被支持的。硬件限制相关可以参考<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support">OpenCore Install Guide</a>。</li>
-<li>固态<ul>
-<li>可以参考<a target="_blank" rel="noopener" href="http://k61.org/dac855c6.html">【老吴黑苹果】2021台式机黑苹果完美电脑配置推荐，适用安装黑苹果系统的组装机配置表</a></li>
-</ul>
-</li>
-</ul>
-<h4 id="我的考虑"><a href="#我的考虑" class="headerlink" title="我的考虑"></a>我的考虑</h4><p>在了解了我的电脑自带固态是PM981，我很悲伤，在基于PM981还是加多一个SATA固态的两者性价比衡量下，我选择了买多一个SATA3.0的固态，因为如果把PM981换下来，我的资料需要转移不说，只为了装macos系统，平白无故闲置一张固态实在是可惜，所以我通过<a target="_blank" rel="noopener" href="http://k61.org/diable-pm981-on-hackintosh.html">硬件屏蔽</a>的方法，将PM981屏蔽掉，在新买的西数固态上安装黑苹果。</p>
-<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h4 id="查找适合自己的EFI"><a href="#查找适合自己的EFI" class="headerlink" title="查找适合自己的EFI"></a>查找适合自己的EFI</h4><ul>
-<li>关注黑果小兵部落阁的<a target="_blank" rel="noopener" href="https://blog.daliansky.net/Hackintosh-long-term-maintenance-model-checklist.html">Hackintosh黑苹果长期维护机型整理清单</a>，在上边查找自己的机型时候有案例或教程</li>
-<li>或者在github上以关键词的方式搜索是否有支持类型，例如<code>暗影精灵5+EFI</code>，我这电脑EFI就是这样找的</li>
-</ul>
-<blockquote>
-<p>Tips：</p>
-<p>如果上边两个方式都没找到合适的EFI，可以考虑自己制作，这是<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1kK4y1S74C/?spm_id_from=333.788.b_636f6d6d656e74.6">教程</a>，挺有用的，反正我看完后思路就有了。当然如果你是台式机并且想要自己制作引导，可以参考<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV18V41187JZ?from=search&amp;seid=7248382395549514839">这个</a>。</p>
+<h4 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sido adduser anran<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>将提示您为新用户创建密码。这里新用户名设置成了<strong>anran</strong>，此时新用户将有一个家庭目录在。<code>/home/anran/</code></p>
+<h4 id="添加到组，并授权"><a href="#添加到组，并授权" class="headerlink" title="添加到组，并授权"></a>添加到组，并授权</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">usermod</span> -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi anran<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>尝试以下措施来检查您的权限是否到位</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">su</span> - anran<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果它运行成功，那么可以确定新帐户在组中。</p>
+<h4 id="删除旧用户-系统原用户pi"><a href="#删除旧用户-系统原用户pi" class="headerlink" title="删除旧用户(系统原用户pi)"></a>删除旧用户(系统原用户pi)</h4><p>一旦确认新帐户正常工作，可以删除用户。为此，需要首先关闭其流程。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">pkill</span> -u pi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>请注意，与当前的树莓派操作系统分配，有一些方面要求用户在场。如果不确定自己是否会受到此影响，请将用户保留。</p>
+<p>要删除用户，请键入</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> deluser pi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>此命令将删除用户，但将离开文件夹。如有必要，可以使用下面的命令同时为用户删除主文件夹。请注意，此文件夹中的数据将被永久删除，因此请确保任何所需的数据存储在其他地方。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> deluser -remove-home pi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>此命令将导致警告该组不再有成员。不过，该命令会删除用户和组。</p>
+<h4 id="使sudo需要密码"><a href="#使sudo需要密码" class="headerlink" title="使sudo需要密码"></a>使sudo需要密码</h4><p>默认情况下，以超级用户的身份运行不需要密码。一般来说，这不是问题。但是，如果你的 Pi 暴露在互联网上，并以某种方式被利用（例如，通过网页漏洞利用），攻击者将能够更改需要超级用户凭据的操。所以设置sudo强制需要密码就很必要了。</p>
+<p>在命令行输入：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> visudo /etc/sudoers.d/010_pi-nopasswd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>并将条目（或任何用户名具有超用户权）更改为：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pi <span class="token assign-left variable">ALL</span><span class="token operator">=</span><span class="token punctuation">(</span>ALL<span class="token punctuation">)</span> PASSWD: ALL<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+
+
+<h3 id="提高ssh安全性"><a href="#提高ssh安全性" class="headerlink" title="提高ssh安全性"></a>提高ssh安全性</h3><blockquote>
+<p>SSH 是远程访问树莓派的常见方式。默认情况下，登录 SSH 需要用户名/密码。更安全的方法是使用基于密钥的身份验证。</p>
 </blockquote>
-<h4 id="安装macOS的基本要求"><a href="#安装macOS的基本要求" class="headerlink" title="安装macOS的基本要求"></a>安装macOS的基本要求</h4><blockquote>
-<p>Tips：</p>
-<ul>
-<li>你需要明确实在同一硬盘安装win+macOS，还是在单独的一块硬盘安装macOS并且在装了Win的另一块硬盘进行opencore引导，这会影响你是如何添加引导进硬盘。</li>
-<li>基于我的情况，我选择单独在一块固态上安装Big Sur，能有较好的数据隔离作用。</li>
-</ul>
-</blockquote>
-<ul>
-<li>一个装了Windows系统的硬盘</li>
-<li>一个单独安装macOS Big Sur的硬盘</li>
-<li>一个 8GB 或以上的 U 盘和一个 USB 鼠标和USB键盘</li>
-<li>注意数据备份</li>
-</ul>
-<h4 id="需要下载的东西"><a href="#需要下载的东西" class="headerlink" title="需要下载的东西"></a>需要下载的东西</h4><blockquote>
-<p>Tips: </p>
-<ul>
-<li>为了避免未知的麻烦，我在找到合适暗影5的EFI基础上，下载了成功案例对应的OC引导的版本和相应的系统镜像，如果你和我一样用的是暗影5，而且配置相当，下边的链接应该能帮到你。以下内容全部是基于有现成的EFI文件进行。</li>
-<li>这里用的OpenCore版本是0.6.3，目前最新的已经是0.6.8了，待装好系统并且备份好后再考虑升级opencore版本了</li>
-</ul>
-</blockquote>
-<ul>
-<li><p>OpenCore引导下载，下方链接二选一【OpenCore version: 0.6.3】</p>
-<ul>
-<li><a href="(https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh/tree/main/Big%20Sur)">原下载链接</a></li>
-<li>如果下载速度缓慢，可以参考<a target="_blank" rel="noopener" href="https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/">暗影精灵5之OpenCore引导黑苹果</a>提供的国内加速<a target="_blank" rel="noopener" href="https://down.sky-and-poem.fun/source/static/HP-15-dc1010nr-hackintosh-main.zip">下载链接</a></li>
-</ul>
-</li>
-<li><p>系统镜像</p>
-<ul>
-<li><p>基于有现成的EFI，这里只下载了带CLOVER和PE分区的镜像：</p>
-<ul>
-<li>黑果小兵的<a target="_blank" rel="noopener" href="https://blog.daliansky.net/macOS-BigSur-11.0.1-20B29-Release-version-with-Clover-5126-original-image-Double-EFI-Version-UEFI-and-MBR.html">macOS BigSur 11.0.1 20B50 正式版 with Clover 5126原版镜像[双EFI版][UEFI and MBR]</a></li>
-</ul>
-<blockquote>
-<p>Tips: 如果需要带OC引导的，可以在微信公众号<code>黑果小兵的部落阁</code>里，用手机查看<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/WEp1F4nknCgw9K6NaqEP6g">这篇文章</a>，通过打赏作者获得自动推送的镜像下载链接。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>安装前后要用到的软件：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.balena.io/etcher/">balenaEtecher</a> </li>
-<li><a target="_blank" rel="noopener" href="http://www.diskgenius.cn/">DiskGenius 硬盘分区维护工具</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.smzy.com/smzy/down416541.html">Hasleo EasyUEFI</a> </li>
-</ul>
-</li>
-</ul>
-<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><blockquote>
-<p>OC版本：OpenCore version:0.6.3</p>
-<p>系统镜像: macOS Big Sur 11.0.1 20B50 Installer for CLOVER 5126 and OpenCore 0.6.3 and PE三EFI分区原版镜像</p>
-</blockquote>
-<h4 id="U盘制作"><a href="#U盘制作" class="headerlink" title="U盘制作"></a>U盘制作</h4><p>用下载好的<a target="_blank" rel="noopener" href="https://etcher.io/">etcher</a>，打开镜像，选择U盘，点击Flash即可。<strong>Windows10需要以管理员权限运行</strong></p>
-<p><img src="https://images.daliansky.net/d/YmBXVA8q/blog/etcher.png?download=1" alt="Etcher"></p>
-<h4 id="替换EFI"><a href="#替换EFI" class="headerlink" title="替换EFI"></a>替换EFI</h4><blockquote>
-<p>Tips:</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh">暗影5的成功案例</a>有提醒，要在安装macOS前替换OC文件，否则会出现<code>Stuck on OCB: LoadImage failed - Security Violation</code>的错误。</p>
-</li>
-<li><p>以下基于带Opencore/clover/pe三分区的版本</p>
-</li>
-</ul>
-</blockquote>
+<h4 id="改进用户名-密码安全性"><a href="#改进用户名-密码安全性" class="headerlink" title="改进用户名/密码安全性"></a>改进用户名/密码安全性</h4><p>上文有提及。这里不赘述。</p>
+<h4 id="更改配置来允许或拒绝特定用户"><a href="#更改配置来允许或拒绝特定用户" class="headerlink" title="更改配置来允许或拒绝特定用户"></a>更改配置<strong>来允许</strong>或<strong>拒绝</strong>特定用户</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/ssh/sshd_config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>这里提供windows下，ssh远程登陆的方法</p>
 <ol>
-<li>打开DiskGenius</li>
-<li>删除U盘里EFI目录下的所有文件</li>
-<li>将OC目录下BOOT和OC文件copy到EFI分区下</li>
-<li>将OC分区删除</li>
-<li>最终只保留OC分区和必要的PE分区（方便出现问题进行修复）</li>
-</ol>
-<p><img src="https://img.imgdb.cn/item/608103fd563420b6475a7819.png" alt="image-20210422130417643"></p>
-<p>到这里U盘的操作告一段落</p>
-<h4 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h4><blockquote>
-<p>在进行安装前，在Win下将要安装macOS的目标磁盘分区</p>
-</blockquote>
-<ol>
-<li><p>借助DiskGenius</p>
+<li><p>检查用来连接树莓派的计算机上是否已经有密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">dir</span> ~/.ssh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果存在，则会返回<code>id_rsa  id_rsa.pub  known_hosts</code>类似信息，可以跳到第三步。</p>
 </li>
-<li><p>过程过程如下</p>
+<li><p>没有密钥的情况下，在有安装git的情况下，打开git bash</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-keygen<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>生成密钥</p>
 </li>
-</ol>
-<p><img src="https://img.imgdb.cn/item/60806c8499525621145917bf.png"></p>
-<ol start="3">
-<li>设置完，重启修改BIOS启动项，可以插上U盘直接怼。</li>
-</ol>
-<blockquote>
-<p>Tips: 箭头4需要创建一个ESP分区，分区大小&gt;=300M，可以不要MSR分区，我这里应该搞错了。</p>
-</blockquote>
-<h4 id="设置BIOS及开始安装镜像"><a href="#设置BIOS及开始安装镜像" class="headerlink" title="设置BIOS及开始安装镜像"></a>设置BIOS及开始安装镜像</h4><blockquote>
-<p>基于暗影5的情况，其他机型这里不考虑，开机按F10进BIOS</p>
-</blockquote>
-<ol>
-<li><p>设置成中文，方便查看</p>
+<li><p>将公钥发送到树莓派上</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-copy-id 树莓派用户名@树莓派ip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>回复*<em>Are you sure you want to continue connecting ?</em>  ， 输入yes，回车即可</p>
 </li>
-<li><p><img src="https://img.imgdb.cn/item/60806dfe995256211460b4fb.png" alt="image-20210422022440697"></p>
-</li>
-<li><p><img src="https://img.imgdb.cn/item/60806e67995256211462f976.png" alt="image-20210422022636837"></p>
-</li>
-<li><p>操作系统的启动管理员 &gt; 按回车</p>
-</li>
-<li><p>选择U盘启动</p>
-</li>
-<li><p>F10保存退出</p>
-</li>
-<li><p>重启后按F9进入opencore引导界面</p>
-</li>
-<li><p>选择Install Big Sur</p>
-</li>
-<li><p>磁盘分区</p>
-<ol>
-<li>将整个目标硬盘抹除</li>
-<li>安装macOS</li>
-</ol>
+<li><p>之后退出登陆利用ssh登陆工具，设置密钥登陆，输入树莓派的用户名，即可登陆成功了。</p>
 </li>
 </ol>
-<p>整个过程十分舒畅，没有卡在哪个位置，期间出现的几次重启是安装进程中正常重启，由于还没有把EFI添加进硬盘进行引导，期间出现的重启如果没按F9重新引导进opencore界面，会直接回到win启动进程，如果出现了这种情况，重启，按F9。详细的安装过程可以参考<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/le34oz5sGfydJ12v6V0S-g">这篇文章</a>。</p>
-<h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://img.imgdb.cn/item/60810848563420b647871a60.png" alt="image-20210422131958399"></h4><p><img src="https://img.imgdb.cn/item/60810848563420b647871a71.png" alt="image-20210422132218889"></p>
-<p><img src="https://img.imgdb.cn/item/60810848563420b647871a83.png" alt="image-20210422132233619"></p>
-<p><img src="https://img.imgdb.cn/item/60810848563420b647871a93.png" alt="image-20210422132239786"></p>
-<p><img src="https://img.imgdb.cn/item/60810848563420b647871abe.png" alt="image-20210422132245554"></p>
-<p>到这一步也差不多了，但还有一些工作要做，</p>
-<ul>
-<li><p>由于有PM981的缘故，安装完成进入系统后首先屏蔽<a target="_blank" rel="noopener" href="http://k61.org/diable-pm981-on-hackintosh.html">PM981</a></p>
-</li>
-<li><p>重建缓存，参考<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A">Big Sur安装教程 Part 2</a>里部分内容。</p>
-<ul>
-<li><p>先打开终端，输入几行命令：</p>
- <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> spctl --master-disable		<span class="token comment"># 启用macOS安装应用允许任何来源</span>
-<span class="token function">sudo</span> kextcache -i /				<span class="token comment"># 重建缓存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>如果出于某些原因，在<code>/System/Library/Extensions/</code>或者<code>/Library/Extensions/</code>修改了某些驱动，请使用以下命令重建缓存：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">chown</span> -R root:wheel /System/Library/Extensions/
-<span class="token function">sudo</span> <span class="token function">chmod</span> -R <span class="token number">755</span> /System/Library/Extensions/
-<span class="token function">sudo</span> kmutil <span class="token function">install</span> --update-all
-<span class="token function">sudo</span> kcditto<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h4 id="设置硬盘引导"><a href="#设置硬盘引导" class="headerlink" title="设置硬盘引导"></a>设置硬盘引导</h4><blockquote>
-<p>之前一直是U盘引导，现在脱离U盘，在硬盘进行引导。</p>
-</blockquote>
-<ol>
-<li>用DiskGenius将U盘的EFI目录下BOOT和OC文件复制到Windows所在盘的EFI文件下</li>
-<li><img src="https://img.imgdb.cn/item/6080713699525621146fce2a.png" alt="image-20210422023834308"></li>
-<li>打开EasyUEFI，把opencore的顺序调到第一位</li>
-</ol>
-<p>到这里整个过程就完成了，重启后会进入OC引导界面，整个过程包括写这篇花了好长时间（致敬那些原创的教程作者，真的很不容易！！），这可能也是以前很不喜欢做笔记的原因。但如果不记录下来，之后如果还想重新接触，就发现忘的差不多了。而在做记录的过程中，也在不断强化记忆，反正现在闭着眼睛都知道整个过程要怎么搞了（除了自己配置OC哈哈）</p>
-<h3 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h3><ul>
-<li>建议在系统安装完后，并且能正常用，可以回到Windows，用<code>Paragon Hard Disk Manager™ </code>将整个系统打包，存在某处，以便之后系统出了问题，快速恢复。教程网上很容易找，这里就不推了（懒）。</li>
-<li>唉，还是建议还是换掉PM981，否则用起来还是像旁边有个炸弹，不知道什么时候会出现<code>内核崩溃</code>的惨状，开机不挂载的方法也不知道是否有效果的。</li>
-</ul>
-<h3 id="参考和引用"><a href="#参考和引用" class="headerlink" title="参考和引用"></a>参考和引用</h3><p><a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support">https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.daliansky.net/">https://blog.daliansky.net/</a></p>
-<p><a target="_blank" rel="noopener" href="https://hackintosh.kirainmoe.com/">https://hackintosh.kirainmoe.com/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cpuid.com/softwares/cpu-z.html">https://www.cpuid.com/softwares/cpu-z.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.daliansky.net/OpenCore-BootLoader.html">https://blog.daliansky.net/OpenCore-BootLoader.html</a></p>
-<p><a target="_blank" rel="noopener" href="http://k61.org/dac855c6.html">http://k61.org/dac855c6.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh/tree/main/Big%20Sur">https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh/tree/main/Big%20Sur</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/">https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/</a></p>
-<p><a target="_blank" rel="noopener" href="https://down.sky-and-poem.fun/source/static/HP-15-dc1010nr-hackintosh-main.zip">https://down.sky-and-poem.fun/source/static/HP-15-dc1010nr-hackintosh-main.zip</a></p>
-<p><a target="_blank" rel="noopener" href="https://etcher.io/">https://etcher.io</a></p>
-<p><a target="_blank" rel="noopener" href="http://k61.org/diable-pm981-on-hackintosh.html">http://k61.org/diable-pm981-on-hackintosh.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A">https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A</a></p>
+<h4 id="可选择-禁用密码登陆ssh"><a href="#可选择-禁用密码登陆ssh" class="headerlink" title="(可选择)禁用密码登陆ssh"></a>(可选择)禁用密码登陆ssh</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/ssh/sshd_config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ChallengeResponseAuthentication no
+PasswordAuthentication no
+UsePAM no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>保存后，重启ssh</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> <span class="token function">ssh</span> reload<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><h4 id="安装UFW"><a href="#安装UFW" class="headerlink" title="安装UFW"></a>安装UFW</h4><p>Linux 有许多防火墙解决方案。大多数使用底层<a target="_blank" rel="noopener" href="https://www.netfilter.org/projects/iptables/index.html">iptable</a>项目来提供数据包过滤，此项目位于 Linux 网络过滤系统上，默认安装在树莓派操作系统上，但未设置，设置它也是一个复杂的任务。<a target="_blank" rel="noopener" href="https://www.linux.com/learn/introduction-uncomplicated-firewall-ufw">ufw</a>是一个提供简单界面的防火墙”。这是 Ubuntu 的默认防火墙工具，可轻松安装在树莓派上。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> ufw<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="启用防火墙"><a href="#启用防火墙" class="headerlink" title="启用防火墙"></a>启用防火墙</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw <span class="token builtin class-name">enable</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>由于是通过ssh远程登陆，所以会收到这个回复</p>
+<p><strong>Command may disrupt existing ssh connections. Proceed with operation (y|n)?</strong></p>
+<p>ssh连接可能会被中断，输入<strong>y</strong>，即可。若ssh连接被中断重新登陆就是。</p>
+<h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw disable<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="允许特定端口进入-默认已使用22端口"><a href="#允许特定端口进入-默认已使用22端口" class="headerlink" title="允许特定端口进入(默认已使用22端口)"></a>允许特定端口进入(默认已使用22端口)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw allow <span class="token number">22</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="拒绝某个端口访问-同样以22端口示例"><a href="#拒绝某个端口访问-同样以22端口示例" class="headerlink" title="拒绝某个端口访问(同样以22端口示例)"></a>拒绝某个端口访问(同样以22端口示例)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw deny <span class="token number">22</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="限制给端口提供的服务"><a href="#限制给端口提供的服务" class="headerlink" title="限制给端口提供的服务"></a>限制给端口提供的服务</h4><p>指定允许或拒绝在端口上提供哪些服务。示例：拒绝在端口 22 上使用 tcp：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw deny <span class="token number">22</span>/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="允许ssh通过防火墙访问"><a href="#允许ssh通过防火墙访问" class="headerlink" title="允许ssh通过防火墙访问"></a>允许ssh通过防火墙访问</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw allow <span class="token function">ssh</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="查询防火墙当前状态"><a href="#查询防火墙当前状态" class="headerlink" title="查询防火墙当前状态"></a>查询防火墙当前状态</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw status<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="限制登陆次数"><a href="#限制登陆次数" class="headerlink" title="限制登陆次数"></a>限制登陆次数</h4><p>限制使用 tcp 登录 ssh 端口的尝试：如果 IP 地址在过去 30 秒内尝试连接六次或六次以上，此会拒绝连接</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw limit ssh/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="拒绝ip从某个端口访问-示例"><a href="#拒绝ip从某个端口访问-示例" class="headerlink" title="拒绝ip从某个端口访问(示例)"></a>拒绝ip从某个端口访问(示例)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw deny from <span class="token number">192.168</span>.2.1 port <span class="token number">30</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>在安装完防火墙后，原本部署好的仪表盘无法访问了，原因是：防火墙阻拦了80端口的流量进出，用指令打开即可权限。</p>
+<p>这里我设置成了只允许某个端口输出流量，不允许进入流量</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">用网线联网：sudo ufw allow out on eth0 to any port <span class="token number">80</span> proto tcp
+用wifi：sudo ufw allow out on wlan0 to any port <span class="token number">80</span> proto tcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
+<p>有关UFW具体的操作指南，可以参见此处：<a target="_blank" rel="noopener" href="https://www.linux.com/training-tutorials/introduction-uncomplicated-firewall-ufw/">简单防火墙简介 （UFW） - Linux.com</a></p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/documentation/computers/configuration.html#configuring-uarts">树莓派文档 - 配置 (raspberrypi.org)</a></p>
 
                 
             </div>
@@ -674,12 +570,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/">
-                                    <span class="chip bg-color">黑苹果</span>
+                                <a href="/tags/SSH/">
+                                    <span class="chip bg-color">SSH</span>
                                 </a>
                             
-                                <a href="/tags/Big-Sur-11-0-1/">
-                                    <span class="chip bg-color">Big Sur 11.0.1</span>
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">网络安全</span>
                                 </a>
                             
                         </div>
@@ -1126,54 +1026,56 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/posts/c8cc8a0b">
+                <a href="/posts/b3e38cc1">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="记录一次新硬盘迁移系统的经历">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="提高树莓派安全性">
                         
-                        <span class="card-title">记录一次新硬盘迁移系统的经历</span>
+                        <span class="card-title">提高树莓派安全性</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            记录一次新硬盘迁移系统的经历
+                            提高树莓派安全性
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/" class="post-category">
-                                    黑苹果
+                            <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/" class="post-category">
+                                    树莓派
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/">
-                        <span class="chip bg-color">黑苹果</span>
+                    <a href="/tags/SSH/">
+                        <span class="chip bg-color">SSH</span>
                     </a>
                     
-                    <a href="/tags/%E7%B3%BB%E7%BB%9F%E5%85%8B%E9%9A%86/">
-                        <span class="chip bg-color">系统克隆</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
-                    <a href="/tags/%E6%9A%97%E5%BD%B1%E7%B2%BE%E7%81%B55/">
-                        <span class="chip bg-color">暗影精灵5</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">网络安全</span>
                     </a>
                     
                 </div>
@@ -1187,31 +1089,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/7bbb944c">
+                <a href="/posts/bca8235e">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Atom编辑器">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="树莓派WI-FI配置">
                         
-                        <span class="card-title">Atom编辑器</span>
+                        <span class="card-title">树莓派WI-FI配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍Atom编辑器的汉化方法
+                            树莓派WI-FI配置
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-03
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6/" class="post-category">
-                                    软件
+                            <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/" class="post-category">
+                                    树莓派
                                 </a>
                             
                             
@@ -1221,8 +1123,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Atom/">
-                        <span class="chip bg-color">Atom</span>
+                    <a href="/tags/SSH/">
+                        <span class="chip bg-color">SSH</span>
+                    </a>
+                    
+                    <a href="/tags/WIFI%E8%AE%BE%E7%BD%AE/">
+                        <span class="chip bg-color">WIFI设置</span>
                     </a>
                     
                 </div>
