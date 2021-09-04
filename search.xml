@@ -1,281 +1,730 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>提高树莓派安全性</title>
-      <link href="posts/b3e38cc1.html"/>
-      <url>posts/b3e38cc1.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h2 id="提高树莓派安全性"><a href="#提高树莓派安全性" class="headerlink" title="提高树莓派安全性"></a>提高树莓派安全性</h2><h3 id="更改树莓派用户名"><a href="#更改树莓派用户名" class="headerlink" title="更改树莓派用户名"></a>更改树莓派用户名</h3><blockquote><p>有时候出于安全的考虑，需要更改用户名。</p></blockquote><h4 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sido adduser anran<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>将提示您为新用户创建密码。这里新用户名设置成了<strong>anran</strong>，此时新用户将有一个家庭目录在。<code>/home/anran/</code></p><h4 id="添加到组，并授权"><a href="#添加到组，并授权" class="headerlink" title="添加到组，并授权"></a>添加到组，并授权</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">usermod</span> -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi anran<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>尝试以下措施来检查您的权限是否到位</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">su</span> - anran<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>如果它运行成功，那么可以确定新帐户在组中。</p><h4 id="删除旧用户-系统原用户pi"><a href="#删除旧用户-系统原用户pi" class="headerlink" title="删除旧用户(系统原用户pi)"></a>删除旧用户(系统原用户pi)</h4><p>一旦确认新帐户正常工作，可以删除用户。为此，需要首先关闭其流程。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">pkill</span> -u pi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>请注意，与当前的树莓派操作系统分配，有一些方面要求用户在场。如果不确定自己是否会受到此影响，请将用户保留。</p><p>要删除用户，请键入</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> deluser pi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>此命令将删除用户，但将离开文件夹。如有必要，可以使用下面的命令同时为用户删除主文件夹。请注意，此文件夹中的数据将被永久删除，因此请确保任何所需的数据存储在其他地方。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> deluser -remove-home pi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>此命令将导致警告该组不再有成员。不过，该命令会删除用户和组。</p><h4 id="使sudo需要密码"><a href="#使sudo需要密码" class="headerlink" title="使sudo需要密码"></a>使sudo需要密码</h4><p>默认情况下，以超级用户的身份运行不需要密码。一般来说，这不是问题。但是，如果你的 Pi 暴露在互联网上，并以某种方式被利用（例如，通过网页漏洞利用），攻击者将能够更改需要超级用户凭据的操。所以设置sudo强制需要密码就很必要了。</p><p>在命令行输入：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> visudo /etc/sudoers.d/010_pi-nopasswd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>并将条目（或任何用户名具有超用户权）更改为：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pi <span class="token assign-left variable">ALL</span><span class="token operator">=</span><span class="token punctuation">(</span>ALL<span class="token punctuation">)</span> PASSWD: ALL<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="提高ssh安全性"><a href="#提高ssh安全性" class="headerlink" title="提高ssh安全性"></a>提高ssh安全性</h3><blockquote><p>SSH 是远程访问树莓派的常见方式。默认情况下，登录 SSH 需要用户名/密码。更安全的方法是使用基于密钥的身份验证。</p></blockquote><h4 id="改进用户名-密码安全性"><a href="#改进用户名-密码安全性" class="headerlink" title="改进用户名/密码安全性"></a>改进用户名/密码安全性</h4><p>上文有提及。这里不赘述。</p><h4 id="更改配置来允许或拒绝特定用户"><a href="#更改配置来允许或拒绝特定用户" class="headerlink" title="更改配置来允许或拒绝特定用户"></a>更改配置<strong>来允许</strong>或<strong>拒绝</strong>特定用户</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/ssh/sshd_config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>这里提供windows下，ssh远程登陆的方法</p><ol><li><p>检查用来连接树莓派的计算机上是否已经有密钥</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">dir</span> ~/.ssh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>如果存在，则会返回<code>id_rsa  id_rsa.pub  known_hosts</code>类似信息，可以跳到第三步。</p></li><li><p>没有密钥的情况下，在有安装git的情况下，打开git bash</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-keygen<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>生成密钥</p></li><li><p>将公钥发送到树莓派上</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-copy-id 树莓派用户名@树莓派ip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>回复*<em>Are you sure you want to continue connecting ?</em>  ， 输入yes，回车即可</p></li><li><p>之后退出登陆利用ssh登陆工具，设置密钥登陆，输入树莓派的用户名，即可登陆成功了。</p></li></ol><h4 id="可选择-禁用密码登陆ssh"><a href="#可选择-禁用密码登陆ssh" class="headerlink" title="(可选择)禁用密码登陆ssh"></a>(可选择)禁用密码登陆ssh</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/ssh/sshd_config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ChallengeResponseAuthentication noPasswordAuthentication noUsePAM no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>保存后，重启ssh</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> <span class="token function">ssh</span> reload<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><h4 id="安装UFW"><a href="#安装UFW" class="headerlink" title="安装UFW"></a>安装UFW</h4><p>Linux 有许多防火墙解决方案。大多数使用底层<a href="https://www.netfilter.org/projects/iptables/index.html">iptable</a>项目来提供数据包过滤，此项目位于 Linux 网络过滤系统上，默认安装在树莓派操作系统上，但未设置，设置它也是一个复杂的任务。<a href="https://www.linux.com/learn/introduction-uncomplicated-firewall-ufw">ufw</a>是一个提供简单界面的防火墙”。这是 Ubuntu 的默认防火墙工具，可轻松安装在树莓派上。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> ufw<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="启用防火墙"><a href="#启用防火墙" class="headerlink" title="启用防火墙"></a>启用防火墙</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw <span class="token builtin class-name">enable</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>由于是通过ssh远程登陆，所以会收到这个回复</p><p><strong>Command may disrupt existing ssh connections. Proceed with operation (y|n)?</strong></p><p>ssh连接可能会被中断，输入<strong>y</strong>，即可。若ssh连接被中断重新登陆就是。</p><h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw disable<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="允许特定端口进入-默认已使用22端口"><a href="#允许特定端口进入-默认已使用22端口" class="headerlink" title="允许特定端口进入(默认已使用22端口)"></a>允许特定端口进入(默认已使用22端口)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw allow <span class="token number">22</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="拒绝某个端口访问-同样以22端口示例"><a href="#拒绝某个端口访问-同样以22端口示例" class="headerlink" title="拒绝某个端口访问(同样以22端口示例)"></a>拒绝某个端口访问(同样以22端口示例)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw deny <span class="token number">22</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="限制给端口提供的服务"><a href="#限制给端口提供的服务" class="headerlink" title="限制给端口提供的服务"></a>限制给端口提供的服务</h4><p>指定允许或拒绝在端口上提供哪些服务。示例：拒绝在端口 22 上使用 tcp：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw deny <span class="token number">22</span>/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="允许ssh通过防火墙访问"><a href="#允许ssh通过防火墙访问" class="headerlink" title="允许ssh通过防火墙访问"></a>允许ssh通过防火墙访问</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw allow <span class="token function">ssh</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="查询防火墙当前状态"><a href="#查询防火墙当前状态" class="headerlink" title="查询防火墙当前状态"></a>查询防火墙当前状态</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw status<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="限制登陆次数"><a href="#限制登陆次数" class="headerlink" title="限制登陆次数"></a>限制登陆次数</h4><p>限制使用 tcp 登录 ssh 端口的尝试：如果 IP 地址在过去 30 秒内尝试连接六次或六次以上，此会拒绝连接</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw limit ssh/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="拒绝ip从某个端口访问-示例"><a href="#拒绝ip从某个端口访问-示例" class="headerlink" title="拒绝ip从某个端口访问(示例)"></a>拒绝ip从某个端口访问(示例)</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw deny from <span class="token number">192.168</span>.2.1 port <span class="token number">30</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>在安装完防火墙后，原本部署好的仪表盘无法访问了，原因是：防火墙阻拦了80端口的流量进出，用指令打开即可权限。</p><p>这里我设置成了只允许某个端口输出流量，不允许进入流量</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">用网线联网：sudo ufw allow out on eth0 to any port <span class="token number">80</span> proto tcp用wifi：sudo ufw allow out on wlan0 to any port <span class="token number">80</span> proto tcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>有关UFW具体的操作指南，可以参见此处：<a href="https://www.linux.com/training-tutorials/introduction-uncomplicated-firewall-ufw/">简单防火墙简介 （UFW） - Linux.com</a></p><p>参考文章：<a href="https://www.raspberrypi.org/documentation/computers/configuration.html#configuring-uarts">树莓派文档 - 配置 (raspberrypi.org)</a></p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>Atom编辑器</title>
+    <url>/posts/7bbb944c.html</url>
+    <content><![CDATA[ 
+Atom编辑器Atom 可以说是专门为程序员推出的一个文本编辑器，界面简洁，支持实时预览。功能非常多，除了Markdown同时支持CSS，HTML，JavaScript等网页编程语言，还支持宏定义，自动分屏功能等。Atom还具有语义输入模式，比例输入code即会自动开启代码模式。
+Atom支持windows、苹果、linux等多种操作系统。Atom是由著名的github平台出品的。
+Atom是独立的软件，也支持插件方式。
+更多介绍及下载：https://atom.io/
+汉化有关汉化的操作网上有很多教程， 这里简化了一个行之有效的方法去汉化这个Atom。可以直接下载好的Atom里下载相应的汉化包，具体步骤如下：
+
+File &gt; Settings &gt; install &gt; 搜索chinese插件 &gt; Simplified Chinese Menu &gt; 安装
+
+安装成功即生效
+]]></content>
       <categories>
-          
-          <category> 树莓派 </category>
-          
+        <category>软件</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> SSH </tag>
-            
-            <tag> Linux </tag>
-            
-            <tag> 网络安全 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>树莓派WI-FI配置</title>
-      <link href="posts/bca8235e.html"/>
-      <url>posts/bca8235e.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="树莓派WI-FI配置"><a href="#树莓派WI-FI配置" class="headerlink" title="树莓派WI-FI配置"></a>树莓派WI-FI配置</h3><blockquote><p>一般我们习惯使用明文密码，但着安全性不可靠，官方提供了以ASCII表示密码，操作流程请看下文。</p></blockquote><h4 id="扫描WI-FI"><a href="#扫描WI-FI" class="headerlink" title="扫描WI-FI"></a>扫描WI-FI</h4><pre class="line-numbers language-BASH" data-language="BASH"><code class="language-BASH">sudo iwlist wlan0 scan<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>确定waln列表里有要选择的WI-FI。</p><h4 id="设置WI-FI"><a href="#设置WI-FI" class="headerlink" title="设置WI-FI"></a>设置WI-FI</h4><h5 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h5><blockquote><p>粘贴加密的psk</p></blockquote><ol><li><p>命令行输入</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> raspi-config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>出于监管目的，需要指定设备的使用国。从菜单中选择<strong>本地化选项</strong>项目，然后<strong>从更改无线国家选项</strong>中选择” 更改无线国家/地区选项。按ESC返回到命令行。</p></li><li><p>输入</p> <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wpa_passphrase <span class="token string">"wifi名称"</span> <span class="token string">"wifi密码"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p> 将生成的以ASCII码显示的psk复制下来。</p></li><li><p>命令行输入</p> <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/wpa_supplicant/wpa_supplicant.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p> 进入wpa_supplicant.conf文件，在文末添加，并且将刚刚复制的psk的ASCII码粘贴到psk后边。</p> <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">network</span><span class="token operator">=</span><span class="token punctuation">{</span>    <span class="token assign-left variable">ssid</span><span class="token operator">=</span><span class="token string">"wifi名称"</span>       <span class="token assign-left variable">psk</span><span class="token operator">=</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li></ol><p><img src="https://pic.imgdb.cn/item/6131bbd744eaada739088d3f.png" alt="psk"></p><p>Ctrl＋O保存，回车， Ctrl + X退出编辑。</p><h5 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h5><blockquote><p>将工具的输出重定向到配置文件，在被问及时呼叫并输入密码</p></blockquote><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rootsudo suwpa_passphrase <span class="token string">"wifi名称"</span> <span class="token operator">&gt;&gt;</span> /etc/wpa_supplicant/wpa_supplicant.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>或</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wpa_passphrase <span class="token string">"wifi名称"</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> -a /etc/wpa_supplicant/wpa_supplicant.conf <span class="token operator">&gt;</span> /dev/null/dev/nulltee<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h4 id="验证wifi可用性"><a href="#验证wifi可用性" class="headerlink" title="验证wifi可用性"></a>验证wifi可用性</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wpa_cli -i wlan0 reconfigure<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>回复OK，即设置成功了。</p><p>参考链接：<a href="https://www.raspberrypi.org/documentation/computers/configuration.html#configuring-uarts">树莓派文档 - 配置 (raspberrypi.org)</a></p>]]></content>
-      
-      
+      <tags>
+        <tag>Atom</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>优化篇</title>
+    <url>/posts/b0a72714.html</url>
+    <content><![CDATA[ 
+
+
+更新记录
+上线哔哔功能,可在微信“黑石哔哔”中实时发动态到博客中
+评论区改用livere,也试过valine或者twitoo,要么出现哔哔功能不正常要么出现评论栏展开失败的情况
+优化about页面,将文章统计图与分类的标签云合并,而About界面保留相册浏览
+全局修改字体（思源宋体）
+修改主页和说说的icon
+尝试过在About界面投放个人介绍,css样式没做好,单纯的文字堆砌也就没意思了
+增加消息订阅通知
+
+记录一个部署时遇到的错误C:\hexoBlog\new\node_modules\hexo-web-push-notification\node_modules\node-fetch\lib\index.js:272
+    return Body.Promise.reject(new FetchError(`invalid json response body at ${_this2.url} reason: ${err.message}`, 'invalid-json'));
+    FetchError: invalid json response body at http://www.kaqiup.xyz/newPost.json reason: Unexpected token &lt; in JSON at position 0
+    at C:\hexoBlog\new\node_modules\hexo-web-push-notification\node_modules\node-fetch\lib\index.js:272:32
+    at processTicksAndRejections (node:internal/process/task_queues:94:5)
+    at async Hexo.&lt;anonymous&gt; (C:\hexoBlog\new\node_modules\hexo-web-push-notification\index.js:36:29) {
+  type: 'invalid-json'
+}
+
+
+暂时没有解决办法，求解决的话可能就得深入了解了。
+
+]]></content>
       <categories>
-          
-          <category> 树莓派 </category>
-          
+        <category>更新日志</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> SSH </tag>
-            
-            <tag> WIFI设置 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>用网线连接电脑和树莓派</title>
-      <link href="posts/a4bbd2e0.html"/>
-      <url>posts/a4bbd2e0.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="用网线连接电脑和树莓派"><a href="#用网线连接电脑和树莓派" class="headerlink" title="用网线连接电脑和树莓派"></a>用网线连接电脑和树莓派</h3><blockquote><p>背景：windows 10 家庭版，树莓派4B</p></blockquote><h4 id="可能需要的软件"><a href="#可能需要的软件" class="headerlink" title="可能需要的软件"></a>可能需要的软件</h4><p><img src="https://pic.imgdb.cn/item/612f434044eaada739be535d.png" alt="Ip scanner"></p><ul><li><p>IP Scanner：<a href="https://www.advanced-ip-scanner.com/">Advanced IP Scanner</a></p><ul><li>通过搜索字段192.168.137.1-255，找到树莓派当前IP。</li></ul></li><li><p>通过命令行输入：<code>arp -a</code>，找到接口192.168.137.1下第一个IP，即为树莓派IP。</p></li></ul><h4 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h4><ol><li>在windows下打开<code>设置</code>-&gt; <code>网络和Internet</code> -&gt; <code>更改适配器选项</code> -&gt; <code>WLAN</code> -&gt; <code>属性</code> -&gt; <code>共享</code> -&gt;  勾选<code>允许其他网络用户通过此计算机的Internet连接来连接</code></li><li>确定好树莓派IP后，使用ssh工具，这里我用FinalSheel登陆树莓派，正常交互。</li></ol><blockquote><p>有关Finalshell的下载信息请看<a href="https://www.kaqiup.xyz/posts/684d1cd5">树莓派常用工具集 </a>。</p></blockquote>]]></content>
-      
-      
+      <tags>
+        <tag>hexo</tag>
+        <tag>Matery</tag>
+        <tag>优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于这个博客</title>
+    <url>/posts/1c06.html</url>
+    <content><![CDATA[ 
+
+关于我作为一个毕业两年有余，搞嵌入式開發。
+有关博客的定调这个博客的节奏就是：杂谈、学习分享、故事、阅读的类型，此后博文的内容应该也会大致在这范围内。
+]]></content>
       <categories>
-          
-          <category> 树莓派 </category>
-          
+        <category>日志</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 网络共享 </tag>
-            
-            <tag> windows </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>树莓派常用工具集</title>
-      <link href="posts/684d1cd5.html"/>
-      <url>posts/684d1cd5.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="树莓派常用工具集"><a href="#树莓派常用工具集" class="headerlink" title="树莓派常用工具集"></a>树莓派常用工具集</h3><p>官方镜像烧写工具：[Raspberry Pi Imager](<a href="https://www.raspberrypi.org/software/">Raspberry Pi OS – Raspberry Pi</a>)</p><p>Etcher：<a href="https://www.balena.io/etcher/">balenaEtcher</a></p><p>SSH工具,服务器管理,远程桌面SSH工具 客户端：<a href="http://www.hostbuf.com/t/988.html">FinalShell</a></p><p>FTP传输软件：<a href="https://filezilla-project.org/">FileZilla</a></p><p>Barrier不同平台共享鼠标和键盘的解决方案：<a href="https://github.com/debauchee/barrier/releases/tag/v2.3.3">Barrier</a></p><blockquote><p>被Barrier惊艳到了，太帅了哈哈</p></blockquote><p>SD卡格式化工具：<a href="https://make.quwj.com/bookmark/80/go">SD Formatter for SD/SDHC/SDXC</a></p><p>待更新….</p>]]></content>
-      
-      
+      <tags>
+        <tag>博客简介</tag>
+        <tag>关于我</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>惠普暗影精灵5黑苹果安装教程</title>
+    <url>/posts/100b5772.html</url>
+    <content><![CDATA[ 
+
+惠普暗影精灵5黑苹果Big Sur安装教程
+说明：
+由于引导文件和相关资源更新迅猛，文中的信息可能没法及时更新，参考这篇文章时还请注意所用的引导文件和系统版本号是否匹配，以及工具或配置方法是否得当，如果因为错误操作造成了某种程度的损失，本人概不负责，请知悉！
+
+在爬了很多教程贴之后，整体思路并不完整，拼拼凑凑的去理解也很累。很多教程写的很好，但是有些简单的步骤就直接省略了，然而，那些就是会卡住小白的步骤，所以还是打算自己写一次装机的经历。
+暗影5的配置总览
+
+
+硬件名称
+属性
+
+
+
+CPU
+i7-9750H
+
+
+iGPU
+Intel UHD Graphics 630
+
+
+dGPU
+GTX1650
+
+
+Audio
+Realtek ALC295
+
+
+Disk
+三星MZVLB512HAJQ-000H1 512GB/固态 + WDC WDS500G2B0A-00SM50/512GB固态
+
+
+Wireless
+英特尔Wireless-AC 9560
+
+
+Ethernet
+Realtek 8111/8168/8411 PCI Express Gigabit Etherne
+
+
+硬件支持
+在使用macOS之前，需要先了解下硬件都有哪些限制，也就是哪些硬件是被支持的，哪些是不被支持的。硬件限制相关可以参考OpenCore Install Guide。
+固态
+可以参考【老吴黑苹果】2021台式机黑苹果完美电脑配置推荐，适用安装黑苹果系统的组装机配置表
+
+
+
+我的考虑在了解了我的电脑自带固态是PM981，我很悲伤，在基于PM981还是加多一个SATA固态的两者性价比衡量下，我选择了买多一个SATA3.0的固态，因为如果把PM981换下来，我的资料需要转移不说，只为了装macos系统，平白无故闲置一张固态实在是可惜，所以我通过硬件屏蔽的方法，将PM981屏蔽掉，在新买的西数固态上安装黑苹果。
+准备工作查找适合自己的EFI
+关注黑果小兵部落阁的Hackintosh黑苹果长期维护机型整理清单，在上边查找自己的机型时候有案例或教程
+或者在github上以关键词的方式搜索是否有支持类型，例如暗影精灵5+EFI，我这电脑EFI就是这样找的
+
+
+Tips：
+如果上边两个方式都没找到合适的EFI，可以考虑自己制作，这是教程，挺有用的，反正我看完后思路就有了。当然如果你是台式机并且想要自己制作引导，可以参考这个。
+
+安装macOS的基本要求
+Tips：
+
+你需要明确实在同一硬盘安装win+macOS，还是在单独的一块硬盘安装macOS并且在装了Win的另一块硬盘进行opencore引导，这会影响你是如何添加引导进硬盘。
+基于我的情况，我选择单独在一块固态上安装Big Sur，能有较好的数据隔离作用。
+
+
+
+一个装了Windows系统的硬盘
+一个单独安装macOS Big Sur的硬盘
+一个 8GB 或以上的 U 盘和一个 USB 鼠标和USB键盘
+注意数据备份
+
+需要下载的东西
+Tips: 
+
+为了避免未知的麻烦，我在找到合适暗影5的EFI基础上，下载了成功案例对应的OC引导的版本和相应的系统镜像，如果你和我一样用的是暗影5，而且配置相当，下边的链接应该能帮到你。以下内容全部是基于有现成的EFI文件进行。
+这里用的OpenCore版本是0.6.3，目前最新的已经是0.6.8了，待装好系统并且备份好后再考虑升级opencore版本了
+
+
+
+OpenCore引导下载，下方链接二选一【OpenCore version: 0.6.3】
+
+原下载链接
+如果下载速度缓慢，可以参考暗影精灵5之OpenCore引导黑苹果提供的国内加速下载链接
+
+
+系统镜像
+
+基于有现成的EFI，这里只下载了带CLOVER和PE分区的镜像：
+
+黑果小兵的macOS BigSur 11.0.1 20B50 正式版 with Clover 5126原版镜像[双EFI版][UEFI and MBR]
+
+
+Tips: 如果需要带OC引导的，可以在微信公众号黑果小兵的部落阁里，用手机查看这篇文章，通过打赏作者获得自动推送的镜像下载链接。
+
+
+
+
+安装前后要用到的软件：
+
+balenaEtecher 
+DiskGenius 硬盘分区维护工具
+Hasleo EasyUEFI 
+
+
+
+开始
+OC版本：OpenCore version:0.6.3
+系统镜像: macOS Big Sur 11.0.1 20B50 Installer for CLOVER 5126 and OpenCore 0.6.3 and PE三EFI分区原版镜像
+
+U盘制作用下载好的etcher，打开镜像，选择U盘，点击Flash即可。Windows10需要以管理员权限运行
+
+替换EFI
+Tips:
+
+暗影5的成功案例有提醒，要在安装macOS前替换OC文件，否则会出现Stuck on OCB: LoadImage failed - Security Violation的错误。
+
+以下基于带Opencore/clover/pe三分区的版本
+
+
+
+
+打开DiskGenius
+删除U盘里EFI目录下的所有文件
+将OC目录下BOOT和OC文件copy到EFI分区下
+将OC分区删除
+最终只保留OC分区和必要的PE分区（方便出现问题进行修复）
+
+
+到这里U盘的操作告一段落
+硬盘分区
+在进行安装前，在Win下将要安装macOS的目标磁盘分区
+
+
+借助DiskGenius
+
+过程过程如下
+
+
+
+
+设置完，重启修改BIOS启动项，可以插上U盘直接怼。
+
+
+Tips: 箭头4需要创建一个ESP分区，分区大小&gt;=300M，可以不要MSR分区，我这里应该搞错了。
+
+设置BIOS及开始安装镜像
+基于暗影5的情况，其他机型这里不考虑，开机按F10进BIOS
+
+
+设置成中文，方便查看
+
+
+
+
+
+操作系统的启动管理员 &gt; 按回车
+
+选择U盘启动
+
+F10保存退出
+
+重启后按F9进入opencore引导界面
+
+选择Install Big Sur
+
+磁盘分区
+
+将整个目标硬盘抹除
+安装macOS
+
+
+
+整个过程十分舒畅，没有卡在哪个位置，期间出现的几次重启是安装进程中正常重启，由于还没有把EFI添加进硬盘进行引导，期间出现的重启如果没按F9重新引导进opencore界面，会直接回到win启动进程，如果出现了这种情况，重启，按F9。详细的安装过程可以参考这篇文章。
+
+
+
+
+到这一步也差不多了，但还有一些工作要做，
+
+由于有PM981的缘故，安装完成进入系统后首先屏蔽PM981
+
+重建缓存，参考Big Sur安装教程 Part 2里部分内容。
+
+先打开终端，输入几行命令：
+ sudo spctl --master-disable		# 启用macOS安装应用允许任何来源
+sudo kextcache -i /				# 重建缓存
+如果出于某些原因，在/System/Library/Extensions/或者/Library/Extensions/修改了某些驱动，请使用以下命令重建缓存：
+sudo chown -R root:wheel /System/Library/Extensions/
+sudo chmod -R 755 /System/Library/Extensions/
+sudo kmutil install --update-all
+sudo kcditto
+
+
+
+设置硬盘引导
+之前一直是U盘引导，现在脱离U盘，在硬盘进行引导。
+
+
+用DiskGenius将U盘的EFI目录下BOOT和OC文件复制到Windows所在盘的EFI文件下
+
+打开EasyUEFI，把opencore的顺序调到第一位
+
+到这里整个过程就完成了，重启后会进入OC引导界面，整个过程包括写这篇花了好长时间（致敬那些原创的教程作者，真的很不容易！！），这可能也是以前很不喜欢做笔记的原因。但如果不记录下来，之后如果还想重新接触，就发现忘的差不多了。而在做记录的过程中，也在不断强化记忆，反正现在闭着眼睛都知道整个过程要怎么搞了（除了自己配置OC哈哈）
+后话
+建议在系统安装完后，并且能正常用，可以回到Windows，用Paragon Hard Disk Manager™ 将整个系统打包，存在某处，以便之后系统出了问题，快速恢复。教程网上很容易找，这里就不推了（懒）。
+唉，还是建议还是换掉PM981，否则用起来还是像旁边有个炸弹，不知道什么时候会出现内核崩溃的惨状，开机不挂载的方法也不知道是否有效果的。
+
+参考和引用https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support
+https://blog.daliansky.net/
+https://hackintosh.kirainmoe.com/
+https://www.cpuid.com/softwares/cpu-z.html
+https://blog.daliansky.net/OpenCore-BootLoader.html
+http://k61.org/dac855c6.html
+https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh/tree/main/Big%20Sur
+https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/
+https://down.sky-and-poem.fun/source/static/HP-15-dc1010nr-hackintosh-main.zip
+https://etcher.io
+http://k61.org/diable-pm981-on-hackintosh.html
+https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A
+]]></content>
       <categories>
-          
-          <category> 树莓派 </category>
-          
+        <category>黑苹果</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 树莓派 </tag>
-            
-            <tag> 常用工具 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>树莓派开箱后做的事</title>
-      <link href="posts/749b51d7.html"/>
-      <url>posts/749b51d7.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="树莓派-开箱后做的事"><a href="#树莓派-开箱后做的事" class="headerlink" title="[树莓派]开箱后做的事"></a>[树莓派]开箱后做的事</h3><blockquote><p>最近入手了个树莓派4B的板子，在这个帖子下记录玩耍的经历。  </p></blockquote><h4 id="常用工具集"><a href="#常用工具集" class="headerlink" title="常用工具集"></a>常用工具集</h4><ul><li>在专题另外一篇文章中能找到相关下载的链接，需要请移步。</li></ul><h4 id="系统版本（带桌面环境和不带桌面环境）"><a href="#系统版本（带桌面环境和不带桌面环境）" class="headerlink" title="系统版本（带桌面环境和不带桌面环境）"></a>系统版本（带桌面环境和不带桌面环境）</h4><ul><li>此篇文章记录没带桌面配置树莓派的初始化相关事情。</li></ul><h4 id="烧写系统"><a href="#烧写系统" class="headerlink" title="烧写系统"></a>烧写系统</h4><ul><li>通过官方的镜像烧录软件Raspberry Pi Imager插卡烧写。</li><li>通过balenaEtcher将下载好的系统镜像烧写进SD卡。</li></ul><h4 id="创建ssh空文件"><a href="#创建ssh空文件" class="headerlink" title="创建ssh空文件"></a>创建ssh空文件</h4><ul><li>在system-boot目录下创建ssh空文件，完成后把SD卡插入树莓派，插上网线和电源开机。</li></ul><h4 id="树莓派的IP地址"><a href="#树莓派的IP地址" class="headerlink" title="树莓派的IP地址"></a>树莓派的IP地址</h4><ul><li>通过局域网ip扫描软件或路由器管理界面，找到树莓派当前的IP，记录下来。</li></ul><h4 id="登陆FinalShell"><a href="#登陆FinalShell" class="headerlink" title="登陆FinalShell"></a>登陆FinalShell</h4><blockquote><p>备注：</p><ul><li><p>之所以使用Finalshell这个软件，是因为它太好用了，当然如果你习惯使用Xshell也是可以的。</p></li><li><p>首次使用需要在FinalShell官网注册账号，使用说明将另外开篇描述，这里就不展开了。</p></li></ul></blockquote><h4 id="SSH登陆成功后"><a href="#SSH登陆成功后" class="headerlink" title="SSH登陆成功后"></a>SSH登陆成功后</h4><h4 id="命令行界面"><a href="#命令行界面" class="headerlink" title="命令行界面"></a>命令行界面</h4><h6 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">passwd</span> root //修改root密码<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h6 id="授权ssh远程登陆root权限"><a href="#授权ssh远程登陆root权限" class="headerlink" title="授权ssh远程登陆root权限"></a>授权ssh远程登陆root权限</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/ssh/sshd_config //编辑sshd_config文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>将其中PermitRootLogin对应行，改为</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">PermitRootLogin <span class="token function">yes</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑</p><h6 id="重启ssh："><a href="#重启ssh：" class="headerlink" title="重启ssh："></a>重启ssh：</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl restart <span class="token function">ssh</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在FinalShell中设置以root账户登陆，之后操作就不需要在命令行首加-sudo了。</p><h5 id="修改软件源"><a href="#修改软件源" class="headerlink" title="修改软件源"></a>修改软件源</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">nano</span> /etc/apt/sources.list<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>这里用了<a href="http://mirrors.ustc.edu.cn/help/raspbian.html">中科大的raspbian镜像源</a>，需要的可以先备份原镜像源文件，我这里选择注释掉了。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi<span class="token comment"># deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑</p><h6 id="更新软件列表"><a href="#更新软件列表" class="headerlink" title="更新软件列表"></a>更新软件列表</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt-get</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h6 id="升级软件包"><a href="#升级软件包" class="headerlink" title="升级软件包"></a>升级软件包</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt-get</span> upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>到这里初步的操作差不多完成了，接下来就是解决网络问题。</p><h5 id="设置网络"><a href="#设置网络" class="headerlink" title="设置网络"></a>设置网络</h5><blockquote><p>如果你是选择网线连接，那可以跳过这一步。因为需要我的情况用网线连接不方便，所以我还是选择用wifi连接。</p></blockquote><h6 id="ssh远程设置wifi"><a href="#ssh远程设置wifi" class="headerlink" title="ssh远程设置wifi"></a>ssh远程设置wifi</h6><p>根据官方的文档，操作如下：</p><p><img src="https://pic.imgdb.cn/item/612f020944eaada739424604.png" alt="raspi-config"></p><ol><li><p>进入raspi-config界面</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">raspi-config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li><li><p>修改Localisation Options中wireless country项，设置成China，接着修改TimeZone。</p></li><li><p>修改完成后，按Esc返回上一级菜单，有需要的话，可以扩展文件系统到整个SD磁盘空间，不需要的跳过下面步骤。</p></li><li><p>返回到raspi-config主界面，选择Advanced Options，Enter进入下一级，选择Expand Filesystem，回车即可。</p></li></ol><h6 id="扫描WI-FI"><a href="#扫描WI-FI" class="headerlink" title="扫描WI-FI"></a>扫描WI-FI</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> iwlist wlan0 scan<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>记下要连接的wifi的ESSID。接着修改wpa_supplicant.conf文件。</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/wpa_supplicant/wpa_supplicant.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在文件底部输入wifi的信息，例如：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">network</span><span class="token operator">=</span><span class="token punctuation">{</span>    <span class="token assign-left variable">ssid</span><span class="token operator">=</span><span class="token string">"WOW,WIFI"</span>    <span class="token assign-left variable">psk</span><span class="token operator">=</span><span class="token string">"123456789"</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑。</p><h6 id="验证wifi"><a href="#验证wifi" class="headerlink" title="验证wifi"></a>验证wifi</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wpa_cli -i wlan0 reconfigure<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>返回成功，连wifi没问题了。</p><h6 id="安全重启"><a href="#安全重启" class="headerlink" title="安全重启"></a>安全重启</h6><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">reboot</span> 或者 <span class="token function">shutdown</span> -r now<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>到这里，差不多的步骤就走完了，可以各种玩耍了。但有一点需要注意的是，设备每次连接WI-FI可能分配的ip都不一样，为了方便起见，就需要用到静态分配ip，这部分内容将会在另外一个文章分享出来。</p>]]></content>
-      
-      
+      <tags>
+        <tag>黑苹果</tag>
+        <tag>Big Sur 11.0.1</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>提高树莓派安全性</title>
+    <url>/posts/b3e38cc1.html</url>
+    <content><![CDATA[ 
+
+提高树莓派安全性更改树莓派用户名
+有时候出于安全的考虑，需要更改用户名。
+
+创建新用户sido adduser anran
+
+将提示您为新用户创建密码。这里新用户名设置成了anran，此时新用户将有一个家庭目录在。/home/anran/
+添加到组，并授权sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi anran
+
+尝试以下措施来检查您的权限是否到位
+sudo su - anran
+
+如果它运行成功，那么可以确定新帐户在组中。
+删除旧用户(系统原用户pi)一旦确认新帐户正常工作，可以删除用户。为此，需要首先关闭其流程。
+sudo pkill -u pi
+
+请注意，与当前的树莓派操作系统分配，有一些方面要求用户在场。如果不确定自己是否会受到此影响，请将用户保留。
+要删除用户，请键入
+sudo deluser pi
+
+此命令将删除用户，但将离开文件夹。如有必要，可以使用下面的命令同时为用户删除主文件夹。请注意，此文件夹中的数据将被永久删除，因此请确保任何所需的数据存储在其他地方。
+sudo deluser -remove-home pi
+
+此命令将导致警告该组不再有成员。不过，该命令会删除用户和组。
+使sudo需要密码默认情况下，以超级用户的身份运行不需要密码。一般来说，这不是问题。但是，如果你的 Pi 暴露在互联网上，并以某种方式被利用（例如，通过网页漏洞利用），攻击者将能够更改需要超级用户凭据的操。所以设置sudo强制需要密码就很必要了。
+在命令行输入：
+sudo visudo /etc/sudoers.d/010_pi-nopasswd
+
+并将条目（或任何用户名具有超用户权）更改为：
+pi ALL=(ALL) PASSWD: ALL
+
+
+
+
+
+提高ssh安全性
+SSH 是远程访问树莓派的常见方式。默认情况下，登录 SSH 需要用户名/密码。更安全的方法是使用基于密钥的身份验证。
+
+改进用户名/密码安全性上文有提及。这里不赘述。
+更改配置来允许或拒绝特定用户sudo nano /etc/ssh/sshd_config
+
+
+
+这里提供windows下，ssh远程登陆的方法
+
+检查用来连接树莓派的计算机上是否已经有密钥
+dir ~/.ssh
+
+如果存在，则会返回id_rsa  id_rsa.pub  known_hosts类似信息，可以跳到第三步。
+
+没有密钥的情况下，在有安装git的情况下，打开git bash
+ssh-keygen
+
+生成密钥
+
+将公钥发送到树莓派上
+ssh-copy-id 树莓派用户名@树莓派ip
+
+回复*Are you sure you want to continue connecting ?  ， 输入yes，回车即可
+
+之后退出登陆利用ssh登陆工具，设置密钥登陆，输入树莓派的用户名，即可登陆成功了。
+
+
+(可选择)禁用密码登陆sshsudo nano /etc/ssh/sshd_config
+
+ChallengeResponseAuthentication no
+PasswordAuthentication no
+UsePAM no
+
+保存后，重启ssh
+sudo service ssh reload
+
+
+
+防火墙安装UFWLinux 有许多防火墙解决方案。大多数使用底层iptable项目来提供数据包过滤，此项目位于 Linux 网络过滤系统上，默认安装在树莓派操作系统上，但未设置，设置它也是一个复杂的任务。ufw是一个提供简单界面的防火墙”。这是 Ubuntu 的默认防火墙工具，可轻松安装在树莓派上。
+sudo apt install ufw
+
+启用防火墙sudo ufw enable
+
+由于是通过ssh远程登陆，所以会收到这个回复
+Command may disrupt existing ssh connections. Proceed with operation (y|n)?
+ssh连接可能会被中断，输入y，即可。若ssh连接被中断重新登陆就是。
+关闭防火墙sudo ufw disable
+
+允许特定端口进入(默认已使用22端口)sudo ufw allow 22
+
+拒绝某个端口访问(同样以22端口示例)sudo ufw deny 22
+
+限制给端口提供的服务指定允许或拒绝在端口上提供哪些服务。示例：拒绝在端口 22 上使用 tcp：
+sudo ufw deny 22/tcp
+
+允许ssh通过防火墙访问sudo ufw allow ssh
+
+查询防火墙当前状态sudo ufw status
+
+限制登陆次数限制使用 tcp 登录 ssh 端口的尝试：如果 IP 地址在过去 30 秒内尝试连接六次或六次以上，此会拒绝连接
+sudo ufw limit ssh/tcp
+
+拒绝ip从某个端口访问(示例)sudo ufw deny from 192.168.2.1 port 30
+
+
+
+遇到的问题在安装完防火墙后，原本部署好的仪表盘无法访问了，原因是：防火墙阻拦了80端口的流量进出，用指令打开即可权限。
+这里我设置成了只允许某个端口输出流量，不允许进入流量
+用网线联网：sudo ufw allow out on eth0 to any port 80 proto tcp
+用wifi：sudo ufw allow out on wlan0 to any port 80 proto tcp
+
+
+
+有关UFW具体的操作指南，可以参见此处：简单防火墙简介 （UFW） - Linux.com
+参考文章：树莓派文档 - 配置 (raspberrypi.org)
+]]></content>
       <categories>
-          
-          <category> 树莓派 </category>
-          
+        <category>树莓派</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 初始化相关 </tag>
-            
-            <tag> SSH登陆 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>记录一次新硬盘迁移系统的经历</title>
-      <link href="posts/c8cc8a0b.html"/>
-      <url>posts/c8cc8a0b.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h1 id="记录一次从新硬盘迁移系统的经历"><a href="#记录一次从新硬盘迁移系统的经历" class="headerlink" title="记录一次从新硬盘迁移系统的经历"></a>记录一次从新硬盘迁移系统的经历</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul><li>装有windows系统的M.2接口的PM981</li><li>PM981因为兼容性，无法安装苹果系统，最终硬盘配置换成了一块SN750小黑盘+西数SATA3.0蓝盘</li><li>已经知道如何安装黑苹果，并且已经制作好U盘安装引导</li></ul><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul><li>将macOS系统安装到[主硬盘]，windows系统安装到[从硬盘]</li><li>在macOS系统所在的盘进行每次开机的OpenCore引导，用于决定每次启动电脑运行macOS还是Windows系统</li></ul><h2 id="迁移windows系统"><a href="#迁移windows系统" class="headerlink" title="迁移windows系统"></a>迁移windows系统</h2><blockquote><p>对迁移的定义：确保迁移前后一样直接使用，不需要重装软件,重装系统什么的额外操作，所以才叫迁移</p></blockquote><h3 id="1-装盘"><a href="#1-装盘" class="headerlink" title="1. 装盘"></a>1. 装盘</h3><ul><li>将已经买好的西数的SATA3.0固态安装到电脑硬盘扩展位置（此时是主硬盘：windows）</li></ul><h3 id="2-格式化新硬盘"><a href="#2-格式化新硬盘" class="headerlink" title="2. 格式化新硬盘"></a>2. 格式化新硬盘</h3><ul><li>新固态需要格式化才能被设备正常读取，这里可以直接在windows下的磁盘管理中新建分区进行格式化</li></ul><h3 id="3-克隆系统"><a href="#3-克隆系统" class="headerlink" title="3. 克隆系统"></a>3. 克隆系统</h3><ul><li>使用<a href="https://www.disktool.cn/donate.html">傲梅分区</a><ol><li>将系统从<a href="M.2%E6%8E%A5%E5%8F%A3%E7%9A%84SN750%E5%B0%8F%E9%BB%91%E7%9B%98">^主硬盘</a>克隆到<a href="SATA3.0%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%A5%BF%E6%95%B0%E8%93%9D%E7%9B%98">^从硬盘</a></li><li>其他资料分区（如D：E：F：G：盘）数据按分区整个迁移到<a href="SATA3.0%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%A5%BF%E6%95%B0%E8%93%9D%E7%9B%98">^从硬盘</a>对应分区</li><li>进入BIOS修改启动顺序，将<a href="SATA3.0%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%A5%BF%E6%95%B0%E8%93%9D%E7%9B%98">^从硬盘</a>启动优先级调整到第一</li></ol><blockquote><p>分区工具使用方法，可以从这里参考</p></blockquote></li></ul><h3 id="4-卸下主硬盘"><a href="#4-卸下主硬盘" class="headerlink" title="4. 卸下主硬盘"></a>4. 卸下主硬盘</h3><h3 id="5-修改磁盘分区编号"><a href="#5-修改磁盘分区编号" class="headerlink" title="5. 修改磁盘分区编号"></a>5. 修改磁盘分区编号</h3><p>在卸下主硬盘之后，重启系统会进入到从硬盘的系统中，此时的分区编号除了C盘以外，其他盘的编号是需要调整成迁移前对应的编号，以确保这些分区下，软件能正常索引。<br>到这一步从硬盘上的工作已经基本完成～～</p><h2 id="安装macOS系统"><a href="#安装macOS系统" class="headerlink" title="安装macOS系统"></a>安装macOS系统</h2><h3 id="1-插上主硬盘"><a href="#1-插上主硬盘" class="headerlink" title="1. 插上主硬盘"></a>1. 插上主硬盘</h3><h3 id="2-格式化主硬盘"><a href="#2-格式化主硬盘" class="headerlink" title="2. 格式化主硬盘"></a>2. 格式化主硬盘</h3><ul><li><p>开机进入windows，在磁盘管理中格式化主硬盘</p></li><li><p>使用<a href="https://www.diskgenius.cn/">DiskGenius</a>将主硬盘快速分区，过程如下图<img src="https://img.imgdb.cn/item/608a20dcd1a9ae528fc6a5fe.pngg" alt="Diskgenius"></p></li><li><p>分区完成后，不要退出Diskgenius，还需要将UEFI提前放进<a href="M.2%E6%8E%A5%E5%8F%A3%E7%9A%84SN750%E5%B0%8F%E9%BB%91%E7%9B%98">^主硬盘</a>。具体是</p><ul><li>将windonws系统所在的<a href="SATA3.0%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%A5%BF%E6%95%B0%E8%93%9D%E7%9B%98">^从硬盘</a>的EFI复制到<a href="M.2%E6%8E%A5%E5%8F%A3%E7%9A%84SN750%E5%B0%8F%E9%BB%91%E7%9B%98">^主硬盘</a>的esp分区</li><li>将U盘里的引导macOS系统的EFI下BOOT和OC文件也一起复制到<a href="M.2%E6%8E%A5%E5%8F%A3%E7%9A%84SN750%E5%B0%8F%E9%BB%91%E7%9B%98">^主硬盘</a>下，最终结果可参考下图</li></ul></li></ul><p><img src="https://img.imgdb.cn/item/608a22d0d1a9ae528fd37b59.png" alt="EFI的操作"></p><blockquote><p>说明：这种替换操作是基于我已经很清楚，U盘内引导安装是OK的，在此之前我已经测试过两次，并且</p><p>也确认现有的Opencore文件是能匹配到我的电脑，也不需要去修改什么内容，在这样的一种前提下，</p><p>我才有下边直接复制EFI的操作，比较高效。</p><p>1: 从U盘拷贝过来的OC文件，以及替换了4处bootx64.efi文件</p><p>2、3：从windows的ESP分区下拷贝过来的EFI文件</p></blockquote><h3 id="3-使用U盘进行macOS系统的引导安装"><a href="#3-使用U盘进行macOS系统的引导安装" class="headerlink" title="3.使用U盘进行macOS系统的引导安装"></a>3.使用U盘进行macOS系统的引导安装</h3><ol><li>插入U盘</li><li>重启电脑，进入快捷启动，选择UEFI启动<br>…<br>…  <blockquote><p>如果你还不知道怎么安装macOS系统，可以参考我这篇文章，之前写过一个教程。</p></blockquote></li></ol><h3 id="4-macOS安装完成"><a href="#4-macOS安装完成" class="headerlink" title="4.macOS安装完成"></a>4.macOS安装完成</h3><p>到这一步，双系统就安装完成了，接下来就是进入macOS系统重建索引和一些其他操作了，详情可以参看前文提过的教程，里边有提及。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>不出意外的话，期间被省略的步骤可能会让某些人头疼，就像我看别人的教程一样，我也是写到这里才明白，没有什么完美的教程，只有适合自己的才是最好的。教程更多时候可能只是充当提供方向的作用，给你一种思路或者在关键的地方给你指出你需要做什么。在安装完双系统之后，我想到把过程分享出去，这其中有自己摸索的方法，也有自己踩过的坑，有时候就是缺一个思路。做过的这些事里，让我最惊讶的是，原以为windows系统转移会充满艰辛，结果用那个傲梅分区工具，半小时就全部弄好了，体验跟迁移系统前一样==，效果就是我换了个硬盘去跑windows系统。</p><blockquote><p>春天来了~</p></blockquote>]]></content>
-      
-      
+      <tags>
+        <tag>SSH</tag>
+        <tag>Linux</tag>
+        <tag>网络安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派WI-FI配置</title>
+    <url>/posts/bca8235e.html</url>
+    <content><![CDATA[ 
+
+树莓派WI-FI配置
+一般我们习惯使用明文密码，但着安全性不可靠，官方提供了以ASCII表示密码，操作流程请看下文。
+
+扫描WI-FIsudo iwlist wlan0 scan
+
+确定waln列表里有要选择的WI-FI。
+设置WI-FI方法一
+粘贴加密的psk
+
+
+命令行输入
+sudo raspi-config
+
+出于监管目的，需要指定设备的使用国。从菜单中选择本地化选项项目，然后从更改无线国家选项中选择” 更改无线国家/地区选项。按ESC返回到命令行。
+
+输入
+ wpa_passphrase "wifi名称" "wifi密码"
+
+ 将生成的以ASCII码显示的psk复制下来。
+
+命令行输入
+ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+ 进入wpa_supplicant.conf文件，在文末添加，并且将刚刚复制的psk的ASCII码粘贴到psk后边。
+ network={
+    ssid="wifi名称"
+       psk=
+}
+
+
+Ctrl＋O保存，回车， Ctrl + X退出编辑。
+方法二
+将工具的输出重定向到配置文件，在被问及时呼叫并输入密码
+
+rootsudo suwpa_passphrase "wifi名称" &gt;&gt; /etc/wpa_supplicant/wpa_supplicant.conf
+
+或
+wpa_passphrase "wifi名称" | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf &gt; /dev/null/dev/nulltee
+
+
+
+验证wifi可用性wpa_cli -i wlan0 reconfigure
+
+回复OK，即设置成功了。
+参考链接：树莓派文档 - 配置 (raspberrypi.org)
+]]></content>
       <categories>
-          
-          <category> 黑苹果 </category>
-          
+        <category>树莓派</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 黑苹果 </tag>
-            
-            <tag> 系统克隆 </tag>
-            
-            <tag> 暗影精灵5 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>惠普暗影精灵5黑苹果安装教程</title>
-      <link href="posts/100b5772.html"/>
-      <url>posts/100b5772.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h2 id="惠普暗影精灵5黑苹果Big-Sur安装教程"><a href="#惠普暗影精灵5黑苹果Big-Sur安装教程" class="headerlink" title="惠普暗影精灵5黑苹果Big Sur安装教程"></a>惠普暗影精灵5黑苹果Big Sur安装教程</h2><blockquote><p>说明：</p><p>由于引导文件和相关资源更新迅猛，文中的信息可能没法及时更新，参考这篇文章时还请注意所用的引导文件和系统版本号是否匹配，以及工具或配置方法是否得当，如果因为错误操作造成了某种程度的损失，<strong>本人概不负责</strong>，请知悉！</p></blockquote><p>在爬了很多教程贴之后，整体思路并不完整，拼拼凑凑的去理解也很累。很多教程写的很好，但是有些简单的步骤就直接省略了，然而，那些就是会卡住小白的步骤，所以还是打算自己写一次装机的经历。</p><h3 id="暗影5的配置总览"><a href="#暗影5的配置总览" class="headerlink" title="暗影5的配置总览"></a>暗影5的配置总览</h3><table><thead><tr><th>硬件名称</th><th>属性</th></tr></thead><tbody><tr><td>CPU</td><td>i7-9750H</td></tr><tr><td>iGPU</td><td>Intel UHD Graphics 630</td></tr><tr><td>dGPU</td><td>GTX1650</td></tr><tr><td>Audio</td><td>Realtek ALC295</td></tr><tr><td>Disk</td><td>三星MZVLB512HAJQ-000H1 512GB/固态 + WDC WDS500G2B0A-00SM50/512GB固态</td></tr><tr><td>Wireless</td><td>英特尔Wireless-AC 9560</td></tr><tr><td>Ethernet</td><td>Realtek 8111/8168/8411 PCI Express Gigabit Etherne</td></tr></tbody></table><h4 id="硬件支持"><a href="#硬件支持" class="headerlink" title="硬件支持"></a>硬件支持</h4><ul><li>在使用<code>macOS</code>之前，需要先了解下硬件都有哪些限制，也就是哪些硬件是被支持的，哪些是不被支持的。硬件限制相关可以参考<a href="https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support">OpenCore Install Guide</a>。</li><li>固态<ul><li>可以参考<a href="http://k61.org/dac855c6.html">【老吴黑苹果】2021台式机黑苹果完美电脑配置推荐，适用安装黑苹果系统的组装机配置表</a></li></ul></li></ul><h4 id="我的考虑"><a href="#我的考虑" class="headerlink" title="我的考虑"></a>我的考虑</h4><p>在了解了我的电脑自带固态是PM981，我很悲伤，在基于PM981还是加多一个SATA固态的两者性价比衡量下，我选择了买多一个SATA3.0的固态，因为如果把PM981换下来，我的资料需要转移不说，只为了装macos系统，平白无故闲置一张固态实在是可惜，所以我通过<a href="http://k61.org/diable-pm981-on-hackintosh.html">硬件屏蔽</a>的方法，将PM981屏蔽掉，在新买的西数固态上安装黑苹果。</p><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h4 id="查找适合自己的EFI"><a href="#查找适合自己的EFI" class="headerlink" title="查找适合自己的EFI"></a>查找适合自己的EFI</h4><ul><li>关注黑果小兵部落阁的<a href="https://blog.daliansky.net/Hackintosh-long-term-maintenance-model-checklist.html">Hackintosh黑苹果长期维护机型整理清单</a>，在上边查找自己的机型时候有案例或教程</li><li>或者在github上以关键词的方式搜索是否有支持类型，例如<code>暗影精灵5+EFI</code>，我这电脑EFI就是这样找的</li></ul><blockquote><p>Tips：</p><p>如果上边两个方式都没找到合适的EFI，可以考虑自己制作，这是<a href="https://www.bilibili.com/video/BV1kK4y1S74C/?spm_id_from=333.788.b_636f6d6d656e74.6">教程</a>，挺有用的，反正我看完后思路就有了。当然如果你是台式机并且想要自己制作引导，可以参考<a href="https://www.bilibili.com/video/BV18V41187JZ?from=search&amp;seid=7248382395549514839">这个</a>。</p></blockquote><h4 id="安装macOS的基本要求"><a href="#安装macOS的基本要求" class="headerlink" title="安装macOS的基本要求"></a>安装macOS的基本要求</h4><blockquote><p>Tips：</p><ul><li>你需要明确实在同一硬盘安装win+macOS，还是在单独的一块硬盘安装macOS并且在装了Win的另一块硬盘进行opencore引导，这会影响你是如何添加引导进硬盘。</li><li>基于我的情况，我选择单独在一块固态上安装Big Sur，能有较好的数据隔离作用。</li></ul></blockquote><ul><li>一个装了Windows系统的硬盘</li><li>一个单独安装macOS Big Sur的硬盘</li><li>一个 8GB 或以上的 U 盘和一个 USB 鼠标和USB键盘</li><li>注意数据备份</li></ul><h4 id="需要下载的东西"><a href="#需要下载的东西" class="headerlink" title="需要下载的东西"></a>需要下载的东西</h4><blockquote><p>Tips: </p><ul><li>为了避免未知的麻烦，我在找到合适暗影5的EFI基础上，下载了成功案例对应的OC引导的版本和相应的系统镜像，如果你和我一样用的是暗影5，而且配置相当，下边的链接应该能帮到你。以下内容全部是基于有现成的EFI文件进行。</li><li>这里用的OpenCore版本是0.6.3，目前最新的已经是0.6.8了，待装好系统并且备份好后再考虑升级opencore版本了</li></ul></blockquote><ul><li><p>OpenCore引导下载，下方链接二选一【OpenCore version: 0.6.3】</p><ul><li><a href="(https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh/tree/main/Big%20Sur)">原下载链接</a></li><li>如果下载速度缓慢，可以参考<a href="https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/">暗影精灵5之OpenCore引导黑苹果</a>提供的国内加速<a href="https://down.sky-and-poem.fun/source/static/HP-15-dc1010nr-hackintosh-main.zip">下载链接</a></li></ul></li><li><p>系统镜像</p><ul><li><p>基于有现成的EFI，这里只下载了带CLOVER和PE分区的镜像：</p><ul><li>黑果小兵的<a href="https://blog.daliansky.net/macOS-BigSur-11.0.1-20B29-Release-version-with-Clover-5126-original-image-Double-EFI-Version-UEFI-and-MBR.html">macOS BigSur 11.0.1 20B50 正式版 with Clover 5126原版镜像[双EFI版][UEFI and MBR]</a></li></ul><blockquote><p>Tips: 如果需要带OC引导的，可以在微信公众号<code>黑果小兵的部落阁</code>里，用手机查看<a href="https://mp.weixin.qq.com/s/WEp1F4nknCgw9K6NaqEP6g">这篇文章</a>，通过打赏作者获得自动推送的镜像下载链接。</p></blockquote></li></ul></li><li><p>安装前后要用到的软件：</p><ul><li><a href="https://www.balena.io/etcher/">balenaEtecher</a> </li><li><a href="http://www.diskgenius.cn/">DiskGenius 硬盘分区维护工具</a></li><li><a href="http://www.smzy.com/smzy/down416541.html">Hasleo EasyUEFI</a> </li></ul></li></ul><h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><blockquote><p>OC版本：OpenCore version:0.6.3</p><p>系统镜像: macOS Big Sur 11.0.1 20B50 Installer for CLOVER 5126 and OpenCore 0.6.3 and PE三EFI分区原版镜像</p></blockquote><h4 id="U盘制作"><a href="#U盘制作" class="headerlink" title="U盘制作"></a>U盘制作</h4><p>用下载好的<a href="https://etcher.io/">etcher</a>，打开镜像，选择U盘，点击Flash即可。<strong>Windows10需要以管理员权限运行</strong></p><p><img src="https://images.daliansky.net/d/YmBXVA8q/blog/etcher.png?download=1" alt="Etcher"></p><h4 id="替换EFI"><a href="#替换EFI" class="headerlink" title="替换EFI"></a>替换EFI</h4><blockquote><p>Tips:</p><ul><li><p><a href="https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh">暗影5的成功案例</a>有提醒，要在安装macOS前替换OC文件，否则会出现<code>Stuck on OCB: LoadImage failed - Security Violation</code>的错误。</p></li><li><p>以下基于带Opencore/clover/pe三分区的版本</p></li></ul></blockquote><ol><li>打开DiskGenius</li><li>删除U盘里EFI目录下的所有文件</li><li>将OC目录下BOOT和OC文件copy到EFI分区下</li><li>将OC分区删除</li><li>最终只保留OC分区和必要的PE分区（方便出现问题进行修复）</li></ol><p><img src="https://img.imgdb.cn/item/608103fd563420b6475a7819.png" alt="image-20210422130417643"></p><p>到这里U盘的操作告一段落</p><h4 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h4><blockquote><p>在进行安装前，在Win下将要安装macOS的目标磁盘分区</p></blockquote><ol><li><p>借助DiskGenius</p></li><li><p>过程过程如下</p></li></ol><p><img src="https://img.imgdb.cn/item/60806c8499525621145917bf.png"></p><ol start="3"><li>设置完，重启修改BIOS启动项，可以插上U盘直接怼。</li></ol><blockquote><p>Tips: 箭头4需要创建一个ESP分区，分区大小&gt;=300M，可以不要MSR分区，我这里应该搞错了。</p></blockquote><h4 id="设置BIOS及开始安装镜像"><a href="#设置BIOS及开始安装镜像" class="headerlink" title="设置BIOS及开始安装镜像"></a>设置BIOS及开始安装镜像</h4><blockquote><p>基于暗影5的情况，其他机型这里不考虑，开机按F10进BIOS</p></blockquote><ol><li><p>设置成中文，方便查看</p></li><li><p><img src="https://img.imgdb.cn/item/60806dfe995256211460b4fb.png" alt="image-20210422022440697"></p></li><li><p><img src="https://img.imgdb.cn/item/60806e67995256211462f976.png" alt="image-20210422022636837"></p></li><li><p>操作系统的启动管理员 &gt; 按回车</p></li><li><p>选择U盘启动</p></li><li><p>F10保存退出</p></li><li><p>重启后按F9进入opencore引导界面</p></li><li><p>选择Install Big Sur</p></li><li><p>磁盘分区</p><ol><li>将整个目标硬盘抹除</li><li>安装macOS</li></ol></li></ol><p>整个过程十分舒畅，没有卡在哪个位置，期间出现的几次重启是安装进程中正常重启，由于还没有把EFI添加进硬盘进行引导，期间出现的重启如果没按F9重新引导进opencore界面，会直接回到win启动进程，如果出现了这种情况，重启，按F9。详细的安装过程可以参考<a href="https://mp.weixin.qq.com/s/le34oz5sGfydJ12v6V0S-g">这篇文章</a>。</p><h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://img.imgdb.cn/item/60810848563420b647871a60.png" alt="image-20210422131958399"></h4><p><img src="https://img.imgdb.cn/item/60810848563420b647871a71.png" alt="image-20210422132218889"></p><p><img src="https://img.imgdb.cn/item/60810848563420b647871a83.png" alt="image-20210422132233619"></p><p><img src="https://img.imgdb.cn/item/60810848563420b647871a93.png" alt="image-20210422132239786"></p><p><img src="https://img.imgdb.cn/item/60810848563420b647871abe.png" alt="image-20210422132245554"></p><p>到这一步也差不多了，但还有一些工作要做，</p><ul><li><p>由于有PM981的缘故，安装完成进入系统后首先屏蔽<a href="http://k61.org/diable-pm981-on-hackintosh.html">PM981</a></p></li><li><p>重建缓存，参考<a href="https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A">Big Sur安装教程 Part 2</a>里部分内容。</p><ul><li><p>先打开终端，输入几行命令：</p> <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> spctl --master-disable<span class="token comment"># 启用macOS安装应用允许任何来源</span><span class="token function">sudo</span> kextcache -i /<span class="token comment"># 重建缓存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li><li><p>如果出于某些原因，在<code>/System/Library/Extensions/</code>或者<code>/Library/Extensions/</code>修改了某些驱动，请使用以下命令重建缓存：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">chown</span> -R root:wheel /System/Library/Extensions/<span class="token function">sudo</span> <span class="token function">chmod</span> -R <span class="token number">755</span> /System/Library/Extensions/<span class="token function">sudo</span> kmutil <span class="token function">install</span> --update-all<span class="token function">sudo</span> kcditto<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li></ul></li></ul><h4 id="设置硬盘引导"><a href="#设置硬盘引导" class="headerlink" title="设置硬盘引导"></a>设置硬盘引导</h4><blockquote><p>之前一直是U盘引导，现在脱离U盘，在硬盘进行引导。</p></blockquote><ol><li>用DiskGenius将U盘的EFI目录下BOOT和OC文件复制到Windows所在盘的EFI文件下</li><li><img src="https://img.imgdb.cn/item/6080713699525621146fce2a.png" alt="image-20210422023834308"></li><li>打开EasyUEFI，把opencore的顺序调到第一位</li></ol><p>到这里整个过程就完成了，重启后会进入OC引导界面，整个过程包括写这篇花了好长时间（致敬那些原创的教程作者，真的很不容易！！），这可能也是以前很不喜欢做笔记的原因。但如果不记录下来，之后如果还想重新接触，就发现忘的差不多了。而在做记录的过程中，也在不断强化记忆，反正现在闭着眼睛都知道整个过程要怎么搞了（除了自己配置OC哈哈）</p><h3 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h3><ul><li>建议在系统安装完后，并且能正常用，可以回到Windows，用<code>Paragon Hard Disk Manager™ </code>将整个系统打包，存在某处，以便之后系统出了问题，快速恢复。教程网上很容易找，这里就不推了（懒）。</li><li>唉，还是建议还是换掉PM981，否则用起来还是像旁边有个炸弹，不知道什么时候会出现<code>内核崩溃</code>的惨状，开机不挂载的方法也不知道是否有效果的。</li></ul><h3 id="参考和引用"><a href="#参考和引用" class="headerlink" title="参考和引用"></a>参考和引用</h3><p><a href="https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support">https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support</a></p><p><a href="https://blog.daliansky.net/">https://blog.daliansky.net/</a></p><p><a href="https://hackintosh.kirainmoe.com/">https://hackintosh.kirainmoe.com/</a></p><p><a href="https://www.cpuid.com/softwares/cpu-z.html">https://www.cpuid.com/softwares/cpu-z.html</a></p><p><a href="https://blog.daliansky.net/OpenCore-BootLoader.html">https://blog.daliansky.net/OpenCore-BootLoader.html</a></p><p><a href="http://k61.org/dac855c6.html">http://k61.org/dac855c6.html</a></p><p><a href="https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh/tree/main/Big%20Sur">https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh/tree/main/Big%20Sur</a></p><p><a href="https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/">https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/</a></p><p><a href="https://down.sky-and-poem.fun/source/static/HP-15-dc1010nr-hackintosh-main.zip">https://down.sky-and-poem.fun/source/static/HP-15-dc1010nr-hackintosh-main.zip</a></p><p><a href="https://etcher.io/">https://etcher.io</a></p><p><a href="http://k61.org/diable-pm981-on-hackintosh.html">http://k61.org/diable-pm981-on-hackintosh.html</a></p><p><a href="https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A">https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A</a></p>]]></content>
-      
-      
+      <tags>
+        <tag>SSH</tag>
+        <tag>WIFI设置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派常用工具集</title>
+    <url>/posts/684d1cd5.html</url>
+    <content><![CDATA[ 
+
+树莓派常用工具集官方镜像烧写工具：[Raspberry Pi Imager](Raspberry Pi OS – Raspberry Pi)
+Etcher：balenaEtcher
+SSH工具,服务器管理,远程桌面SSH工具 客户端：FinalShell
+FTP传输软件：FileZilla
+Barrier不同平台共享鼠标和键盘的解决方案：Barrier
+
+被Barrier惊艳到了，太帅了哈哈
+
+SD卡格式化工具：SD Formatter for SD/SDHC/SDXC
+待更新….
+]]></content>
       <categories>
-          
-          <category> 黑苹果 </category>
-          
+        <category>树莓派</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 黑苹果 </tag>
-            
-            <tag> Big Sur 11.0.1 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Atom编辑器</title>
-      <link href="posts/7bbb944c.html"/>
-      <url>posts/7bbb944c.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="Atom编辑器"><a href="#Atom编辑器" class="headerlink" title="Atom编辑器"></a>Atom编辑器</h3><p>Atom 可以说是专门为程序员推出的一个文本编辑器，界面简洁，支持实时预览。<br>功能非常多，除了Markdown同时支持CSS，HTML，JavaScript等网页编程语言，还支持宏定义，自动分屏功能等。Atom还具有语义输入模式，比例输入code即会自动开启代码模式。</p><p>Atom支持windows、苹果、linux等多种操作系统。Atom是由著名的github平台出品的。</p><p>Atom是独立的软件，也支持插件方式。</p><p>更多介绍及下载：<a href="https://atom.io/">https://atom.io/</a></p><h3 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h3><p>有关汉化的操作网上有很多教程， 这里简化了一个行之有效的方法去汉化这个Atom。可以直接下载好的Atom里下载相应的汉化包，具体步骤如下：</p><blockquote><p>File &gt; Settings &gt; install &gt; 搜索chinese插件 &gt; Simplified Chinese Menu &gt; 安装</p></blockquote><p>安装成功即生效</p>]]></content>
-      
-      
+      <tags>
+        <tag>树莓派</tag>
+        <tag>常用工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派开箱后做的事</title>
+    <url>/posts/749b51d7.html</url>
+    <content><![CDATA[ 
+
+[树莓派]开箱后做的事
+最近入手了个树莓派4B的板子，在这个帖子下记录玩耍的经历。  
+
+常用工具集
+在专题另外一篇文章中能找到相关下载的链接，需要请移步。
+
+系统版本（带桌面环境和不带桌面环境）
+此篇文章记录没带桌面配置树莓派的初始化相关事情。
+
+烧写系统
+通过官方的镜像烧录软件Raspberry Pi Imager插卡烧写。
+通过balenaEtcher将下载好的系统镜像烧写进SD卡。
+
+创建ssh空文件
+在system-boot目录下创建ssh空文件，完成后把SD卡插入树莓派，插上网线和电源开机。
+
+树莓派的IP地址
+通过局域网ip扫描软件或路由器管理界面，找到树莓派当前的IP，记录下来。
+
+登陆FinalShell
+备注：
+
+之所以使用Finalshell这个软件，是因为它太好用了，当然如果你习惯使用Xshell也是可以的。
+
+首次使用需要在FinalShell官网注册账号，使用说明将另外开篇描述，这里就不展开了。
+
+
+
+SSH登陆成功后命令行界面修改root密码sudo passwd root //修改root密码
+
+授权ssh远程登陆root权限sudo nano /etc/ssh/sshd_config //编辑sshd_config文件
+
+将其中PermitRootLogin对应行，改为
+PermitRootLogin yes
+
+Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑
+重启ssh：sudo systemctl restart ssh
+
+
+
+在FinalShell中设置以root账户登陆，之后操作就不需要在命令行首加-sudo了。
+修改软件源nano /etc/apt/sources.list
+
+这里用了中科大的raspbian镜像源，需要的可以先备份原镜像源文件，我这里选择注释掉了。
+deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+# deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+
+Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑
+更新软件列表apt-get update
+
+升级软件包apt-get upgrade
+
+到这里初步的操作差不多完成了，接下来就是解决网络问题。
+设置网络
+如果你是选择网线连接，那可以跳过这一步。因为需要我的情况用网线连接不方便，所以我还是选择用wifi连接。
+
+ssh远程设置wifi根据官方的文档，操作如下：
+
+
+进入raspi-config界面
+raspi-config
+修改Localisation Options中wireless country项，设置成China，接着修改TimeZone。
+
+修改完成后，按Esc返回上一级菜单，有需要的话，可以扩展文件系统到整个SD磁盘空间，不需要的跳过下面步骤。
+
+返回到raspi-config主界面，选择Advanced Options，Enter进入下一级，选择Expand Filesystem，回车即可。
+
+
+扫描WI-FIsudo iwlist wlan0 scan
+
+记下要连接的wifi的ESSID。接着修改wpa_supplicant.conf文件。
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+在文件底部输入wifi的信息，例如：
+network={
+    ssid="WOW,WIFI"
+    psk="123456789"
+}
+
+Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑。
+验证wifiwpa_cli -i wlan0 reconfigure
+
+返回成功，连wifi没问题了。
+安全重启reboot 或者 shutdown -r now
+
+
+
+到这里，差不多的步骤就走完了，可以各种玩耍了。但有一点需要注意的是，设备每次连接WI-FI可能分配的ip都不一样，为了方便起见，就需要用到静态分配ip，这部分内容将会在另外一个文章分享出来。
+]]></content>
       <categories>
-          
-          <category> 软件 </category>
-          
+        <category>树莓派</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Atom </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>优化篇</title>
-      <link href="posts/b0a72714.html"/>
-      <url>posts/b0a72714.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h2 id="更新记录"><a href="#更新记录" class="headerlink" title="更新记录"></a>更新记录</h2><ul><li>上线哔哔功能,可在微信“黑石哔哔”中实时发动态到博客中</li><li>评论区改用livere,也试过valine或者twitoo,要么出现哔哔功能不正常要么出现评论栏展开失败的情况</li><li>优化about页面,将文章统计图与分类的标签云合并,而About界面保留相册浏览</li><li>全局修改字体（思源宋体）</li><li>修改主页和说说的icon</li><li>尝试过在About界面投放个人介绍,css样式没做好,单纯的文字堆砌也就没意思了</li><li>增加消息订阅通知</li></ul><h2 id="记录一个部署时遇到的错误"><a href="#记录一个部署时遇到的错误" class="headerlink" title="记录一个部署时遇到的错误"></a>记录一个部署时遇到的错误</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>node-fetch<span class="token punctuation">\</span>lib<span class="token punctuation">\</span>index.js:272    <span class="token builtin class-name">return</span> Body.Promise.reject<span class="token punctuation">(</span>new FetchError<span class="token punctuation">(</span><span class="token variable"><span class="token variable">`</span>invalid json response body at $<span class="token punctuation">{</span>_this2.url<span class="token punctuation">}</span> reason: $<span class="token punctuation">{</span>err.message<span class="token punctuation">}</span><span class="token variable">`</span></span>, <span class="token string">'invalid-json'</span><span class="token punctuation">))</span><span class="token punctuation">;</span>    FetchError: invalid json response body at http://www.kaqiup.xyz/newPost.json reason: Unexpected token <span class="token operator">&lt;</span> <span class="token keyword">in</span> JSON at position <span class="token number">0</span>    at C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>node-fetch<span class="token punctuation">\</span>lib<span class="token punctuation">\</span>index.js:272:32    at processTicksAndRejections <span class="token punctuation">(</span>node:internal/process/task_queues:94:5<span class="token punctuation">)</span>    at async Hexo.<span class="token operator">&lt;</span>anonymous<span class="token operator">&gt;</span> <span class="token punctuation">(</span>C:<span class="token punctuation">\</span>hexoBlog<span class="token punctuation">\</span>new<span class="token punctuation">\</span>node_modules<span class="token punctuation">\</span>hexo-web-push-notification<span class="token punctuation">\</span>index.js:36:29<span class="token punctuation">)</span> <span class="token punctuation">{</span>  type: <span class="token string">'invalid-json'</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><blockquote><p>暂时没有解决办法，求解决的话可能就得深入了解了。</p></blockquote>]]></content>
-      
-      
+      <tags>
+        <tag>初始化相关</tag>
+        <tag>SSH登陆</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用网线连接电脑和树莓派</title>
+    <url>/posts/a4bbd2e0.html</url>
+    <content><![CDATA[ 
+
+用网线连接电脑和树莓派
+背景：windows 10 家庭版，树莓派4B
+
+可能需要的软件
+
+IP Scanner：Advanced IP Scanner
+
+通过搜索字段192.168.137.1-255，找到树莓派当前IP。
+
+
+通过命令行输入：arp -a，找到接口192.168.137.1下第一个IP，即为树莓派IP。
+
+
+下一步
+在windows下打开设置-&gt; 网络和Internet -&gt; 更改适配器选项 -&gt; WLAN -&gt; 属性 -&gt; 共享 -&gt;  勾选允许其他网络用户通过此计算机的Internet连接来连接
+确定好树莓派IP后，使用ssh工具，这里我用FinalSheel登陆树莓派，正常交互。
+
+
+有关Finalshell的下载信息请看树莓派常用工具集 。
+
+]]></content>
       <categories>
-          
-          <category> 更新日志 </category>
-          
+        <category>树莓派</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-            <tag> Matery </tag>
-            
-            <tag> 优化 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>关于这个博客</title>
-      <link href="posts/1c06.html"/>
-      <url>posts/1c06.html</url>
-      
-        <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3><p>作为一个毕业两年有余，搞嵌入式開發。</p><h3 id="有关博客的定调"><a href="#有关博客的定调" class="headerlink" title="有关博客的定调"></a>有关博客的定调</h3><p>这个博客的节奏就是：杂谈、学习分享、故事、阅读的类型，此后博文的内容应该也会大致在这范围内。</p>]]></content>
-      
-      
+      <tags>
+        <tag>网络共享</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>记录一次新硬盘迁移系统的经历</title>
+    <url>/posts/c8cc8a0b.html</url>
+    <content><![CDATA[ 
+
+记录一次从新硬盘迁移系统的经历背景
+装有windows系统的M.2接口的PM981
+PM981因为兼容性，无法安装苹果系统，最终硬盘配置换成了一块SN750小黑盘+西数SATA3.0蓝盘
+已经知道如何安装黑苹果，并且已经制作好U盘安装引导
+
+目标
+将macOS系统安装到[主硬盘]，windows系统安装到[从硬盘]
+在macOS系统所在的盘进行每次开机的OpenCore引导，用于决定每次启动电脑运行macOS还是Windows系统
+
+迁移windows系统
+对迁移的定义：确保迁移前后一样直接使用，不需要重装软件,重装系统什么的额外操作，所以才叫迁移
+
+1. 装盘
+将已经买好的西数的SATA3.0固态安装到电脑硬盘扩展位置（此时是主硬盘：windows）
+
+2. 格式化新硬盘
+新固态需要格式化才能被设备正常读取，这里可以直接在windows下的磁盘管理中新建分区进行格式化
+
+3. 克隆系统
+使用傲梅分区
+将系统从^主硬盘克隆到^从硬盘
+其他资料分区（如D：E：F：G：盘）数据按分区整个迁移到^从硬盘对应分区
+进入BIOS修改启动顺序，将^从硬盘启动优先级调整到第一
+
+
+分区工具使用方法，可以从这里参考
+
+
+
+4. 卸下主硬盘5. 修改磁盘分区编号在卸下主硬盘之后，重启系统会进入到从硬盘的系统中，此时的分区编号除了C盘以外，其他盘的编号是需要调整成迁移前对应的编号，以确保这些分区下，软件能正常索引。到这一步从硬盘上的工作已经基本完成～～
+安装macOS系统1. 插上主硬盘2. 格式化主硬盘
+开机进入windows，在磁盘管理中格式化主硬盘
+
+使用DiskGenius将主硬盘快速分区，过程如下图
+
+分区完成后，不要退出Diskgenius，还需要将UEFI提前放进^主硬盘。具体是
+
+将windonws系统所在的^从硬盘的EFI复制到^主硬盘的esp分区
+将U盘里的引导macOS系统的EFI下BOOT和OC文件也一起复制到^主硬盘下，最终结果可参考下图
+
+
+
+
+
+说明：这种替换操作是基于我已经很清楚，U盘内引导安装是OK的，在此之前我已经测试过两次，并且
+也确认现有的Opencore文件是能匹配到我的电脑，也不需要去修改什么内容，在这样的一种前提下，
+我才有下边直接复制EFI的操作，比较高效。
+1: 从U盘拷贝过来的OC文件，以及替换了4处bootx64.efi文件
+2、3：从windows的ESP分区下拷贝过来的EFI文件
+
+3.使用U盘进行macOS系统的引导安装
+插入U盘
+重启电脑，进入快捷启动，选择UEFI启动……  
+如果你还不知道怎么安装macOS系统，可以参考我这篇文章，之前写过一个教程。
+
+
+
+4.macOS安装完成到这一步，双系统就安装完成了，接下来就是进入macOS系统重建索引和一些其他操作了，详情可以参看前文提过的教程，里边有提及。
+结语不出意外的话，期间被省略的步骤可能会让某些人头疼，就像我看别人的教程一样，我也是写到这里才明白，没有什么完美的教程，只有适合自己的才是最好的。教程更多时候可能只是充当提供方向的作用，给你一种思路或者在关键的地方给你指出你需要做什么。在安装完双系统之后，我想到把过程分享出去，这其中有自己摸索的方法，也有自己踩过的坑，有时候就是缺一个思路。做过的这些事里，让我最惊讶的是，原以为windows系统转移会充满艰辛，结果用那个傲梅分区工具，半小时就全部弄好了，体验跟迁移系统前一样==，效果就是我换了个硬盘去跑windows系统。
+
+春天来了~
+
+]]></content>
       <categories>
-          
-          <category> 日志 </category>
-          
+        <category>黑苹果</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 博客简介 </tag>
-            
-            <tag> 关于我 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>黑苹果</tag>
+        <tag>系统克隆</tag>
+        <tag>暗影精灵5</tag>
+      </tags>
+  </entry>
 </search>
