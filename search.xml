@@ -75,6 +75,131 @@ File &gt; Settings &gt; install &gt; 搜索chinese插件 &gt; Simplified Chinese
       </tags>
   </entry>
   <entry>
+    <title>提高树莓派安全性</title>
+    <url>/posts/b3e38cc1.html</url>
+    <content><![CDATA[ 
+
+提高树莓派安全性更改树莓派用户名
+有时候出于安全的考虑，需要更改用户名。
+
+创建新用户sido adduser anran
+
+将提示您为新用户创建密码。这里新用户名设置成了anran，此时新用户将有一个家庭目录在。/home/anran/
+添加到组，并授权sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi anran
+
+尝试以下措施来检查您的权限是否到位
+sudo su - anran
+
+如果它运行成功，那么可以确定新帐户在组中。
+删除旧用户(系统原用户pi)一旦确认新帐户正常工作，可以删除用户。为此，需要首先关闭其流程。
+sudo pkill -u pi
+
+请注意，与当前的树莓派操作系统分配，有一些方面要求用户在场。如果不确定自己是否会受到此影响，请将用户保留。
+要删除用户，请键入
+sudo deluser pi
+
+此命令将删除用户，但将离开文件夹。如有必要，可以使用下面的命令同时为用户删除主文件夹。请注意，此文件夹中的数据将被永久删除，因此请确保任何所需的数据存储在其他地方。
+sudo deluser -remove-home pi
+
+此命令将导致警告该组不再有成员。不过，该命令会删除用户和组。
+使sudo需要密码默认情况下，以超级用户的身份运行不需要密码。一般来说，这不是问题。但是，如果你的 Pi 暴露在互联网上，并以某种方式被利用（例如，通过网页漏洞利用），攻击者将能够更改需要超级用户凭据的操。所以设置sudo强制需要密码就很必要了。
+在命令行输入：
+sudo visudo /etc/sudoers.d/010_pi-nopasswd
+
+并将条目（或任何用户名具有超用户权）更改为：
+pi ALL=(ALL) PASSWD: ALL
+
+
+
+
+
+提高ssh安全性
+SSH 是远程访问树莓派的常见方式。默认情况下，登录 SSH 需要用户名/密码。更安全的方法是使用基于密钥的身份验证。
+
+改进用户名/密码安全性上文有提及。这里不赘述。
+更改配置来允许或拒绝特定用户sudo nano /etc/ssh/sshd_config
+
+
+
+这里提供windows下，ssh远程登陆的方法
+
+检查用来连接树莓派的计算机上是否已经有密钥
+dir ~/.ssh
+
+如果存在，则会返回id_rsa  id_rsa.pub  known_hosts类似信息，可以跳到第三步。
+
+没有密钥的情况下，在有安装git的情况下，打开git bash
+ssh-keygen
+
+生成密钥
+
+将公钥发送到树莓派上
+ssh-copy-id 树莓派用户名@树莓派ip
+
+回复*Are you sure you want to continue connecting ?  ， 输入yes，回车即可
+
+之后退出登陆利用ssh登陆工具，设置密钥登陆，输入树莓派的用户名，即可登陆成功了。
+
+
+(可选择)禁用密码登陆sshsudo nano /etc/ssh/sshd_config
+
+ChallengeResponseAuthentication no
+PasswordAuthentication no
+UsePAM no
+
+保存后，重启ssh
+sudo service ssh reload
+
+
+
+防火墙安装UFWLinux 有许多防火墙解决方案。大多数使用底层iptable项目来提供数据包过滤，此项目位于 Linux 网络过滤系统上，默认安装在树莓派操作系统上，但未设置，设置它也是一个复杂的任务。ufw是一个提供简单界面的防火墙”。这是 Ubuntu 的默认防火墙工具，可轻松安装在树莓派上。
+sudo apt install ufw
+
+启用防火墙sudo ufw enable
+
+由于是通过ssh远程登陆，所以会收到这个回复
+Command may disrupt existing ssh connections. Proceed with operation (y|n)?
+ssh连接可能会被中断，输入y，即可。若ssh连接被中断重新登陆就是。
+关闭防火墙sudo ufw disable
+
+允许特定端口进入(默认已使用22端口)sudo ufw allow 22
+
+拒绝某个端口访问(同样以22端口示例)sudo ufw deny 22
+
+限制给端口提供的服务指定允许或拒绝在端口上提供哪些服务。示例：拒绝在端口 22 上使用 tcp：
+sudo ufw deny 22/tcp
+
+允许ssh通过防火墙访问sudo ufw allow ssh
+
+查询防火墙当前状态sudo ufw status
+
+限制登陆次数限制使用 tcp 登录 ssh 端口的尝试：如果 IP 地址在过去 30 秒内尝试连接六次或六次以上，此会拒绝连接
+sudo ufw limit ssh/tcp
+
+拒绝ip从某个端口访问(示例)sudo ufw deny from 192.168.2.1 port 30
+
+
+
+遇到的问题在安装完防火墙后，原本部署好的仪表盘无法访问了，原因是：防火墙阻拦了80端口的流量进出，用指令打开即可权限。
+这里我设置成了只允许某个端口输出流量，不允许进入流量
+用网线联网：sudo ufw allow out on eth0 to any port 80 proto tcp
+用wifi：sudo ufw allow out on wlan0 to any port 80 proto tcp
+
+
+
+有关UFW具体的操作指南，可以参见此处：简单防火墙简介 （UFW） - Linux.com
+参考文章：树莓派文档 - 配置 (raspberrypi.org)
+]]></content>
+      <categories>
+        <category>树莓派</category>
+      </categories>
+      <tags>
+        <tag>SSH</tag>
+        <tag>Linux</tag>
+        <tag>网络安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>惠普暗影精灵5黑苹果安装教程</title>
     <url>/posts/100b5772.html</url>
     <content><![CDATA[ 
@@ -304,131 +429,6 @@ https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A
       <tags>
         <tag>黑苹果</tag>
         <tag>Big Sur 11.0.1</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>提高树莓派安全性</title>
-    <url>/posts/b3e38cc1.html</url>
-    <content><![CDATA[ 
-
-提高树莓派安全性更改树莓派用户名
-有时候出于安全的考虑，需要更改用户名。
-
-创建新用户sido adduser anran
-
-将提示您为新用户创建密码。这里新用户名设置成了anran，此时新用户将有一个家庭目录在。/home/anran/
-添加到组，并授权sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi anran
-
-尝试以下措施来检查您的权限是否到位
-sudo su - anran
-
-如果它运行成功，那么可以确定新帐户在组中。
-删除旧用户(系统原用户pi)一旦确认新帐户正常工作，可以删除用户。为此，需要首先关闭其流程。
-sudo pkill -u pi
-
-请注意，与当前的树莓派操作系统分配，有一些方面要求用户在场。如果不确定自己是否会受到此影响，请将用户保留。
-要删除用户，请键入
-sudo deluser pi
-
-此命令将删除用户，但将离开文件夹。如有必要，可以使用下面的命令同时为用户删除主文件夹。请注意，此文件夹中的数据将被永久删除，因此请确保任何所需的数据存储在其他地方。
-sudo deluser -remove-home pi
-
-此命令将导致警告该组不再有成员。不过，该命令会删除用户和组。
-使sudo需要密码默认情况下，以超级用户的身份运行不需要密码。一般来说，这不是问题。但是，如果你的 Pi 暴露在互联网上，并以某种方式被利用（例如，通过网页漏洞利用），攻击者将能够更改需要超级用户凭据的操。所以设置sudo强制需要密码就很必要了。
-在命令行输入：
-sudo visudo /etc/sudoers.d/010_pi-nopasswd
-
-并将条目（或任何用户名具有超用户权）更改为：
-pi ALL=(ALL) PASSWD: ALL
-
-
-
-
-
-提高ssh安全性
-SSH 是远程访问树莓派的常见方式。默认情况下，登录 SSH 需要用户名/密码。更安全的方法是使用基于密钥的身份验证。
-
-改进用户名/密码安全性上文有提及。这里不赘述。
-更改配置来允许或拒绝特定用户sudo nano /etc/ssh/sshd_config
-
-
-
-这里提供windows下，ssh远程登陆的方法
-
-检查用来连接树莓派的计算机上是否已经有密钥
-dir ~/.ssh
-
-如果存在，则会返回id_rsa  id_rsa.pub  known_hosts类似信息，可以跳到第三步。
-
-没有密钥的情况下，在有安装git的情况下，打开git bash
-ssh-keygen
-
-生成密钥
-
-将公钥发送到树莓派上
-ssh-copy-id 树莓派用户名@树莓派ip
-
-回复*Are you sure you want to continue connecting ?  ， 输入yes，回车即可
-
-之后退出登陆利用ssh登陆工具，设置密钥登陆，输入树莓派的用户名，即可登陆成功了。
-
-
-(可选择)禁用密码登陆sshsudo nano /etc/ssh/sshd_config
-
-ChallengeResponseAuthentication no
-PasswordAuthentication no
-UsePAM no
-
-保存后，重启ssh
-sudo service ssh reload
-
-
-
-防火墙安装UFWLinux 有许多防火墙解决方案。大多数使用底层iptable项目来提供数据包过滤，此项目位于 Linux 网络过滤系统上，默认安装在树莓派操作系统上，但未设置，设置它也是一个复杂的任务。ufw是一个提供简单界面的防火墙”。这是 Ubuntu 的默认防火墙工具，可轻松安装在树莓派上。
-sudo apt install ufw
-
-启用防火墙sudo ufw enable
-
-由于是通过ssh远程登陆，所以会收到这个回复
-Command may disrupt existing ssh connections. Proceed with operation (y|n)?
-ssh连接可能会被中断，输入y，即可。若ssh连接被中断重新登陆就是。
-关闭防火墙sudo ufw disable
-
-允许特定端口进入(默认已使用22端口)sudo ufw allow 22
-
-拒绝某个端口访问(同样以22端口示例)sudo ufw deny 22
-
-限制给端口提供的服务指定允许或拒绝在端口上提供哪些服务。示例：拒绝在端口 22 上使用 tcp：
-sudo ufw deny 22/tcp
-
-允许ssh通过防火墙访问sudo ufw allow ssh
-
-查询防火墙当前状态sudo ufw status
-
-限制登陆次数限制使用 tcp 登录 ssh 端口的尝试：如果 IP 地址在过去 30 秒内尝试连接六次或六次以上，此会拒绝连接
-sudo ufw limit ssh/tcp
-
-拒绝ip从某个端口访问(示例)sudo ufw deny from 192.168.2.1 port 30
-
-
-
-遇到的问题在安装完防火墙后，原本部署好的仪表盘无法访问了，原因是：防火墙阻拦了80端口的流量进出，用指令打开即可权限。
-这里我设置成了只允许某个端口输出流量，不允许进入流量
-用网线联网：sudo ufw allow out on eth0 to any port 80 proto tcp
-用wifi：sudo ufw allow out on wlan0 to any port 80 proto tcp
-
-
-
-有关UFW具体的操作指南，可以参见此处：简单防火墙简介 （UFW） - Linux.com
-参考文章：树莓派文档 - 配置 (raspberrypi.org)
-]]></content>
-      <categories>
-        <category>树莓派</category>
-      </categories>
-      <tags>
-        <tag>SSH</tag>
-        <tag>Linux</tag>
-        <tag>网络安全</tag>
       </tags>
   </entry>
   <entry>
