@@ -6,7 +6,7 @@
   <link href="https://www.kaqiup.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.kaqiup.xyz/"/>
-  <updated>2021-09-03T14:37:53.451Z</updated>
+  <updated>2021-10-09T14:02:40.613Z</updated>
   <id>https://www.kaqiup.xyz/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>博客文章迁移</title>
+    <link href="https://www.kaqiup.xyz/posts/b5d5898d"/>
+    <id>https://www.kaqiup.xyz/posts/b5d5898d</id>
+    <published>2021-10-09T14:01:19.000Z</published>
+    <updated>2021-10-09T14:02:40.613Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h2 id="内容更新"><a href="#内容更新" class="headerlink" title="内容更新"></a>内容更新</h2><blockquote><p>由于博客环境搭建在虚拟机，所以同步文章很麻烦，一般都是创作了一定数量才上传，这里提供一个在树莓派上搭建的论坛地址，同步了博客的文章，</p><p>并且会实时更新内容，时效性会高很多，有需要的同学可以去逛逛。论坛有时可能会出现访问不了的情况，一般就是服务器睡觉去了哈哈，但尽量会让它开着没事的话。</p></blockquote><p><a href="https://www.nikooo.sites/">nikooo的论坛</a></p><p><strong>相遇是缘，彼此好运~</strong></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+
+&lt;h2 id=&quot;内容更新&quot;&gt;&lt;a href=&quot;#内容更新&quot; class=&quot;headerlink&quot; title=&quot;内容更新&quot;&gt;&lt;/a</summary>
+      
+    
+    
+    
+    
+    <category term="论坛" scheme="https://www.kaqiup.xyz/tags/%E8%AE%BA%E5%9D%9B/"/>
+    
+  </entry>
   
   <entry>
     <title>提高树莓派安全性</title>
@@ -213,31 +237,6 @@
     <category term="黑苹果" scheme="https://www.kaqiup.xyz/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"/>
     
     <category term="Big Sur 11.0.1" scheme="https://www.kaqiup.xyz/tags/Big-Sur-11-0-1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Atom编辑器</title>
-    <link href="https://www.kaqiup.xyz/posts/7bbb944c"/>
-    <id>https://www.kaqiup.xyz/posts/7bbb944c</id>
-    <published>2021-04-18T13:11:23.000Z</published>
-    <updated>2021-04-18T13:14:48.159Z</updated>
-    
-    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><span id="more"></span><h3 id="Atom编辑器"><a href="#Atom编辑器" class="headerlink" title="Atom编辑器"></a>Atom编辑器</h3><p>Atom 可以说是专门为程序员推出的一个文本编辑器，界面简洁，支持实时预览。<br>功能非常多，除了Markdown同时支持CSS，HTML，JavaScript等网页编程语言，还支持宏定义，自动分屏功能等。Atom还具有语义输入模式，比例输入code即会自动开启代码模式。</p><p>Atom支持windows、苹果、linux等多种操作系统。Atom是由著名的github平台出品的。</p><p>Atom是独立的软件，也支持插件方式。</p><p>更多介绍及下载：<a href="https://atom.io/">https://atom.io/</a></p><h3 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h3><p>有关汉化的操作网上有很多教程， 这里简化了一个行之有效的方法去汉化这个Atom。可以直接下载好的Atom里下载相应的汉化包，具体步骤如下：</p><blockquote><p>File &gt; Settings &gt; install &gt; 搜索chinese插件 &gt; Simplified Chinese Menu &gt; 安装</p></blockquote><p>安装成功即生效</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
-&lt;h3 id=&quot;Atom编辑器&quot;&gt;&lt;a href=&quot;#Atom编辑器&quot; class=&quot;headerlink&quot; title=&quot;Atom</summary>
-      
-    
-    
-    
-    <category term="软件" scheme="https://www.kaqiup.xyz/categories/%E8%BD%AF%E4%BB%B6/"/>
-    
-    
-    <category term="Atom" scheme="https://www.kaqiup.xyz/tags/Atom/"/>
     
   </entry>
   
