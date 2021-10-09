@@ -302,6 +302,65 @@ https://mp.weixin.qq.com/s/qSwtuO7K4TqP4hq4yEhG_A
       </tags>
   </entry>
   <entry>
+    <title>树莓派WI-FI配置</title>
+    <url>/posts/bca8235e.html</url>
+    <content><![CDATA[ 
+
+树莓派WI-FI配置
+一般我们习惯使用明文密码，但着安全性不可靠，官方提供了以ASCII表示密码，操作流程请看下文。
+
+扫描WI-FIsudo iwlist wlan0 scan
+
+确定waln列表里有要选择的WI-FI。
+设置WI-FI方法一
+粘贴加密的psk
+
+
+命令行输入
+sudo raspi-config
+
+出于监管目的，需要指定设备的使用国。从菜单中选择本地化选项项目，然后从更改无线国家选项中选择” 更改无线国家/地区选项。按ESC返回到命令行。
+
+输入
+ wpa_passphrase "wifi名称" "wifi密码"
+
+ 将生成的以ASCII码显示的psk复制下来。
+
+命令行输入
+ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+ 进入wpa_supplicant.conf文件，在文末添加，并且将刚刚复制的psk的ASCII码粘贴到psk后边。
+ network={
+    ssid="wifi名称"
+       psk=
+}
+
+
+Ctrl＋O保存，回车， Ctrl + X退出编辑。
+方法二
+将工具的输出重定向到配置文件，在被问及时呼叫并输入密码
+
+rootsudo suwpa_passphrase "wifi名称" &gt;&gt; /etc/wpa_supplicant/wpa_supplicant.conf
+
+或
+wpa_passphrase "wifi名称" | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf &gt; /dev/null/dev/nulltee
+
+
+
+验证wifi可用性wpa_cli -i wlan0 reconfigure
+
+回复OK，即设置成功了。
+参考链接：树莓派文档 - 配置 (raspberrypi.org)
+]]></content>
+      <categories>
+        <category>树莓派</category>
+      </categories>
+      <tags>
+        <tag>WIFI设置</tag>
+        <tag>SSH</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>提高树莓派安全性</title>
     <url>/posts/b3e38cc1.html</url>
     <content><![CDATA[ 
@@ -424,65 +483,6 @@ sudo ufw limit ssh/tcp
         <tag>SSH</tag>
         <tag>Linux</tag>
         <tag>网络安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>树莓派WI-FI配置</title>
-    <url>/posts/bca8235e.html</url>
-    <content><![CDATA[ 
-
-树莓派WI-FI配置
-一般我们习惯使用明文密码，但着安全性不可靠，官方提供了以ASCII表示密码，操作流程请看下文。
-
-扫描WI-FIsudo iwlist wlan0 scan
-
-确定waln列表里有要选择的WI-FI。
-设置WI-FI方法一
-粘贴加密的psk
-
-
-命令行输入
-sudo raspi-config
-
-出于监管目的，需要指定设备的使用国。从菜单中选择本地化选项项目，然后从更改无线国家选项中选择” 更改无线国家/地区选项。按ESC返回到命令行。
-
-输入
- wpa_passphrase "wifi名称" "wifi密码"
-
- 将生成的以ASCII码显示的psk复制下来。
-
-命令行输入
- sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
-
- 进入wpa_supplicant.conf文件，在文末添加，并且将刚刚复制的psk的ASCII码粘贴到psk后边。
- network={
-    ssid="wifi名称"
-       psk=
-}
-
-
-Ctrl＋O保存，回车， Ctrl + X退出编辑。
-方法二
-将工具的输出重定向到配置文件，在被问及时呼叫并输入密码
-
-rootsudo suwpa_passphrase "wifi名称" &gt;&gt; /etc/wpa_supplicant/wpa_supplicant.conf
-
-或
-wpa_passphrase "wifi名称" | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf &gt; /dev/null/dev/nulltee
-
-
-
-验证wifi可用性wpa_cli -i wlan0 reconfigure
-
-回复OK，即设置成功了。
-参考链接：树莓派文档 - 配置 (raspberrypi.org)
-]]></content>
-      <categories>
-        <category>树莓派</category>
-      </categories>
-      <tags>
-        <tag>SSH</tag>
-        <tag>WIFI设置</tag>
       </tags>
   </entry>
   <entry>
