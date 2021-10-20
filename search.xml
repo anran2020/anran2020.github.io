@@ -58,7 +58,11 @@
     <url>/posts/b5d5898d.html</url>
     <content><![CDATA[ 
 
-内容更新
+内容更新2021-10-20 更新
+nikooo社区托管在云服务器，暂时计划是运营到明年6月，其后再转移到个人服务器维护。
+目前网站在备案审核阶段，域名暂不提供解析，后续审核通过再重新贴出来。
+
+
 由于博客环境搭建在虚拟机，所以同步文章很麻烦，一般都是创作了一定数量才上传，这里提供一个在树莓派上搭建的论坛地址，同步了博客的文章，
 并且会实时更新内容，时效性会高很多，有需要的同学可以去逛逛。论坛有时可能会出现访问不了的情况，一般就是服务器睡觉去了哈哈，但尽量会让它开着没事的话。
 
@@ -612,6 +616,40 @@ Ctrl + O 保存， 回车（确认文件名），Ctrl + X退出编辑。
       </tags>
   </entry>
   <entry>
+    <title>用网线连接电脑和树莓派</title>
+    <url>/posts/a4bbd2e0.html</url>
+    <content><![CDATA[ 
+
+用网线连接电脑和树莓派
+背景：windows 10 家庭版，树莓派4B
+
+可能需要的软件
+
+IP Scanner：Advanced IP Scanner
+
+通过搜索字段192.168.137.1-255，找到树莓派当前IP。
+
+
+通过命令行输入：arp -a，找到接口192.168.137.1下第一个IP，即为树莓派IP。
+
+
+下一步
+在windows下打开设置-&gt; 网络和Internet -&gt; 更改适配器选项 -&gt; WLAN -&gt; 属性 -&gt; 共享 -&gt;  勾选允许其他网络用户通过此计算机的Internet连接来连接
+确定好树莓派IP后，使用ssh工具，这里我用FinalSheel登陆树莓派，正常交互。
+
+
+有关Finalshell的下载信息请看树莓派常用工具集 。
+
+]]></content>
+      <categories>
+        <category>树莓派</category>
+      </categories>
+      <tags>
+        <tag>网络共享</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>记录一次新硬盘迁移系统的经历</title>
     <url>/posts/c8cc8a0b.html</url>
     <content><![CDATA[ 
@@ -686,40 +724,6 @@ PM981因为兼容性，无法安装苹果系统，最终硬盘配置换成了一
         <tag>黑苹果</tag>
         <tag>系统克隆</tag>
         <tag>暗影精灵5</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>用网线连接电脑和树莓派</title>
-    <url>/posts/a4bbd2e0.html</url>
-    <content><![CDATA[ 
-
-用网线连接电脑和树莓派
-背景：windows 10 家庭版，树莓派4B
-
-可能需要的软件
-
-IP Scanner：Advanced IP Scanner
-
-通过搜索字段192.168.137.1-255，找到树莓派当前IP。
-
-
-通过命令行输入：arp -a，找到接口192.168.137.1下第一个IP，即为树莓派IP。
-
-
-下一步
-在windows下打开设置-&gt; 网络和Internet -&gt; 更改适配器选项 -&gt; WLAN -&gt; 属性 -&gt; 共享 -&gt;  勾选允许其他网络用户通过此计算机的Internet连接来连接
-确定好树莓派IP后，使用ssh工具，这里我用FinalSheel登陆树莓派，正常交互。
-
-
-有关Finalshell的下载信息请看树莓派常用工具集 。
-
-]]></content>
-      <categories>
-        <category>树莓派</category>
-      </categories>
-      <tags>
-        <tag>网络共享</tag>
-        <tag>windows</tag>
       </tags>
   </entry>
 </search>
